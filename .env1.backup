@@ -1,0 +1,9 @@
+DEEPINSTINCT_URL=https://ro.customers.deepinstinctweb.com/api/v1/
+TOKENS_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2OTY2ODk5OCwianRpIjoiNGYxOTA0NWUtY2MwZS00NjZhLThhYWYtZDkyMzI0MTkyYWMyIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5Ijp7ImtleSI6MTN9LCJuYmYiOjE3Njk2Njg5OTh9.2lSlnGn8PN8sdX66Uen2vtH5Ak9G4buJvkAaWLv0_tA
+
+# Mattermost Webhook Configuration
+MATTERMOST_WEBHOOK_URL=https://mm.trd-dtc.one/hooks/n6kispcs4jnb3rhdzas7qinwur
+
+# Polling Configuration (optional)
+# ระยะเวลาระหว่างการตรวจสอบข้อมูลใหม่ (วินาที)
+POLLING_INTERVAL=300

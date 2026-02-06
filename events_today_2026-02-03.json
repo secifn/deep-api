@@ -1,0 +1,2985 @@
+{
+  "generated_at": "2026-02-03T10:30:23.592068+07:00",
+  "summary": {
+    "malicious_count": 6,
+    "suspicious_count": 22,
+    "total_count": 28
+  },
+  "malicious_events": [
+    {
+      "id": 17544,
+      "timestamp": "2026-02-03T01:19:32.505190Z",
+      "insertion_timestamp": "2026-02-03T01:19:32.606440Z",
+      "status": "OPEN",
+      "mitre_classifications": [],
+      "device_id": 3212,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "D10_กองแพทย์ราชสำนักฯ[อัมพร](กพอ)",
+      "tenant_id": 263,
+      "last_action": "QUARANTINE_FAILED",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.135",
+        "mac_address": "fc:22:1c:50:12:c3",
+        "hostname": "AP2D10APC670253",
+        "domain": "",
+        "group_id": 204,
+        "policy_id": 161,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "AP2D10APC670253\\RO"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:19:32.505190Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 1016,
+          "process_id": 2832,
+          "process_name": "DeepStaticService.exe",
+          "process_start_time": "2026-02-02T09:16:15.917000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": ""
+        },
+        {
+          "parent_id": 968,
+          "process_id": 1016,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-02T09:16:14.473000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 968,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-02T09:16:14.385000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "PE file identified as Dual Use - Disk Encryption Tool.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "PE",
+      "file_hash": "ac24b1fec348dc3aadc03453f7838a825f105afa73b59735acecca78ac7814f5",
+      "path": "C:\\$WINDOWS.~BT\\NewOS\\Windows\\WinSxS\\Temp\\InFlight\\fc10a016aa94dc0102000000044d6043\\22337869aa94dc01945e0000044dd82f",
+      "file_size": 126976,
+      "threat_severity": "MODERATE",
+      "threat_type": "DUAL_USE_DISK_ENCRYPTION_TOOL",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{ab3f510a-dc9f-43da-946f-2c072c980723}",
+      "container_hash": "ac24b1fec348dc3aadc03453f7838a825f105afa73b59735acecca78ac7814f5",
+      "disk_drive": "\\Device\\HarddiskVolume4\\$WINDOWS.~BT\\NewOS\\Windows\\WinSxS\\Temp\\InFlight\\fc10a016aa94dc0102000000044d6043\\22337869aa94dc01945e0000044dd82f",
+      "_bangkok_time": "2026-02-03 08:19:32.505190+07:00"
+    },
+    {
+      "id": 17545,
+      "timestamp": "2026-02-03T02:14:04.913337Z",
+      "insertion_timestamp": "2026-02-03T02:14:08.036714Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1204.002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1204",
+          "technique_name": "User Execution",
+          "sub_technique_id": "T1204.002",
+          "sub_technique_name": "Malicious File"
+        }
+      ],
+      "device_id": 672,
+      "msp_name": "GrandPalace",
+      "msp_id": 6,
+      "tenant_name": "C02_กองกลาง(กกว)",
+      "tenant_id": 225,
+      "last_action": "QUARANTINE_SUCCESS",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "172.26.38.51",
+        "mac_address": "30:e3:a4:65:e3:de",
+        "hostname": "GP2C02FNB681409",
+        "domain": "",
+        "group_id": 360,
+        "policy_id": 225,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "GP2C02FNB681409\\RO"
+      },
+      "reoccurrence_count": 9,
+      "last_reoccurrence": "2026-02-03T02:15:01.127655Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 4240,
+          "process_id": 19072,
+          "process_name": "Code.exe",
+          "process_start_time": "2026-02-03T02:13:53.330000Z",
+          "process_stop_time": "",
+          "executing_user": "RO",
+          "command": "\"C:\\Users\\DELL\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" --type=utility --utility-sub-type=node.mojom.NodeService --lang=en-US --service-sandbox-type=none --video-capture-use-gpu-memory-buffer --user-data-dir=\"C:\\Users\\DELL\\AppData\\Roaming\\Code\" --standard-schemes=vscode-webview,vscode-file --enable-sandbox --secure-schemes=vscode-webview,vscode-file --cors-schemes=vscode-webview,vscode-file --fetch-schemes=vscode-webview,vscode-file --service-worker-schemes=vscode-webview --code-cache-schemes=vscode-webview,vscode-file --field-trial-handle=1824,i,6716263731780406271,14692153620603274728,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,EarlyEstablishGpuChannel,EnableTransparentHwndEnlargement,EstablishGpuChannelAsync --disable-features=CalculateNativeWinOcclusion,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708991934122588 --mojo-platform-channel-handle=2816 /prefetch:14"
+        },
+        {
+          "parent_id": 14684,
+          "process_id": 4240,
+          "process_name": "Code.exe",
+          "process_start_time": "2026-02-03T02:13:51.301000Z",
+          "process_stop_time": "",
+          "executing_user": "RO",
+          "command": "\"C:\\Users\\DELL\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" \"--open-url\" \"--\" \"vscode:extension/openai.chatgpt\""
+        },
+        {
+          "parent_id": 9452,
+          "process_id": 14684,
+          "process_name": "chrome.exe",
+          "process_start_time": "2026-02-03T01:47:47.290000Z",
+          "process_stop_time": "",
+          "executing_user": "RO",
+          "command": "\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --single-argument http://www.msftconnecttest.com/redirect"
+        },
+        {
+          "parent_id": null,
+          "process_id": 9452,
+          "process_name": "explorer.exe",
+          "process_start_time": "2026-02-03T01:47:24.406000Z",
+          "process_stop_time": "",
+          "executing_user": "RO",
+          "command": "C:\\WINDOWS\\Explorer.EXE"
+        }
+      ],
+      "description": "ZIP file includes a PE file identified as PUA - Generic PUA.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "ZIP",
+      "file_hash": "ed012a99be5d6d7b07957a9619151c9828aebf67fdd1604aa909f1b460840ac1",
+      "path": "C:\\Users\\DELL\\AppData\\Roaming\\Code\\CachedExtensionVSIXs\\.1f3065cd-f5ff-4a70-9cef-b4ea7e97b3df",
+      "file_size": 597480,
+      "threat_severity": "VERY_HIGH",
+      "threat_type": "PUA_GENERIC_PUA",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{fac38c4d-428a-4a75-bcdd-b4ef388a2f36}",
+      "container_hash": "4d3a9342d4a29f210e45fe5854b36e5b13025e1f52aecbce3e4ad14411ec4b43",
+      "disk_drive": "\\Device\\HarddiskVolume3\\Users\\DELL\\AppData\\Roaming\\Code\\CachedExtensionVSIXs\\.1f3065cd-f5ff-4a70-9cef-b4ea7e97b3df",
+      "_bangkok_time": "2026-02-03 09:14:04.913337+07:00"
+    },
+    {
+      "id": 17546,
+      "timestamp": "2026-02-03T02:40:25.447281Z",
+      "insertion_timestamp": "2026-02-03T02:40:25.520719Z",
+      "status": "OPEN",
+      "mitre_classifications": [],
+      "device_id": 3014,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "last_action": "QUARANTINE_FAILED",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.68.73",
+        "mac_address": "fc:4c:ea:18:b7:3f",
+        "hostname": "DESKTOP-7JS2881",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "DESKTOP-7JS2881\\THANYA_P15"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T02:40:25.447281Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 1264,
+          "process_id": 3368,
+          "process_name": "DeepStaticService.exe",
+          "process_start_time": "2026-02-01T23:31:22.672000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": ""
+        },
+        {
+          "parent_id": 1180,
+          "process_id": 1264,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-01T23:31:21.601000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1180,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-01T23:31:21.393000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "PE file identified as Dual Use - Disk Encryption Tool.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "PE",
+      "file_hash": "f991e13d58bcb94946172280e73b410072c0277f9a57dffc4c1d2c26d88aa7d7",
+      "path": "C:\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\A21F2B2EADFC6986800E337CA1B2A6CDDD8A4F2C.exe",
+      "file_size": 208896,
+      "threat_severity": "LOW",
+      "threat_type": "DUAL_USE_DISK_ENCRYPTION_TOOL",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{3f559954-3614-4874-99d9-10b61f0b9f9a}",
+      "container_hash": "f991e13d58bcb94946172280e73b410072c0277f9a57dffc4c1d2c26d88aa7d7",
+      "disk_drive": "\\Device\\HarddiskVolume3\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\A21F2B2EADFC6986800E337CA1B2A6CDDD8A4F2C.exe",
+      "_bangkok_time": "2026-02-03 09:40:25.447281+07:00"
+    },
+    {
+      "id": 17547,
+      "timestamp": "2026-02-03T02:40:50.338476Z",
+      "insertion_timestamp": "2026-02-03T02:40:50.384717Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1106",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1106",
+          "technique_name": "Native API",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1216",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1216",
+          "technique_name": "System Script Proxy Execution",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1553.002",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1553",
+          "technique_name": "Subvert Trust Controls",
+          "sub_technique_id": "T1553.002",
+          "sub_technique_name": "Code Signing"
+        },
+        {
+          "mitre_id": "TA0042.T1587.002",
+          "tactic_id": "TA0042",
+          "tactic_name": "Resource Development",
+          "technique_id": "T1587",
+          "technique_name": "Develop Capabilities",
+          "sub_technique_id": "T1587.002",
+          "sub_technique_name": "Code Signing Certificates"
+        },
+        {
+          "mitre_id": "TA0042.T1588.003",
+          "tactic_id": "TA0042",
+          "tactic_name": "Resource Development",
+          "technique_id": "T1588",
+          "technique_name": "Obtain Capabilities",
+          "sub_technique_id": "T1588.003",
+          "sub_technique_name": "Code Signing Certificates"
+        }
+      ],
+      "device_id": 3014,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "last_action": "QUARANTINE_FAILED",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.68.73",
+        "mac_address": "fc:4c:ea:18:b7:3f",
+        "hostname": "DESKTOP-7JS2881",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "DESKTOP-7JS2881\\THANYA_P15"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T02:40:50.338476Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 1264,
+          "process_id": 3368,
+          "process_name": "DeepStaticService.exe",
+          "process_start_time": "2026-02-01T23:31:22.672000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": ""
+        },
+        {
+          "parent_id": 1180,
+          "process_id": 1264,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-01T23:31:21.601000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1180,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-01T23:31:21.393000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "PE file identified as Dual Use - Disk Encryption Tool.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "PE",
+      "file_hash": "3a5918e9b51467f31be2c69fed054bebaa92005d93bdc767fc7fc7bb5583e800",
+      "path": "C:\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\26C2734B87E272EA74297D34EFB7E2A1F187EDDF.sys",
+      "file_size": 972176,
+      "threat_severity": "LOW",
+      "certificate_thumbprint": "facde3d80e99afcc15e08ac5a69bd22785287f79",
+      "certificate_vendor_name": "Microsoft Corporation",
+      "threat_type": "DUAL_USE_DISK_ENCRYPTION_TOOL",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{3f559954-3614-4874-99d9-10b61f0b9f9a}",
+      "container_hash": "3a5918e9b51467f31be2c69fed054bebaa92005d93bdc767fc7fc7bb5583e800",
+      "disk_drive": "\\Device\\HarddiskVolume3\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\26C2734B87E272EA74297D34EFB7E2A1F187EDDF.sys",
+      "_bangkok_time": "2026-02-03 09:40:50.338476+07:00"
+    },
+    {
+      "id": 17548,
+      "timestamp": "2026-02-03T02:41:13.467835Z",
+      "insertion_timestamp": "2026-02-03T02:41:13.503626Z",
+      "status": "OPEN",
+      "mitre_classifications": [],
+      "device_id": 3014,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "last_action": "QUARANTINE_FAILED",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.68.73",
+        "mac_address": "fc:4c:ea:18:b7:3f",
+        "hostname": "DESKTOP-7JS2881",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "DESKTOP-7JS2881\\THANYA_P15"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T02:41:13.467835Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 1264,
+          "process_id": 3368,
+          "process_name": "DeepStaticService.exe",
+          "process_start_time": "2026-02-01T23:31:22.672000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": ""
+        },
+        {
+          "parent_id": 1180,
+          "process_id": 1264,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-01T23:31:21.601000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1180,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-01T23:31:21.393000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "PE file identified as Dual Use - Disk Encryption Tool.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "PE",
+      "file_hash": "e00ac2a738988a55030e865a6da0bc7c75bad67ad60db7c97292a29cc3d2089d",
+      "path": "C:\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\AC97545366A143E4D3F29BD310D173F263A161EF.dll",
+      "file_size": 1323008,
+      "threat_severity": "LOW",
+      "threat_type": "DUAL_USE_DISK_ENCRYPTION_TOOL",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{3f559954-3614-4874-99d9-10b61f0b9f9a}",
+      "container_hash": "e00ac2a738988a55030e865a6da0bc7c75bad67ad60db7c97292a29cc3d2089d",
+      "disk_drive": "\\Device\\HarddiskVolume3\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\AC97545366A143E4D3F29BD310D173F263A161EF.dll",
+      "_bangkok_time": "2026-02-03 09:41:13.467835+07:00"
+    },
+    {
+      "id": 17549,
+      "timestamp": "2026-02-03T02:41:14.114886Z",
+      "insertion_timestamp": "2026-02-03T02:41:14.168418Z",
+      "status": "OPEN",
+      "mitre_classifications": [],
+      "device_id": 3014,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "last_action": "QUARANTINE_FAILED",
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.68.73",
+        "mac_address": "fc:4c:ea:18:b7:3f",
+        "hostname": "DESKTOP-7JS2881",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "DESKTOP-7JS2881\\THANYA_P15"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T02:41:14.114886Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 1264,
+          "process_id": 3368,
+          "process_name": "DeepStaticService.exe",
+          "process_start_time": "2026-02-01T23:31:22.672000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": ""
+        },
+        {
+          "parent_id": 1180,
+          "process_id": 1264,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-01T23:31:21.601000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1180,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-01T23:31:21.393000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "PE file identified as Dual Use - Disk Encryption Tool.",
+      "type": "STATIC_ANALYSIS",
+      "trigger": "MALICIOUS_FILE",
+      "action": "PREVENTED",
+      "file_type": "PE",
+      "file_hash": "78523375a6aa49f83bcfc7797f5c953f19eb5547fbd5baf5b8c8a1dbd0a8fb5a",
+      "path": "C:\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\69F4812AD2D9D0B48984F7D3D732E7F93EBA9143.dll",
+      "file_size": 69632,
+      "threat_severity": "LOW",
+      "threat_type": "DUAL_USE_DISK_ENCRYPTION_TOOL",
+      "file_status": "NOT_UPLOADED",
+      "sandbox_status": "NOT_READY_TO_GENERATE",
+      "volume_id": "{3f559954-3614-4874-99d9-10b61f0b9f9a}",
+      "container_hash": "78523375a6aa49f83bcfc7797f5c953f19eb5547fbd5baf5b8c8a1dbd0a8fb5a",
+      "disk_drive": "\\Device\\HarddiskVolume3\\ProgramData\\Dell\\SARemediation\\SystemRepair\\Snapshots\\1770079678-Backup\\69F4812AD2D9D0B48984F7D3D732E7F93EBA9143.dll",
+      "_bangkok_time": "2026-02-03 09:41:14.114886+07:00"
+    }
+  ],
+  "suspicious_events": [
+    {
+      "id": 14539,
+      "timestamp": "2026-02-03T01:00:54.288612Z",
+      "insertion_timestamp": "2026-02-03T01:00:54.325108Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:00:54.457761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 20776,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:00:54.141000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remote_assistance_host_uiaccess"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remote_assistance_host_uiaccess",
+      "_bangkok_time": "2026-02-03 08:00:54.288612+07:00"
+    },
+    {
+      "id": 14540,
+      "timestamp": "2026-02-03T01:00:56.521184Z",
+      "insertion_timestamp": "2026-02-03T01:00:57.543485Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 2,
+      "last_reoccurrence": "2026-02-03T01:01:00.173772Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 19616,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:00:56.404000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remote_assistance_host"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remote_assistance_host",
+      "_bangkok_time": "2026-02-03 08:00:56.521184+07:00"
+    },
+    {
+      "id": 14541,
+      "timestamp": "2026-02-03T01:00:57.706445Z",
+      "insertion_timestamp": "2026-02-03T01:01:03.300930Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:00:57.866761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 5580,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:00:57.577000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass -Force Stop-Process -Name remote_webauthn"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass -Force Stop-Process -Name remote_webauthn",
+      "_bangkok_time": "2026-02-03 08:00:57.706445+07:00"
+    },
+    {
+      "id": 14542,
+      "timestamp": "2026-02-03T01:01:01.134717Z",
+      "insertion_timestamp": "2026-02-03T01:01:05.409928Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:01:01.320761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 8864,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:01:01.003000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remoting_native_messaging_host"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Stop-Process -Force -Name remoting_native_messaging_host",
+      "_bangkok_time": "2026-02-03 08:01:01.134717+07:00"
+    },
+    {
+      "id": 14543,
+      "timestamp": "2026-02-03T01:01:02.612948Z",
+      "insertion_timestamp": "2026-02-03T01:01:07.786716Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:01:02.796761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 4048,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:01:02.475000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Remove-Item -Force 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\143.0.7499.7\\*.log'"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Remove-Item -Force 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\143.0.7499.7\\*.log'",
+      "_bangkok_time": "2026-02-03 08:01:02.612948+07:00"
+    },
+    {
+      "id": 14544,
+      "timestamp": "2026-02-03T01:01:03.591511Z",
+      "insertion_timestamp": "2026-02-03T01:01:09.905301Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:01:03.795761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 16820,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:01:03.478000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Remove-Item -Force -Recurse 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\143.0.7499.7\\minidumps'"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass Remove-Item -Force -Recurse 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\143.0.7499.7\\minidumps'",
+      "_bangkok_time": "2026-02-03 08:01:03.591511+07:00"
+    },
+    {
+      "id": 14545,
+      "timestamp": "2026-02-03T01:01:05.092064Z",
+      "insertion_timestamp": "2026-02-03T01:01:11.991767Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 6,
+      "last_reoccurrence": "2026-02-03T01:01:05.288761Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 18080,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:01:04.961000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass (Get-Item 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\CurrentVersion').Delete()"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass (Get-Item 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\CurrentVersion').Delete()",
+      "_bangkok_time": "2026-02-03 08:01:05.092064+07:00"
+    },
+    {
+      "id": 14546,
+      "timestamp": "2026-02-03T01:01:08.880569Z",
+      "insertion_timestamp": "2026-02-03T01:01:15.699230Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3205,
+      "msp_name": "Hospital_RO",
+      "msp_id": 13,
+      "tenant_name": "F05_กองแพทย์หลวง[วังหลวง](กพล)",
+      "tenant_id": 267,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.82.197",
+        "mac_address": "6c:3c:8c:2f:27:bc",
+        "hostname": "AU2D045725666",
+        "domain": "rmd.local",
+        "distinguished_name": "CN=AU2D045725666,CN=Computers,DC=rmd,DC=local",
+        "group_id": 111,
+        "policy_id": 111,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": ""
+      },
+      "reoccurrence_count": 2,
+      "last_reoccurrence": "2026-02-03T01:01:08.888754Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 14468,
+          "process_id": 10680,
+          "process_name": "powershell.exe",
+          "process_start_time": "2026-02-03T01:01:07.140000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass New-Item -ItemType SymbolicLink -Path 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\CurrentVersion' -Target 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\145.0.7632.25\\' -Force"
+        },
+        {
+          "parent_id": 7824,
+          "process_id": 14468,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\syswow64\\MsiExec.exe -Embedding 4F32ED6B2F4E1C84C41D55E5137B4524 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 968,
+          "process_id": 7824,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:00:53.678000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\WINDOWS\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 840,
+          "process_id": 968,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T01:01:47.086000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 840,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T01:01:46.897000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script detected by Script Control policy.",
+      "type": "SCRIPT_CONTROL_COMMAND",
+      "trigger": "POWERSHELL_INTERACTIVE_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL_INTERACTIVE",
+      "threat_severity": "LOW",
+      "path": "\"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Bypass New-Item -ItemType SymbolicLink -Path 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\CurrentVersion' -Target 'C:\\Program Files (x86)\\Google\\Chrome Remote Desktop\\145.0.7632.25\\' -Force",
+      "_bangkok_time": "2026-02-03 08:01:08.880569+07:00"
+    },
+    {
+      "id": 14547,
+      "timestamp": "2026-02-03T01:30:21.586493Z",
+      "insertion_timestamp": "2026-02-03T01:30:21.667044Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        }
+      ],
+      "device_id": 719,
+      "msp_name": "GrandPalace",
+      "msp_id": 6,
+      "tenant_name": "G03_กองการต่างประเทศ(กตป)",
+      "tenant_id": 238,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "172.17.110.75",
+        "mac_address": "d0:46:0c:a7:fe:39",
+        "hostname": "GP2G03CPC681309",
+        "domain": "",
+        "group_id": 211,
+        "policy_id": 160,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "GP2G03CPC681309\\RO"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:30:21.586493Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 22188,
+          "process_id": 16556,
+          "process_name": "_is7F4E.exe",
+          "process_start_time": "2026-02-03T01:29:31.078000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\TEMP\\{203118CC-D5A6-47FA-B430-00A106798548}\\_is7F4E.exe\" -embedded:BA69ABDC-A04C-4F17-8684-97C57E6C490F -IS_temp"
+        },
+        {
+          "parent_id": 21728,
+          "process_id": 22188,
+          "process_name": "_is7F4E.exe",
+          "process_start_time": "2026-02-03T01:29:25.534000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Windows\\TEMP\\{203118CC-D5A6-47FA-B430-00A106798548}\\_is7F4E.exe\" /silent /Force=true -IS_temp ORIGINALSETUPEXEDIR=\"C:\\ProgramData\\Dell\\drivers\\c6aa6bb4-7292-4c97-b16d-90c5060402ee\" ORIGINALSETUPEXENAME=\"DellOptimizer.exe\" /debuglogC:\\ProgramData\\dell\\drivers\\c6aa6bb4-7292-4c97-b16d-90c5060402ee\\DUP7BC4.tmp"
+        },
+        {
+          "parent_id": 14188,
+          "process_id": 21728,
+          "process_name": "DellOptimizer.exe",
+          "process_start_time": "2026-02-03T01:29:24.470000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\ProgramData\\Dell\\drivers\\c6aa6bb4-7292-4c97-b16d-90c5060402ee\\DellOptimizer.exe\" /silent /Force=true /debuglogC:\\ProgramData\\dell\\drivers\\c6aa6bb4-7292-4c97-b16d-90c5060402ee\\DUP7BC4.tmp"
+        },
+        {
+          "parent_id": 12136,
+          "process_id": 14188,
+          "process_name": "Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.EXE",
+          "process_start_time": "2026-02-03T01:29:21.883000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\ProgramData\\Dell\\UpdateService\\Downloads\\FOLDER13973463M\\3\\Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.EXE\" /s /f /l=\"C:\\ProgramData\\Dell\\UpdateService\\UpdatePackage\\log\\Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.txt\""
+        },
+        {
+          "parent_id": 1200,
+          "process_id": 12136,
+          "process_name": "ServiceShell.exe",
+          "process_start_time": "2026-02-03T01:26:20.498000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Dell\\UpdateService\\ServiceShell.exe\""
+        },
+        {
+          "parent_id": 1112,
+          "process_id": 1200,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:24:43.958000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1112,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:24:43.796000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell trace-suiteinfo -LogMessage Entering InstallCertificate.ps1\r\n$SupportDir = get-suiteproperty -name SETUPSUPPORTDIR\r\ntrace-suiteinfo -LogMessage SETUPSUPPORTDIR: $SupportDir\r\n$ProcessorArchitecture = get-suiteproperty -name ProcessorArchitecture\r\ntrace-suiteinfo -LogMessage PROCESSORARCH: $ProcessorArchitecture\r\n\r\n$InstallerCustomAction = Join-Path -Path $SupportDir -ChildPath Tool\\$ProcessorArchitecture\\InstallerCustomAction\\InstallerCustomAction.exe\r\n& $InstallerCustomAction /installkey\r\n# SIG # Begin signature block\r\n# MIIpLgYJKoZIhvcNAQcCoIIpHzCCKRsCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEAblzWGyJ4N\r\n# r77gslmrP1AWObK2uhY9JipkS3mFtAzLNxk0QnwB7czXaBNOzbov6Q/MGZQHK4\r\n# 7bxjIavNMQnoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8upHSSrds8pJyGHPB\r\n# VhsrI/PteqIe3Br5qC6/To/RabE6BaRUotBwEiES5ZNq",
+      "_bangkok_time": "2026-02-03 08:30:21.586493+07:00"
+    },
+    {
+      "id": 14548,
+      "timestamp": "2026-02-03T01:46:52.726794Z",
+      "insertion_timestamp": "2026-02-03T01:46:52.797062Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 2,
+      "last_reoccurrence": "2026-02-03T01:51:30.347232Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $ProcessorArchitecture = Get-WMIObject -Class Win32_Processor.Architecture\r\nif $ProcessorArchitecture -eq 9 {\r\n    trace-info -LogMessage Processor architecture is x64\r\n    set-property -name ProcessorArchitecture -value x64\r\n}\r\nelseif $ProcessorArchitecture -eq 12 {\r\n    trace-info -LogMessage Processor architecture is ARM64\r\n    set-property -name ProcessorArchitecture -value ARM64\r\n}\r\nelse {\r\n    trace-info -LogMessage Unsupported processor architecture: $$ProcessorArchitecture\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABECxIKpgowRA\r\n# byMqAqnr0vsPwriGl6cIn7AMqSuvITVyKs91gLL1e/UFqlPO1tlFKNWFXcygzm\r\n# qvcNijXCN0nwoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8upHSSrds8pJyGHPB\r\n# VhsrI/PteqIe3Br5qC6/To/RabE6BaRUotBwEiES5ZNq0",
+      "_bangkok_time": "2026-02-03 08:46:52.726794+07:00"
+    },
+    {
+      "id": 14549,
+      "timestamp": "2026-02-03T01:46:55.462248Z",
+      "insertion_timestamp": "2026-02-03T01:46:55.547616Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:46:55.462248Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$UtilityScript = Join-Path -Path $SupportDir -ChildPath Utility.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$UtilityScript\r\n\r\n$ProductName = get-property -name ProductName\r\n$ProductNameWithoutSpaces = $ProductName -replace \\s, \r\n$InstallFolder = get-property -name INSTALLDIR\r\n\r\nif $ProductName -eq Dell AppCore {\r\n    $ThickClient = Join-Path $InstallFolder $ProductNameWithoutSpaces.ThickClient.exe\r\n}\r\nelseif $ProductName -eq Dell Optimizer {\r\n    $ThickClient = Join-Path $InstallFolder Console\\$ProductNameWithoutSpaces.ThickClient.exe\r\n}\r\n\r\ntrace-info -LogMessage Stop ThickClient $ThickClient\r\nStopProcess $ThickClient\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEBj5TxviiT\r\n# PnWCfrtcPsv81i3sHjNRFwxuOKrLshFE8VnfudaqOVFaQMtclhcgKPzgo7uo\r\n# x0kb3AKXYGuNoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V",
+      "_bangkok_time": "2026-02-03 08:46:55.462248+07:00"
+    },
+    {
+      "id": 14550,
+      "timestamp": "2026-02-03T01:46:59.367716Z",
+      "insertion_timestamp": "2026-02-03T01:46:59.440872Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:46:59.367716Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$UtilityScript = Join-Path -Path $SupportDir -ChildPath Utility.ps1\r\n$CommonScript = Join-Path -Path $SupportDir -ChildPath Common.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$UtilityScript\r\n.$CommonScript\r\n\r\n$ProductName = get-property -name ProductName\r\ntrace-info -LogMessage Stop SubAgents for $ProductName\r\n\r\nforeach $SubAgent in $SubAgents {\r\n    StopSubAgent $SubAgent.Guid\r\n}\r\n\r\n# Stop DUCA systray subagent. \r\n# It is started in DellAppCore MSI, we need to stop it here or else it will hold files in use as DUCA systray external plugins are packaged in DellOptimizer MSI.\r\nStopSubAgent {827D5FED-4299-4FF0-859B-FB624A41180E}\r\n\r\nforeach $DtpSubAgent in $DtpSubAgents {\r\n    StopSubAgent $DtpSubAgent.Guid\r\n}\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEBE4IekfH5G\r\n# h3t/sCU/jzUqhIlO9myN9ErufJzfaQwORUL3qw4Ebt5o7cZ3KlNU/O6XzsEW0i5\r\n# 9V1VhprbgnZioIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K",
+      "_bangkok_time": "2026-02-03 08:46:59.367716+07:00"
+    },
+    {
+      "id": 14551,
+      "timestamp": "2026-02-03T01:47:10.606716Z",
+      "insertion_timestamp": "2026-02-03T01:47:10.678895Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:47:10.606716Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$CommonScript = Join-Path -Path $SupportDir -ChildPath Common.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$CommonScript\r\n\r\nforeach $SubAgent in $SubAgents {\r\n\t$SubAgentKeyPath = Join-Path SOFTWARE\\DELL\\Dell TechHub\\AgentRegistration $SubAgent.Guid\r\n\tRemove-Item -Path HKLM:\\$SubAgentKeyPath -Force -Recurse\r\n\tif  -not $?  {\r\n\t\ttrace-info -LogMessage Failed to remove sub agent registry, it might be a fresh install: $$Error[0].Exception.Message\r\n\t}\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2gYJKoZIhvcNAQcCoIImyzCCJscCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEBo0YyXSkL8\r\n# m7soh7wfOd6dx6szbLldxYMKZ29GcshT73J7zdLdgImicSo9xSStTtuY6JFwy\r\n# cbdTlUwQ8f7oIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8upHSSrds8pJyGHPB\r\n# VhsrI/PteqIe3Br5q",
+      "_bangkok_time": "2026-02-03 08:47:10.606716+07:00"
+    },
+    {
+      "id": 14552,
+      "timestamp": "2026-02-03T01:47:12.274682Z",
+      "insertion_timestamp": "2026-02-03T01:47:12.338782Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:47:12.274682Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$CommonScript = Join-Path -Path $SupportDir -ChildPath Common.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$CommonScript\r\n\r\nforeach $RpmPlugin in $RpmPlugins {\r\n\t$RpmPluginKeyPath = Join-Path SOFTWARE\\DELL\\Dell TechHub\\RPMRegistration $RpmPlugin.Guid\r\n\tRemove-Item -Path HKLM:\\$RpmPluginKeyPath -Recurse -Force\r\n\tif  -not $?  {\r\n\t\ttrace-info -LogMessage Failed to remove RPM plugin registry: $$Error[0].Exception.Message\r\n\t}\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2gYJKoZIhvcNAQcCoIImyzCCJscCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABECqvBBMGLvo\r\n# QGugttYhcOzTBhvM/xVdvlj4Ulr42JB0F/1VYV/TR3VFAUuyae8WDGp8gq96STg\r\n# KXogrpsvqooIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8upHSSrds8pJyGHPB\r\n# VhsrI/PteqIe3Br5qC6/To/RabE6BaRUotBwEiES5",
+      "_bangkok_time": "2026-02-03 08:47:12.274682+07:00"
+    },
+    {
+      "id": 14553,
+      "timestamp": "2026-02-03T01:47:14.339660Z",
+      "insertion_timestamp": "2026-02-03T01:47:14.429888Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:47:14.339660Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell \r\n$ProductName = DellOptimizer\r\n$SelfUpdateRegistrationKeyPath = Join-Path SOFTWARE\\DELL\\UpdateService\\Service\\UpdateRegistration $ProductName\r\n\r\nRemove-Item -LiteralPath Registry::HKEY_LOCAL_MACHINE\\$SelfUpdateRegistrationKeyPath -Recurse -Force -Confirm:$false\r\nif  -not $?  {\r\n\ttrace-info -LogMessage Failed to remove self update registry $$Error[0].Exception.Message\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEDDfbxW0bbD\r\n# 4SOLvXhPdBakVmKLAgT8NzQ5LEiiheQvVF8ahb/NVvnVf8sJ0OUjmCB9Z7OWrDW\r\n# /DcOwVEGji7PoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8upHSSrds8pJyGHPB\r\n# VhsrI/PteqIe3Br5qC6/To/RabE6BaRUotBwEiES5ZNq0RA443wFSjO7fEYVgcq\r\n# LxDEDAhkPDOPriiMPMuPiAsNvzv0zh57ju168u38HcT5ucoP6wSrqUvImxBYJc\r\n# FWbMbA7KxYbD9iYzDAdLoNMHAm",
+      "_bangkok_time": "2026-02-03 08:47:14.339660+07:00"
+    },
+    {
+      "id": 14554,
+      "timestamp": "2026-02-03T01:47:15.433475Z",
+      "insertion_timestamp": "2026-02-03T01:47:15.523674Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:47:15.433475Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$CommonScript = Join-Path -Path $SupportDir -ChildPath Common.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$CommonScript\r\n\r\nforeach $ConsolePlugin in $ConsolePlugins {\r\n    $ProductName = get-property -name ProductName\r\n    $ProductNameWithoutSpaces = $ProductName -replace \\s, \r\n\t$ConsolePluginKeyPath = Join-Path SOFTWARE\\DELL\\$ProductNameWithoutSpaces\\$$ConsolePlugin.Type\\ConsolePlugins $ConsolePlugin.Guid\r\n\tRemove-Item -Path HKLM:\\$ConsolePluginKeyPath -Force\r\n\tif  -not $?  {\r\n\t\ttrace-info -LogMessage Failed to remove sub agent registry: $$Error[0].Exception.Message\r\n\t}\r\n}\r\n\r\nforeach $ConsoleSetting in $ConsoleSettings {\r\n    $ProductName = get-property -name ProductName\r\n    $ProductNameWithoutSpaces = $ProductName -replace \\s, \r\n    $ConsoleMenuItemKeyPath = SOFTWARE\\DELL\\$ProductNameWithoutSpaces\\$$ConsoleSetting.Type\r\n    Remove-ItemProperty -Path HKLM:\\$ConsoleMenuItemKeyPath -Name $$ConsoleSetting.Name -Force\r\n    if  -not $?  {\r\n        trace-info -LogMessage Failed to remove console setting registry: $$Error[0].Exception.Message\r\n    }\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEAJOVkz6HpN\r\n# D4Gcm563asA8dkGECYcjRNKzCsX4uAkvLiR2SHhAI2nGiEcfvk0T1C/JOrVPmNMh\r\n# 77wB0aByD2/GoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ",
+      "_bangkok_time": "2026-02-03 08:47:15.433475+07:00"
+    },
+    {
+      "id": 14555,
+      "timestamp": "2026-02-03T01:48:12.575819Z",
+      "insertion_timestamp": "2026-02-03T01:48:12.683985Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:48:12.575819Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 14600,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:45:53.435000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding 1EE1DEEA04CF465B4BAE0CB7BD342FA6 E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell Function RegisterRpmPlugin$RpmPlugin {\r\n\t$RpmPluginKeyPath = Join-Path SOFTWARE\\DELL\\Dell TechHub\\RPMRegistration $RpmPlugin.Guid\r\n\r\n    if !CreateRegistryKey -KeyPath $RpmPluginKeyPath -KeyName ExecutablePath -KeyValue $RpmPlugin.ExecutablePath {\r\n        Write-Output Failed to set RPM plugin ExecutablePath for $$RpmPlugin.Guid\r\n        return\r\n    }\r\n\r\n    $PublishingAssembliesPath = Join-Path $RpmPluginKeyPath PublishingAssemblies\r\n    foreach $PublishingAssembly in $RpmPlugin.PublishingAssemblies {\r\n        if !CreateRegistryKey -KeyPath $PublishingAssembliesPath -KeyName $PublishingAssembly.Guid -KeyValue $PublishingAssembly.AssemblyPath {\r\n            Write-Output Failed to set RPM plugin PublishingAssemblies for $$PublishingAssembly.Guid\r\n            return\r\n        }\r\n    }\r\n}\r\n\r\n$SupportDir = get-property -name SUPPORTDIR\r\n$UtilityScript = Join-Path -Path $SupportDir -ChildPath Utility.ps1\r\n$CommonScript = Join-Path -Path $SupportDir -ChildPath Common.ps1\r\ntry {\r\n    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n}\r\ncatch {\r\n    trace-info -LogMessage Failed to set execution policy: $$Error[0]\r\n}\r\n.$UtilityScript\r\n.$CommonScript\r\n\r\n# Dtp Subagent will be started in DTH Registration event\r\nforeach $RpmPlugin in $RpmPlugins {\r\n    RegisterRpmPlugin $RpmPlugin\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIpLgYJKoZIhvcNAQcCoIIpHzCCKRsCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEDHufrdFHvb\r\n# 4PD3hbKUezRbF2Wkx7AVh7TL0FmyLYjIdcLXf7UOrANkDCrLt/LYd/0w8fhcraC\r\n# 1RW8QhIDjrLoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQE",
+      "_bangkok_time": "2026-02-03 08:48:12.575819+07:00"
+    },
+    {
+      "id": 14556,
+      "timestamp": "2026-02-03T01:50:47.800121Z",
+      "insertion_timestamp": "2026-02-03T01:50:47.858426Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0002.T1106",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1106",
+          "technique_name": "Native API",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 2715,
+      "msp_name": "SueaPa",
+      "msp_id": 4,
+      "tenant_name": "Q01_กองบังคับการ(กบก)",
+      "tenant_id": 198,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.12.152",
+        "mac_address": "6c:3c:8c:2f:2a:12",
+        "hostname": "AP6Q01APC660401",
+        "domain": "",
+        "distinguished_name": "CN=AP6Q01APC660401,CN=Computers,DC=DTCPOC,DC=local",
+        "group_id": 30,
+        "policy_id": 30,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "AP6Q01APC660401\\RO"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:50:47.800121Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10428,
+          "process_id": 2812,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-02-03T01:44:34.312000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" -a"
+        },
+        {
+          "parent_id": 4520,
+          "process_id": 10428,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-02-02T20:52:30.008000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" -c"
+        },
+        {
+          "parent_id": 1104,
+          "process_id": 4520,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-01-30T10:32:43.500000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" --service"
+        },
+        {
+          "parent_id": 856,
+          "process_id": 1104,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T10:32:40.746000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 856,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T10:32:40.679000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell function Get-WmiInformation {\n    [CmdletBinding]\n    param \n        [ParameterMandatory = $false]\n        [AliasNS]\n        [string]$WmiNamespace = Root\\Cimv2,\n\n        [ParameterMandatory = $true]\n        [AliasC]\n        [string]$WmiClass,\n\n        [ParameterMandatory = $true]\n        [AliasP]\n        [ValidateScript{\n            if $_.Trim -eq * {\n                Throw Do not specify * for SelectProperties! List the properties you need to query.\n            } else {$True}\n        }]\n        [string]$SelectProperties,\n\n        [ParameterMandatory = $false]\n        [AliasF]\n        [string]$Filter,\n\n        [ParameterMandatory = $false]\n        [AliasR]\n        [bool]$Rewindable = $false,\n\n        [ParameterMandatory = $false]\n        [AliasT]\n        [int]$QueryTimeoutSeconds = 3\n    \n\n    $managementScope = New-Object System.Management.ManagementScope$WmiNameSpace\n\n    $options = New-Object System.Management.EnumerationOptions\n    $options.EnumerateDeep = $true\n    $options.ReturnImmediately = $true\n    $options.Rewindable = $Rewindable\n    $options.Timeout = New-TimeSpan -Seconds $QueryTimeoutSeconds\n\n    $filterClause = \n    if $Filter -and -not $Filter.ToLower.StartsWithwhere {\n        $filterClause =  WHERE $Filter\n    }\n\n    $queryString = SELECT $SelectProperties FROM $WmiClass$filterClause\n    New-Object System.Management.ManagementObjectSearcher $managementScope, $queryString, $options.Get\n}\n\n$Caption = Get-WmiInformation -WmiClass win32_operatingsystem -SelectProperties Caption.Caption\n\nIf $Caption -like *server* {\n    N/A on Server OS\n    Exit\n}\n\nif $Caption -like *windows 11* {\n    N/A on Windows 11\n    Exit\n}\n\nif $PSVersionTable.PSVersion -lt [Version]5.1 {\n    Write-Output Undetermined|This script requires PowerShell 5.1 or later\n    Exit\n}\n\n#=============================================================================================================================\n#\n# Description:     Verifies the hardware compliance. Return code 0 for success.\n#                  In case of failure, returns non zero error code along with error message.\n\n# This script is not supported under any Microsoft standard support program or service and is distributed under the MIT license\n\n# Copyright C 2021 Microsoft Corporation\n\n# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation\n# files the Software, to deal in the Software without restriction, including without limitation the rights to use, copy,\n# modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software\n# is furnished to do so, subject to the following conditions:\n\n# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n# THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE\n# WARRANTIES OF MERCHANTABILITY, FITNESS ",
+      "_bangkok_time": "2026-02-03 08:50:47.800121+07:00"
+    },
+    {
+      "id": 14557,
+      "timestamp": "2026-02-03T01:51:27.462107Z",
+      "insertion_timestamp": "2026-02-03T01:51:29.557958Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:51:27.462107Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 9424,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:48:25.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding A351BBC2BEF206079769DF10CCBED88F E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$UtilityScript = Join-Path -Path $SupportDir -ChildPath Utility.ps1\r\n\r\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n.$UtilityScript\r\n\r\n$SupportedSystemRegistryValue = GetRegistryKey -KeyPath SOFTWARE\\DELL\\DellOptimizer -KeyName SupportedSystem\r\ntrace-info -LogMessage SupportedSystem regsitry value is $SupportedSystemRegistryValue\r\ntry {\r\n    $SupportedSystem = [System.Convert]::ToBoolean$SupportedSystemRegistryValue\r\n} catch {\r\n    $SupportedSystem = $false\r\n}\r\n\r\nif $true -eq $SupportedSystem { \r\n    set-property -name SupportedSystem -value 1\r\n} else {\r\n    set-property -name SupportedSystem -value 0\r\n}\r\n\r\n# SIG # Begin signature block\r\n# MIIm2gYJKoZIhvcNAQcCoIImyzCCJscCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEAdQoCV1tO4\r\n# bYvlIg6zEIbZmhzVsbSbx4o3ve0jYKMkOEHVSG9G68U7UbtJEIHq5dFAQtZKUxqQ\r\n# akvOsL0ncA24oIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywi",
+      "_bangkok_time": "2026-02-03 08:51:27.462107+07:00"
+    },
+    {
+      "id": 14558,
+      "timestamp": "2026-02-03T01:51:35.222436Z",
+      "insertion_timestamp": "2026-02-03T01:51:35.300283Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0005.T1218.007",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1218",
+          "technique_name": "System Binary Proxy Execution",
+          "sub_technique_id": "T1218.007",
+          "sub_technique_name": "Msiexec"
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        },
+        {
+          "mitre_id": "TA0005.T1027",
+          "tactic_id": "TA0005",
+          "tactic_name": "Defense Evasion",
+          "technique_id": "T1027",
+          "technique_name": "Obfuscated Files or Information",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:51:35.222436Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10832,
+          "process_id": 9424,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:48:25.872000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\Windows\\System32\\MsiExec.exe -Embedding A351BBC2BEF206079769DF10CCBED88F E Global\\MSI0000"
+        },
+        {
+          "parent_id": 1256,
+          "process_id": 10832,
+          "process_name": "msiexec.exe",
+          "process_start_time": "2026-02-03T01:39:26.218000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "C:\\windows\\system32\\msiexec.exe /V"
+        },
+        {
+          "parent_id": 1172,
+          "process_id": 1256,
+          "process_name": "services.exe",
+          "process_start_time": "2026-02-03T01:39:20.331000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 1172,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-02-03T01:39:20.131000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell $SupportDir = get-property -name SUPPORTDIR\r\n$ProcessorArchitecture = get-property -name ProcessorArchitecture\r\n\r\n$InstallerCustomAction = Join-Path -Path $SupportDir -ChildPath Tool\\$ProcessorArchitecture\\InstallerCustomAction\\InstallerCustomAction.exe\r\n$Factory = get-property -name FACTORY\r\n$InstallFolder = get-property -name INSTALLDIR\r\n$ProductTitleNoSpaces = get-property -name ProductTitleNoSpaces\r\n$ThickClient = Join-Path $InstallFolder $ProductTitleNoSpaces.ThickClient.exe\r\n& $InstallerCustomAction FACTORY=$Factory /UnpinTaskbar $ThickClient\r\n# SIG # Begin signature block\r\n# MIIm2wYJKoZIhvcNAQcCoIImzDCCJsgCAQExDzANBglghkgBZQMEAgMFADCBmwYK\r\n# KwYBBAGCNwIBBKCBjDCBiTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63\r\n# JNLGKX7zUQIBAAIBAAIBAAIBAAIBADBRMA0GCWCGSAFlAwQCAwUABEDnvAnk2Fty\r\n# zRyxjFpbz8OVOe55sAcHT8aJO3WCfvWoFd4nvVY5TF2/lFcySnZavvpBNGCufub\r\n# Y8DMxItLBvoIIOHzCCBrAwggSYoAMCAQICEAitQLJg0pxMn17Nqb2TrtkwDQYJ\r\n# KoZIhvcNAQEMBQAwYjELMAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IElu\r\n# YzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTEhMB8GA1UEAxMYRGlnaUNlcnQg\r\n# VHJ1c3RlZCBSb290IEc0MB4XDTIxMDQyOTAwMDAwMFoXDTM2MDQyODIzNTk1OVow\r\n# aTELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMUEwPwYDVQQD\r\n# EzhEaWdpQ2VydCBUcnVzdGVkIEc0IENvZGUgU2lnbmluZyBSU0E0MDk2IFNIQTM4\r\n# NCAyMDIxIENBMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANW0L0LQ\r\n# KK14t13VOVkbsYhC9TOM6z2Bl3DFu8SFJjCfpI5o2Fz16zQkBFLT9N4Q/QX1x7a\r\n# dLVZxpSTw6hV/yImcGRzIEDPk1wJGSzjeIIfTR9TIBXEmtDmpnyxTsf8u/LR1oT\r\n# pkyzASAl8xDTi7L7CPCK4J0JwGWnpiASTWHPVEZ6JAheEUuoZ8s4RjCGszF7pNJ\r\n# cEIyj/vG6hzzZWiRok1MghFIUmjeEL0UV13oGBNlxXyT4UsSKRWhDXWS6cqgAV\r\n# 0TfGgaUwnzI6hsy5srC9KejAw50pa85tqtgEuPo1rn3MeHcreQYoNjBI0dHs6EP\r\n# bqOrbZgGgxu3amct0r1EGpIQgYwOwnXx5syWsL/amBUi0nBk3htFzgbsmYzV\r\n# svk4EObqzpH1vtP7b5NhNFy8k0UogzYqZihfsHPOiyYlBrKD1Fz2FRlM7WLgXjPy\r\n# 6OjsCqewAyuRsjZ5vvetCB51pmXMuNIUPN3kRr21CiRshhWJj1fAIWPIMorTmG\r\n# 7NS3DVPQEfmdTCN7DCTdhSmW0tddGFNPxKRdt6/WMtyEClB8NXFbSZ2aBFBE1ia\r\n# 3CYrAfSJTVnbeMBSj5AR1/JgVBzhRAjIVlgimRUwcwhGug4GXxmHM14OEUwmU//\r\n# Y09Mu6oNCFNBfFg9R7P6tuyMMgkCzGw8DFYRAgMBAAGjggFZMIIBVTASBgNVHRMB\r\n# Af8ECDAGAQH/AgEAMB0GA1UdDgQWBBRoNDrtjv4XxGG/5hewiIZfROQjAfBgNV\r\n# HSMEGDAWgBTs1OC0nFdZEzfLmc/57qYrhwPTzAOBgNVHQ8BAf8EBAMCAYYwEwYD\r\n# VR0lBAwwCgYIKwYBBQUHAwMwdwYIKwYBBQUHAQEEazBpMCQGCCsGAQUFBzABhhho\r\n# dHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQQYIKwYBBQUHMAKGNWh0dHA6Ly9jYWNl\r\n# cnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRydXN0ZWRSb290RzQuY3J0MEMGA1Ud\r\n# HwQ8MDowOKA2oDSGMmh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydFRy\r\n# dXN0ZWRSb290RzQuY3JsMBwGA1UdIAQVMBMwBwYFZ4EMAQMwCAYGZ4EMAQQBMA0G\r\n# CSqGSIb3DQEBDAUAA4ICAQA6I0Q9jQh27o8OpnTVuACGqX4SDTzLLbmdGb3lHKx\r\n# AMqvbDAnExKekESfS/2eo3wm1Te8Ol1IbZXVP0n0J7sWgUVQ/Zy9toXgdn43ccsi\r\n# 91qqkM/1k2rj6yDR1VB5iJqKisG2vaFIGH7c2IAaERkYzWGZgVb2yeN258TkG19D\r\n# D6U/3Y5PZ7Umc9K3SjrXyahlVhI1Rr1yc//ZDRdobdHLBgXPMNqO7giaG9OeE4\r\n# TtpuuzadUhU1rDyulq8aI20O4M8hPOBSSmfXdzlRt2V0CFB9AM3wD4pWywiF1\r\n# c1LLRtjENByipUuNzW92NyyFPxrOJukYvpAHsEN/lYgggnDwzMrv/Sk1XBJOFX3\r\n# N4qLCaHLCkxGv8uGVw5ceGnKcKBtYmZ7eS5k5f3nqsSc8up",
+      "_bangkok_time": "2026-02-03 08:51:35.222436+07:00"
+    },
+    {
+      "id": 14559,
+      "timestamp": "2026-02-03T01:52:05.248926Z",
+      "insertion_timestamp": "2026-02-03T01:52:05.316905Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0002.T1569",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1569",
+          "technique_name": "System Services",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1106",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1106",
+          "technique_name": "Native API",
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        }
+      ],
+      "device_id": 2715,
+      "msp_name": "SueaPa",
+      "msp_id": 4,
+      "tenant_name": "Q01_กองบังคับการ(กบก)",
+      "tenant_id": 198,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.12.152",
+        "mac_address": "6c:3c:8c:2f:2a:12",
+        "hostname": "AP6Q01APC660401",
+        "domain": "",
+        "distinguished_name": "CN=AP6Q01APC660401,CN=Computers,DC=DTCPOC,DC=local",
+        "group_id": 30,
+        "policy_id": 30,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "AP6Q01APC660401\\RO"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:52:05.248926Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 10428,
+          "process_id": 11064,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-02-03T01:51:57.734000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" -a"
+        },
+        {
+          "parent_id": 4520,
+          "process_id": 10428,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-02-02T20:52:30.008000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" -c"
+        },
+        {
+          "parent_id": 1104,
+          "process_id": 4520,
+          "process_name": "TaniumClient.exe",
+          "process_start_time": "2026-01-30T10:32:43.500000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\Program Files (x86)\\Tanium\\Tanium Client\\TaniumClient.exe\" --service"
+        },
+        {
+          "parent_id": 856,
+          "process_id": 1104,
+          "process_name": "services.exe",
+          "process_start_time": "2026-01-30T10:32:40.746000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        },
+        {
+          "parent_id": null,
+          "process_id": 856,
+          "process_name": "wininit.exe",
+          "process_start_time": "2026-01-30T10:32:40.679000Z",
+          "process_stop_time": "",
+          "executing_user": "",
+          "command": ""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell #@INCLUDE=util/PythonInvoker.ps1\n#@START_INCLUDES_HERE\n#------------ INCLUDES START - Do not edit between this line and INCLUDE ENDS -----\n#- Begin file: util/PythonInvoker.ps1\n$fso = New-Object -ComObject Scripting.FileSystemObject\n$taniumClientDir = $env:TANIUM_CLIENT_ROOT\n$python = $taniumClientDir\\TPython\\TPython.bat\n\nFunction InvokePython$pythonScriptContents {\n    $processInfo = New-Object System.Diagnostics.ProcessStartInfo\n    $processInfo.FileName = $python\n    $processInfo.Arguments = -\n    $processInfo.RedirectStandardInput = $true\n    $processInfo.RedirectStandardOutput = $true\n    $processInfo.RedirectStandardError = $false\n    $processInfo.UseShellExecute = $false\n    $processInfo.EnvironmentVariables.AddTANIUM_SENSOR, 1\n\n    $process = New-Object System.Diagnostics.Process\n    $process.StartInfo = $processInfo\n    $process.Start | Out-Null\n\n    $process.StandardInput.Write$pythonScriptContents\n    $process.StandardInput.Close\n\n    $pythonOutput = $process.StandardOutput.ReadToEnd\n\n    $process.WaitForExit\n\n    Write-Host $pythonOutput\n}\n#- End file: util/PythonInvoker.ps1\n#------------ INCLUDES END - Do not edit above this line and INCLUDE STARTS -----\n\n$pythonScript = @\n#!/bin/sh\n# -*- coding: utf-8 -*-\nexec env TANIUM_SENSOR=1 ${TANIUM_CLIENT_ROOT}/TPython/TPython $0 $@\n\nfrom __future__ import unicode_literals\n\nimport tanium.client\nimport sqlite3, os\n\ndbFile = os.path.jointanium.client.get_client_dir,Tools,SoftwareManagement,data,software-management.db\nshowTimeStamps = False\nshowStartTime = False\nshowSeconds = False\nif os.path.isfiledbFile:\n  try:\n    dbConn = sqlite3.connectdbFile\n    cursor = dbConn.cursor\n    cursor.execute\\\n      SELECT software_package_vendor, software_package_name, software_package_version, software_package_platform, operation, was_successful, maxend_time FROM software_package_history \\\n      WHERE software_package_id >= SELECT maxsoftware_package_id FROM software_packages - 1000 AND product_install_id = SELECT current_install_id FROM product_install_ids ORDER BY updated_at DESC LIMIT 1 \\\n      GROUP BY software_package_id; \\\n    \n    software_package_history = cursor.fetchall\n    cursor.close\n    dbConn.close\n    if lensoftware_package_history != 0:\n      for software_package in software_package_history:\n        action_id = cpe:2.3:a:{}:{}:{}:*:*:*:*:{}:*:*__1.formatsoftware_package[0], software_package[1], software_package[2], software_package[3]\n        if software_package[4] in [install, update, installOrUpdate]:\n          action_type = install_upgrade\n        else:\n          action_type = uninstall\n        if software_package[5] == 1:\n          status = success\n        else:\n          status = failed\n        tanium.results.add{}|{}|{}.formataction_id, action_type, status\n    else:\n      tanium.results.addNo software package actions in the last 24 hours.\n  except Exception as e:\n    tanium.results.addError: {}.formate\nelse:\n  tanium.results.addError: Database file not found\n\n@\n\nInvokePython $",
+      "_bangkok_time": "2026-02-03 08:52:05.248926+07:00"
+    },
+    {
+      "id": 14560,
+      "timestamp": "2026-02-03T01:52:42.193666Z",
+      "insertion_timestamp": "2026-02-03T01:52:42.265707Z",
+      "status": "OPEN",
+      "mitre_classifications": [
+        {
+          "mitre_id": "TA0002",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": null,
+          "technique_name": null,
+          "sub_technique_id": null,
+          "sub_technique_name": null
+        },
+        {
+          "mitre_id": "TA0002.T1059.001",
+          "tactic_id": "TA0002",
+          "tactic_name": "Execution",
+          "technique_id": "T1059",
+          "technique_name": "Command and Scripting Interpreter",
+          "sub_technique_id": "T1059.001",
+          "sub_technique_name": "PowerShell"
+        },
+        {
+          "mitre_id": "TA0008.T1550.002",
+          "tactic_id": "TA0008",
+          "tactic_name": "Lateral Movement",
+          "technique_id": "T1550",
+          "technique_name": "Use Alternate Authentication Material",
+          "sub_technique_id": "T1550.002",
+          "sub_technique_name": "Pass the Hash"
+        }
+      ],
+      "device_id": 3024,
+      "msp_name": "Royal Chitralada Projects",
+      "msp_id": 19,
+      "tenant_name": "Royal Chitralada Projects (L3)",
+      "tenant_id": 300,
+      "recorded_device_info": {
+        "os": "WINDOWS",
+        "osv": "Windows 11 Pro",
+        "ip_address": "192.168.0.132",
+        "mac_address": "fc:4c:ea:18:b7:95",
+        "hostname": "SUPHANSA_RICE",
+        "domain": "",
+        "group_id": 383,
+        "policy_id": 206,
+        "agent_version": "5.2.0000.2",
+        "brain_version": "142w",
+        "logged_in_users": "SUPHANSA_RICE\\USER"
+      },
+      "reoccurrence_count": 1,
+      "last_reoccurrence": "2026-02-03T01:52:42.193666Z",
+      "occurrence_count": 1,
+      "affected_device": 1,
+      "process_chain": [
+        {
+          "parent_id": 12948,
+          "process_id": 12036,
+          "process_name": "_isC6D0.exe",
+          "process_start_time": "2026-02-03T01:42:13.285000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\windows\\TEMP\\{AA87FCDC-5E51-4A52-8973-806C8F611BE3}\\_isC6D0.exe\" -embedded:FC669816-BFA9-4DD4-9001-EAB63E108C95 -IS_temp"
+        },
+        {
+          "parent_id": 14672,
+          "process_id": 12948,
+          "process_name": "_isC6D0.exe",
+          "process_start_time": "2026-02-03T01:42:10.835000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\windows\\TEMP\\{AA87FCDC-5E51-4A52-8973-806C8F611BE3}\\_isC6D0.exe\" /silent /Force=true -IS_temp ORIGINALSETUPEXEDIR=\"C:\\ProgramData\\Dell\\drivers\\5dca4d05-a822-4585-b433-ddfd485fcd1a\" ORIGINALSETUPEXENAME=\"DellOptimizer.exe\" /debuglogC:\\ProgramData\\dell\\drivers\\5dca4d05-a822-4585-b433-ddfd485fcd1a\\DUPC336.tmp"
+        },
+        {
+          "parent_id": 17524,
+          "process_id": 14672,
+          "process_name": "DellOptimizer.exe",
+          "process_start_time": "2026-02-03T01:42:09.807000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\ProgramData\\Dell\\drivers\\5dca4d05-a822-4585-b433-ddfd485fcd1a\\DellOptimizer.exe\" /silent /Force=true /debuglogC:\\ProgramData\\dell\\drivers\\5dca4d05-a822-4585-b433-ddfd485fcd1a\\DUPC336.tmp"
+        },
+        {
+          "parent_id": null,
+          "process_id": 17524,
+          "process_name": "Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.EXE",
+          "process_start_time": "2026-02-03T01:42:07.343000Z",
+          "process_stop_time": "",
+          "executing_user": "SYSTEM",
+          "command": "\"C:\\ProgramData\\Dell\\UpdateService\\Downloads\\FOLDER13973463M\\3\\Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.EXE\" /s /f /i /l=\"C:\\ProgramData\\Dell\\UpdateService\\UpdatePackage\\log\\Dell-Optimizer-Application_680N2_WIN64_6.3.0.0_A00.txt\""
+        }
+      ],
+      "description": "Script contains suspicious features.",
+      "type": "SUSPICIOUS_POWERSHELL_COMMAND_EXECUTION",
+      "trigger": "POWERSHELL_EXECUTION",
+      "action": "DETECTED",
+      "file_type": "POWERSHELL",
+      "threat_severity": "MODERATE",
+      "path": "powershell # GENESIS-11155 - ICST 2.1 Transition\r\n# Since DO 4.2, DO will install ICST 2.1 if IPF > 1.0.110 or install ICST 2.0 otherwise.\r\n# To avoid the potential issue about removing ICST, DO will try to uninstall ICST 2.1 instead of ICST 2.0 as IPF driver might be upgraded after installing DO\r\n# We use this custom action to check which version is installed on the system and delete it instead of using InstallShield default remove behavior.\r\n\r\ntrace-suiteinfo -LogMessage Entering RemoveIntelContextService.ps1\r\n$SupportDir = get-suiteproperty -name SETUPSUPPORTDIR\r\ntrace-suiteinfo -LogMessage SETUPSUPPORTDIR: $SupportDir\r\n$UtilityScript = Join-Path -Path $SupportDir -ChildPath Utility.ps1\r\ntry {\r\n    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force\r\n}\r\ncatch {\r\n    trace-suiteinfo -LogMessage Failed to set execution policy: $$Error[0]\r\n}\r\n.$UtilityScript\r\n\r\n$ProgramFilesFolder = [Environment]::GetEnvironmentVariableProgramW6432\r\n$IUAS_MSI = Join-Path -Path $ProgramFilesFolder -ChildPath \\Dell\\Downloaded_Installations\\{58596D9B-DA0A-4311-AA32-CA982D8C0185}\\Intel_User_Awareness_Service.msi;\r\n$IUAS_EXE = Join-Path -Path $ProgramFilesFolder -ChildPath \\Dell\\Downloaded_Installations\\{58596D9B-DA0A-4311-AA32-CA982D8C0185}\\Intel_User_Awareness_Service.exe;\r\n$ICSS = Join-Path -Path $ProgramFilesFolder -ChildPath \\Dell\\Downloaded_Installations\\{D6FF1773-861D-4394-BAFC-D4D3E911031B}\\Intel_Context_Sensing_Service.exe;\r\n\r\nif Test-Path $IUAS_MSI -PathType Leaf {\r\n\t$MsiExec = [System.Environment]::SystemDirectory  \\msiexec.exe\r\n\ttrace-suiteinfo -LogMessage Try to uninstall previous IUAS -> $MsiExec /x $IUAS_MSI /qn /norestart\r\n\t.$MsiExec /x $IUAS_MSI /qn /norestart\r\n\ttrace-suiteinfo -LogMessage Return code: $?\r\n}\r\n\r\nif Test-Path $IUAS_EXE -PathType Leaf {\r\n\ttrace-suiteinfo -LogMessage Try to uninstall IUAS -> $IUAS_EXE /q /uninstall\r\n\t.$IUAS_EXE /q /uninstall\r\n\ttrace-suiteinfo -LogMessage Return code: $?\r\n}\r\n\r\nif Test-Path $ICSS -PathType Leaf {\r\n\ttrace-suiteinfo -LogMessage Try to uninstall ICSS -> $ICSS /uninstall /s\r\n\t.$ICSS /uninstall /s\r\n\ttrace-suiteinfo -LogMessage Return code: $?\r\n}\r\n\r\n$PNPUTIL = Join-Path -Path $Env:SystemRoot -ChildPath sysnative\\pnputil.exe\r\n$OEMList = & $PNPUTIL /enum-drivers | \r\n\tSelect-String -Pattern Published Name, Original Name | \r\n\tForEach-Object {$_.Line.Split } | \r\n\tSelect-String -Pattern .inf | \r\n\tForEach-Object {$_.ToString.Trim}\r\n\r\n[System.Collections.ArrayList]$INFRemoveList = @icst_extension.inf, icst_service.inf\r\nForEach $INF in $INFRemoveList {\r\n\t$line = 0\r\n\twhile $line -lt $OEMList.Count {\r\n\t\tif $OEMList[$line  1] -eq $INF {\r\n\t\t\ttrace-suiteinfo -LogMessage Trying to uninstall $INF...\r\n\t\t\t$output = & $PNPUTIL /delete-driver $OEMList[$line] /force /uninstall\r\n\t\t\ttrace-suiteinfo -LogMessage $output\r\n\t\t\tStart-Sleep -s 1\r\n\t\t}\r\n\t\t$line = 2\r\n\t}\r\n}\r\n\r\n# Remove log/setting files\r\n$ICSTDataFolderLagacy = Join-Path -Path $Env:SystemRoot -ChildPath \\ServiceProfiles\\LocalService\\AppData\\Roaming\\IntelR\\ICST\r\nRemoveFolder$",
+      "_bangkok_time": "2026-02-03 08:52:42.193666+07:00"
+    }
+  ]
+}

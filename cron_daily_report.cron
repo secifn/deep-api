@@ -1,0 +1,4 @@
+# Deep Instinct Daily Report - ทุกวัน 07:00 น. (ดึงข้อมูลย้อนหลัง 1 วัน)
+# ติดตั้ง: crontab /home/api/DeepInstint/cron_daily_report.cron
+
+0 7 * * * /home/api/DeepInstint/cron_daily_report.sh >> /home/api/DeepInstint/cron_daily_report.log 2>&1
