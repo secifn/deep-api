@@ -1,0 +1,68 @@
+# Docker Compose Override for Development
+# This file is automatically merged with docker-compose.yml
+# Use this for local development overrides
+
+version: '3.8'
+
+services:
+  report-server:
+    # Mount source code for live development
+    volumes:
+      - .:/app:rw
+      - ./event_detail:/app/event_detail:rw
+      - ./logs:/app/logs:rw
+    
+    # Development environment variables
+    environment:
+      - DEBUG=1
+      - PYTHONUNBUFFERED=1
+    
+    # Faster restart for development
+    restart: "no"
+
+  daily-report:
+    volumes:
+      - .:/app:rw
+      - ./event_detail:/app/event_detail:rw
+      - ./logs:/app/logs:rw
+    
+    environment:
+      - DEBUG=1
+      - PYTHONUNBUFFERED=1
+      # More frequent reports for testing (every minute)
+      - DAILY_REPORT_CRON=* * * * *
+    
+    restart: "no"
+
+  monitor:
+    volumes:
+      - .:/app:rw
+      - ./logs:/app/logs:rw
+    
+    environment:
+      - DEBUG=1
+      - PYTHONUNBUFFERED=1
+      # Faster polling for development (1 minute)
+      - POLLING_INTERVAL=60
+    
+    restart: "no"
+
+# Optional: Add development tools container
+  devtools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deep-api-devtools
+    volumes:
+      - .:/app:rw
+      - ./event_detail:/app/event_detail:rw
+      - ./logs:/app/logs:rw
+    environment:
+      - DEBUG=1
+    env_file:
+      - .env
+    command: ["sleep", "infinity"]
+    networks:
+      - deep-api-network
+    profiles:
+      - dev

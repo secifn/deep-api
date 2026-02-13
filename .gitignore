@@ -1,8 +1,11 @@
 # Environment files (contain sensitive data)
 .env1
 .env
+.env.local
 .env1.backup
 *.env
+!.env.docker
+!.env.example
 
 # Python
 __pycache__/
@@ -38,6 +41,7 @@ env/
 *.swp
 *.swo
 *~
+.cursor/
 
 # Generated HTML reports (stored in event_detail/)
 event_detail/
@@ -53,3 +57,15 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Docker volumes data
+docker-volumes/
+
+# Backups
+backups/
+*.backup
+
+# Coverage reports
+htmlcov/
+.coverage
+.pytest_cache/

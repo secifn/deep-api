@@ -1,0 +1,91 @@
+# Production .dockerignore - более строгий чем development
+
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.cursor/
+
+# Environment and configs (production uses environment variables)
+.env*
+!.env.docker
+.env1
+
+# Logs (generated at runtime)
+*.log
+logs/
+*.log.*
+
+# Reports (generated at runtime)
+event_detail/
+*.html
+
+# Documentation (not needed in production)
+*.md
+!README_DOCKER.md
+docs/
+
+# Tests
+tests/
+test_*.py
+*_test.py
+
+# CI/CD
+.gitlab-ci.yml
+
+# Docker development files
+docker-compose.override.yml
+Dockerfile.dev
+
+# Backup files
+backups/
+*.backup
+*.bak
+*.old
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+*.swp
+*.swo
+
+# Scripts not needed in container
+install_service.sh
+cron_daily_report.sh
+start_report_server.sh
+
+# Node modules if any
+node_modules/
+package-lock.json

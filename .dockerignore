@@ -1,19 +1,65 @@
-# ไม่ copy ไฟล์ความลับเข้า Docker image
-.env1
-.env
-.env*
-!.env.example
-
 # Git
 .git
 .gitignore
+.gitattributes
 
 # Python
-__pycache__
-*.pyc
-.venv
-venv
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
 
-# Logs และไฟล์ชั่วคราว
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env1
+.env.local
+.env.*.local
+
+# Logs
 *.log
+logs/
+*.log.*
+
+# Reports (will be generated in volume)
+event_detail/
+*.html
+
+# Documentation
+README*.md
+QUICKSTART.md
+ROADMAP.md
+SUMMARY.md
+*.txt
+!requirements.txt
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Temporary files
 *.tmp
+*.temp
+.cache/

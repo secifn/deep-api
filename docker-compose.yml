@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # HTTP Report Server - serves HTML reports
+  report-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deep-api-report-server
+    restart: unless-stopped
+    ports:
+      - "${REPORT_SERVER_PORT:-8080}:8080"
+    volumes:
+      - ./event_detail:/app/event_detail:rw
+      - ./logs:/app/logs:rw
+    environment:
+      - SERVICE_NAME=report-server
+    env_file:
+      - .env
+    command: ["report-server"]
+    networks:
+      - deep-api-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Daily Report Generator - runs via cron
+  daily-report:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deep-api-daily-report
+    restart: unless-stopped
+    volumes:
+      - ./event_detail:/app/event_detail:rw
+      - ./logs:/app/logs:rw
+    environment:
+      - SERVICE_NAME=daily-report
+      - DAILY_REPORT_CRON=${DAILY_REPORT_CRON:-0 8 * * *}
+    env_file:
+      - .env
+    command: ["daily-report"]
+    networks:
+      - deep-api-network
+    depends_on:
+      - report-server
+
+  # Continuous Monitor - polls Deep Instinct API
+  monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deep-api-monitor
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs:rw
+    environment:
+      - SERVICE_NAME=monitor
+    env_file:
+      - .env
+    command: ["monitor"]
+    networks:
+      - deep-api-network
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "deepinstinct_to_mattermost.py"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  deep-api-network:
+    driver: bridge
+    name: deep-api-network
+
+volumes:
+  event_detail:
+    driver: local
+  logs:
+    driver: local
