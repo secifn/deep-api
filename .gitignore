@@ -39,6 +39,9 @@ env/
 *.swo
 *~
 
+# Generated HTML reports (stored in event_detail/)
+event_detail/
+
 # Logs
 *.log
 logs/

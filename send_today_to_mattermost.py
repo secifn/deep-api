@@ -19,9 +19,110 @@ API_URL = os.getenv('DEEPINSTINCT_URL')
 TOKEN = os.getenv('TOKENS_KEY')
 WEBHOOK_URL = os.getenv('MATTERMOST_WEBHOOK_URL')
 REPORT_SERVER_URL = os.getenv('REPORT_SERVER_URL', 'http://localhost:8080')
+IT_PARCEL_API_URL = os.getenv('IT_PARCEL_API_URL', '').rstrip('/')
+IT_PARCEL_TOKEN = os.getenv('IT_PARCEL_TOKEN', '')
 
 # Bangkok timezone
 TZ_BANGKOK = timezone(timedelta(hours=7))
+
+# โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events แต่ละวัน
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+EVENT_DETAIL_DIR = os.path.join(SCRIPT_DIR, 'event_detail')
+
+
+def get_snipit_responsible_lookup(extra_search_hostnames=None):
+    """
+    ดึงรายการ Hardware จาก Snip IT (IT Parcel) แล้วสร้าง dict ชื่อเครื่อง -> ผู้รับผิดชอบ
+    ใช้จับคู่กับ Deep Instinct event ตาม hostname/ชื่อเครื่อง
+    ถ้า extra_search_hostnames ให้ จะใช้ Search API สำหรับ hostname ที่ยังไม่พบ (รองรับ custom field เช่น Device Name)
+    คืนค่า dict (อาจว่างถ้าไม่มี config หรือ API ล้มเหลว)
+    """
+    if not IT_PARCEL_API_URL or not IT_PARCEL_TOKEN:
+        return {}
+    url = f"{IT_PARCEL_API_URL}/hardware"
+    headers = {"Authorization": f"Bearer {IT_PARCEL_TOKEN}", "Accept": "application/json"}
+    rows = []
+    offset = 0
+    limit = 200
+    try:
+        while True:
+            params = {"limit": limit, "offset": offset}
+            r = requests.get(url, headers=headers, params=params, timeout=15)
+            r.raise_for_status()
+            data = r.json()
+            page = data.get("rows") or data.get("data") or (data if isinstance(data, list) else [])
+            if not page:
+                break
+            rows.extend(page)
+            total = data.get("total") if isinstance(data, dict) else None
+            if total is not None and offset + len(page) >= total:
+                break
+            if len(page) < limit:
+                break
+            offset += limit
+    except Exception:
+        pass
+    def _row_to_info(row):
+        assigned = row.get("assigned_to")
+        if isinstance(assigned, dict):
+            responsible = (
+                assigned.get("name")
+                or assigned.get("username")
+                or assigned.get("display_name")
+                or str(assigned.get("id", ""))
+            )
+        else:
+            responsible = str(assigned) if assigned else "-"
+        cf = row.get("custom_fields") or {}
+        dept = division = "N/A"
+        if isinstance(cf, dict):
+            fd = cf.get("แผนก")
+            if isinstance(fd, dict) and fd.get("value"):
+                dept = fd.get("value")
+            fk = cf.get("กอง")
+            if isinstance(fk, dict) and fk.get("value"):
+                division = fk.get("value")
+        return {"responsible": responsible, "แผนก": dept, "กอง": division}
+
+    lookup = {}
+    for row in rows:
+        name = row.get("name") or row.get("asset_tag") or row.get("hostname") or row.get("device_name") or ""
+        asset_tag = row.get("asset_tag") or ""
+        hostname = row.get("hostname") or ""
+        serial = row.get("serial") or ""
+        info = _row_to_info(row)
+        keys_to_add = [name, asset_tag, hostname, serial]
+        custom_fields = row.get("custom_fields") or {}
+        if isinstance(custom_fields, dict):
+            for field_name, field_data in custom_fields.items():
+                if isinstance(field_data, dict) and field_data.get("value"):
+                    keys_to_add.append(field_data.get("value"))
+                elif isinstance(field_data, (str, int, float)):
+                    keys_to_add.append(field_data)
+        for raw_key in keys_to_add:
+            if raw_key is not None and str(raw_key).strip():
+                key = str(raw_key).strip().lower()
+                lookup[key] = info
+    # สำหรับ hostname ที่ยังไม่พบ: ใช้ Search API
+    if extra_search_hostnames:
+        seen = set()
+        for hostname in extra_search_hostnames:
+            if not hostname or str(hostname).strip() in ("", "n/a"):
+                continue
+            key = str(hostname).strip().lower()
+            if key in seen or lookup.get(key):
+                continue
+            seen.add(key)
+            try:
+                r = requests.get(url, headers=headers, params={"search": hostname.strip(), "limit": 5}, timeout=10)
+                r.raise_for_status()
+                data = r.json()
+                search_rows = data.get("rows") or data.get("data") or []
+                if len(search_rows) == 1:
+                    lookup[key] = _row_to_info(search_rows[0])
+            except Exception:
+                pass
+    return lookup
 
 def convert_to_bangkok_time(iso_timestamp):
     """แปลง ISO timestamp เป็นเวลา Bangkok"""
@@ -110,12 +211,24 @@ def get_severity_icon(severity):
     return severity_map.get(severity, '❓')
 
 def build_event_details_html(malicious_events, suspicious_events, output_file):
-    """สร้างไฟล์ HTML รายละเอียด Events"""
+    """สร้างไฟล์ HTML รายละเอียด Events (จับคู่ Snip IT แสดงผู้รับผิดชอบเครื่อง)"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
     date_str = now_bangkok.strftime('%d/%m/%Y %H:%M:%S')
     
     all_events = malicious_events + suspicious_events
+    # รวบรวม hostname ทั้งหมดจาก events เพื่อใช้ Search API สำหรับเครื่องที่ list ไม่มี (เช่น custom field Device Name)
+    unique_hostnames = []
+    seen_hn = set()
+    for event in all_events:
+        recorded_info = event.get("recorded_device_info") or {}
+        hn = recorded_info.get("hostname")
+        if hn and str(hn).strip() and str(hn).strip().lower() not in seen_hn:
+            seen_hn.add(str(hn).strip().lower())
+            unique_hostnames.append(hn)
+    # ดึง mapping ชื่อเครื่อง -> ผู้รับผิดชอบ จาก Snip IT (list + search สำหรับ hostname ที่มีในรายงาน)
+    snipit_lookup = get_snipit_responsible_lookup(extra_search_hostnames=unique_hostnames)
+    
     all_events_sorted = sorted(
         [e for e in all_events if e.get('_bangkok_time')],
         key=lambda x: x['_bangkok_time'],
@@ -186,6 +299,23 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
         ip_address = recorded_info.get('ip_address', 'N/A')
         msp_name = event.get('msp_name', 'N/A')
         tenant_name = event.get('tenant_name', 'N/A')
+        # จับคู่กับ Snip IT (ผู้รับผิดชอบ, แผนก, กอง)
+        if hostname and str(hostname) != 'N/A':
+            info = snipit_lookup.get(str(hostname).strip().lower())
+            if isinstance(info, dict):
+                responsible = info.get("responsible", "N/A")
+                snipit_dept = info.get("แผนก", "N/A")
+                snipit_division = info.get("กอง", "N/A")
+            else:
+                responsible = info if info else "N/A"
+                snipit_dept = snipit_division = "N/A"
+        else:
+            responsible = snipit_dept = snipit_division = 'N/A'
+        # แสดงข้อความเมื่อไม่พบข้อมูลใน Snip IT (แทน N/A)
+        _na_msg = "ไม่พบข้อมูลใน Snip IT"
+        responsible_display = _na_msg if (not responsible or str(responsible).strip() in ("", "N/A", "-")) else responsible
+        snipit_dept_display = _na_msg if (not snipit_dept or str(snipit_dept).strip() in ("", "N/A", "-")) else snipit_dept
+        snipit_division_display = _na_msg if (not snipit_division or str(snipit_division).strip() in ("", "N/A", "-")) else snipit_division
         
         # Event Indicators
         filename = event.get('path', 'N/A')
@@ -237,6 +367,18 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
                     <div class="detail-row">
                         <div class="detail-label">Tenant:</div>
                         <div class="detail-value">{tenant_name}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">ผู้รับผิดชอบ (Snip IT):</div>
+                        <div class="detail-value">{responsible_display}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">แผนก (Snip IT):</div>
+                        <div class="detail-value">{snipit_dept_display}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">กอง (Snip IT):</div>
+                        <div class="detail-value">{snipit_division_display}</div>
                     </div>
                 </div>
                 
@@ -339,7 +481,8 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     # เพิ่ม link ไปยังรายละเอียด
     if details_url:
-        message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n\n"
+        message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n"
+        message += "_(รายงานรวมผู้รับผิดชอบเครื่องจาก Snip IT ในลิงก์ด้านบน)_\n\n"
     
     message += "🔗 [Deep Instinct Dashboard](https://ro.customers.deepinstinctweb.com)\n"
     
@@ -402,17 +545,20 @@ def main():
     suspicious_filtered = filter_by_date(suspicious, target_date or datetime.now(TZ_BANGKOK).date())
     print(f"   ✅ Found {len(suspicious_filtered)} suspicious events")
     
-    # 3. สร้างไฟล์ HTML รายละเอียด
+    # 3. สร้างไฟล์ HTML รายละเอียด (จับคู่ Snip IT แสดงผู้รับผิดชอบ) เก็บใน event_detail/
     print("\n📄 Creating detailed HTML report...")
+    os.makedirs(EVENT_DETAIL_DIR, exist_ok=True)
     date_filename = (target_date or datetime.now(TZ_BANGKOK).date()).strftime('%Y-%m-%d')
     html_filename = f"event_details_{date_filename}.html"
-    html_path = f"/home/api/DeepInstint/{html_filename}"
+    html_path = os.path.join(EVENT_DETAIL_DIR, html_filename)
     
     build_event_details_html(malicious_filtered, suspicious_filtered, html_path)
-    print(f"   ✅ Created: {html_filename}")
+    print(f"   ✅ Created: event_detail/{html_filename}")
+    if IT_PARCEL_API_URL and IT_PARCEL_TOKEN:
+        print(f"   📌 จับคู่ผู้รับผิดชอบจาก Snip IT (IT Parcel) แล้ว")
     
-    # URL สำหรับเข้าถึงไฟล์ผ่าน web server
-    details_url = f"{REPORT_SERVER_URL}/{html_filename}"
+    # URL สำหรับเข้าถึงไฟล์ผ่าน web server (อยู่ใน event_detail/)
+    details_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{html_filename}"
     print(f"   🔗 Report URL: {details_url}")
     
     # 4. สร้างข้อความ Mattermost

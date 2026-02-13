@@ -18,12 +18,12 @@
 
 ### สคริปต์ที่มี:
 ```
-send_to_mattermost.py        - ส่งรายงานทันที ⭐
+send_today_to_mattermost.py  - ส่งรายงานรายวัน + Snip IT ⭐
+cron_daily_report.sh         - Cron ทุกวัน 07:00
+serve_reports.py             - HTTP server สำหรับ HTML report
+fetch_snipit_devices.py      - ดึง/ค้นหา device จาก Snip IT
 test_connection.py           - ทดสอบการเชื่อมต่อ
-fetch_events_once.py         - ดึง events ครั้งเดียว
-fetch_events_by_time.py      - ดึงตามช่วงเวลา
-fetch_today_simple.py        - ดึงของวันนี้
-deepinstinct_to_mattermost.py - Monitoring (ยังไม่ได้ปรับปรุง)
+deepinstinct_to_mattermost.py - Monitoring ต่อเนื่อง (ยังไม่เปิดใช้)
 ```
 
 ---
@@ -175,7 +175,7 @@ deepinstinct_to_mattermost.py - Monitoring (ยังไม่ได้ปรั
 ### ปัญหาที่ต้องแก้ในโค้ดปัจจุบัน:
 
 1. **Hardcoded Values**
-   - [ ] `start_after_id = 17000` ใน send_to_mattermost.py
+   - [ ] `start_after_id` ใน send_today_to_mattermost.py (ถ้าต้องการ)
    - [ ] Max pages = 10 (ควรเป็น config)
    - [ ] Timeout values
 
