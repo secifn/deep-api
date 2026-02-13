@@ -1,0 +1,19 @@
+# ไม่ copy ไฟล์ความลับเข้า Docker image
+.env1
+.env
+.env*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+.venv
+venv
+
+# Logs และไฟล์ชั่วคราว
+*.log
+*.tmp

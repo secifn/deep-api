@@ -1,8 +1,8 @@
 # 📋 สรุปโครงการ Deep Instinct to Mattermost Integration
 
 **วันที่สร้าง:** 2026-01-29  
-**อัปเดตล่าสุด:** 2026-02-05  
-**สถานะ:** ✅ พร้อมใช้งาน
+**อัปเดตล่าสุด:** 2026-01-29  
+**สถานะ:** ✅ พร้อมใช้งาน (รวมตรวจสอบ .env1 และ Snip IT / IT Parcel)
 
 ---
 
@@ -41,7 +41,7 @@ POLLING_INTERVAL=300
 
 | ไฟล์ | หน้าที่ | สถานะ |
 |------|---------|-------|
-| **`.env1`** | เก็บ config (API Key, URL, Webhook, REPORT_SERVER_URL) | ✅ พร้อมใช้ |
+| **`.env1`** | เก็บ config (API Key, URL, Webhook, REPORT_SERVER_URL, IT Parcel) | ✅ ตรวจสอบแล้ว พร้อมใช้ |
 | **`send_today_to_mattermost.py`** | ⭐ ส่งรายงาน Malicious + Suspicious ไป Mattermost (รองรับระบุวันที่) | ✅ พร้อมใช้ |
 | **`serve_reports.py`** | HTTP server สำหรับ serve ไฟล์ HTML report (port 8080) | ✅ พร้อมใช้ |
 | **`cron_daily_report.sh`** | Wrapper สำหรับ cron: ดึงข้อมูลย้อนหลัง 1 วัน | ✅ พร้อมใช้ |
@@ -205,7 +205,16 @@ REPORT_SERVER_URL=https://allevent.ifn-dtc.online
 
 # Polling Interval (seconds) – ใช้กับ deepinstinct_to_mattermost.py
 POLLING_INTERVAL=300
+
+# Snip IT / IT Parcel API (Asset)
+IT_PARCEL_API_URL=https://asset.trd-dtc.one/api/v1
+IT_PARCEL_TOKEN=eyJ0eXAi... (JWT จาก IT Parcel)
 ```
+
+### ✅ การตรวจสอบ .env1 (2026-01-29)
+- ตัวแปรครบ: DEEPINSTINCT_URL, TOKENS_KEY, MATTERMOST_WEBHOOK_URL, REPORT_SERVER_URL, POLLING_INTERVAL, IT_PARCEL_API_URL, IT_PARCEL_TOKEN
+- **IT_PARCEL_API_URL** ใช้ `https://asset.trd-dtc.one/api/v1` (ไม่ใช้ it-parcel.trd-dtc.one)
+- ไฟล์ไม่ถูก copy เข้า Docker image (ดู `.dockerignore`, `DOCKER_ENV.md`)
 
 ### ⚠️ หมายเหตุสำคัญ:
 1. **`TOKENS_KEY`** = API Connector Key (ไม่ใช่ User Token)
@@ -294,6 +303,7 @@ recent_5 = sorted(
 - [x] Report Server (serve_reports.py) สำหรับ serve HTML
 - [x] รองรับ Pagination และ API response แบบ dict (events/last_id)
 - [x] รวม events ตาม Status และ threat_type ตรงกับ Dashboard
+- [x] **Snip IT / IT Parcel** – config ใน .env1 (IT_PARCEL_API_URL, IT_PARCEL_TOKEN) ตรวจสอบแล้ว
 
 ### ⏳ ยังไม่ได้เปิดใช้งาน:
 - [ ] Monitoring อัตโนมัติทุก 5 นาที (สคริปต์: `deepinstinct_to_mattermost.py`)
@@ -399,6 +409,6 @@ docker run -d deepinstinct-mattermost
 
 ---
 
-**Last Updated:** 2026-02-05  
+**Last Updated:** 2026-01-29  
 **Version:** 2.0.0  
-**Status:** ✅ Production Ready
+**Status:** ✅ Production Ready (รวมตรวจสอบ .env1 และ IT Parcel)

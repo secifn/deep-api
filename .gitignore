@@ -1,6 +1,7 @@
 # Environment files (contain sensitive data)
 .env1
 .env
+.env1.backup
 *.env
 
 # Python

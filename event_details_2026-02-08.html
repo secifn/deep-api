@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียด Events - Deep Instinct</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { opacity: 0.9; }
+        .content { padding: 30px; }
+        .event-card { background: #f9f9f9; border-left: 4px solid #667eea; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        .event-card.malicious { border-left-color: #e74c3c; }
+        .event-card.suspicious { border-left-color: #f39c12; }
+        .event-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e0e0e0; }
+        .event-id { font-size: 20px; font-weight: bold; color: #333; }
+        .event-time { color: #666; font-size: 14px; }
+        .section { margin-bottom: 20px; }
+        .section-title { font-size: 16px; font-weight: bold; color: #667eea; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #e0e0e0; }
+        .detail-row { display: grid; grid-template-columns: 200px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .detail-label { font-weight: 600; color: #555; }
+        .detail-value { color: #333; word-break: break-all; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-right: 5px; }
+        .badge.prevented { background: #e74c3c; color: white; }
+        .badge.detected { background: #3498db; color: white; }
+        .badge.severity-critical { background: #c0392b; color: white; }
+        .badge.severity-very-high { background: #e74c3c; color: white; }
+        .badge.severity-high { background: #e67e22; color: white; }
+        .badge.severity-moderate { background: #f39c12; color: white; }
+        .badge.severity-low { background: #27ae60; color: white; }
+        .badge.severity-very-low { background: #95a5a6; color: white; }
+        .hash { font-family: 'Courier New', monospace; font-size: 12px; background: #ecf0f1; padding: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 รายละเอียด Security Events</h1>
+            <p>สร้างเมื่อ: 09/02/2026 07:00:14 (GMT+7)</p>
+            <p>จำนวนทั้งหมด: 15 events</p>
+        </div>
+        <div class="content">
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14860</div>
+                    <div class="event-time">08/02/2026 19:37:23</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-moderate">MODERATE</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script contains suspicious features.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP2D20XNB682415</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.76.149</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">AmphornSathan</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D20_บก.พน.ราชฤทธิ์รุ่งโรจน์(ปิยนาฏวชิรพัทธ์)(พรร)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\ProgramData\Lenovo\Udc\Download\5f76330c-6a38-4fd7-bd71-f57c21952268\1.3.3.912\temp\install.ps1</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14859</div>
+                    <div class="event-time">08/02/2026 19:37:22</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-moderate">MODERATE</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script contains suspicious features.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP2D20XNB682415</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.76.149</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">AmphornSathan</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D20_บก.พน.ราชฤทธิ์รุ่งโรจน์(ปิยนาฏวชิรพัทธ์)(พรร)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\ProgramData\Lenovo\Udc\Download\33607abd-4e15-48cc-ae44-d6468a284fe7\1.1.0.11\temp\install.ps1</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14858</div>
+                    <div class="event-time">08/02/2026 16:20:56</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-low">LOW</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script detected by Script Control policy.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP6Q01APC660401</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.12.98</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">SueaPa</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">Q01_กองบังคับการ(กบก)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">cscript.exe //nologo "C:\Program Files (x86)\Tanium\Tanium Client\Patch\tools\run-patch-manager.min.vbs" /Operation:scan /ScanConfigID:1 /LogLevel:3 /ExecTimeoutInSeconds:45 /ScanNow:False /IsRetry:False /IsFinalRetry:False</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18097</div>
+                    <div class="event-time">08/02/2026 14:40:47</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">GP2H04BPC681366</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.130.58</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">GrandPalace</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">H04_กองงานในพระองค์907(กสส)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\StoreDesktopExtension.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">09a3e9678196d82bc3ddd4c4f64f9327775e8f753d0beb7e51eb835fa2aab2aa</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18096</div>
+                    <div class="event-time">08/02/2026 14:40:47</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">GP2H04BPC681366</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.130.58</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">GrandPalace</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">H04_กองงานในพระองค์907(กสส)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\store.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">d98f2a707b47e2008e4ebaee96d7092435061d78ff16548096136d60f8f1891b</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14857</div>
+                    <div class="event-time">08/02/2026 13:39:19</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-moderate">MODERATE</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script contains suspicious features.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP6Q01APC660401</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.12.98</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">SueaPa</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">Q01_กองบังคับการ(กบก)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">powershell #@INCLUDE=util/PythonInvoker.ps1
+#@START_INCLUDES_HERE
+#------------ INCLUDES START - Do not edit between this line and INCLUDE ENDS -----
+#- Begin file: util/PythonInvoker.ps1
+$fso = New-Object -ComObject Scripting.FileSystemObject
+$taniumClientDir = $env:TANIUM_CLIENT_ROOT
+$python = $taniumClientDir\TPython\TPython.bat
+
+Function InvokePython$pythonScriptContents {
+    $processInfo = New-Object System.Diagnostics.ProcessStartInfo
+    $processInfo.FileName = $python
+    $processInfo.Arguments = -
+    $processInfo.RedirectStandardInput = $true
+    $processInfo.RedirectStandardOutput = $true
+    $processInfo.RedirectStandardError = $false
+    $processInfo.UseShellExecute = $false
+    $processInfo.EnvironmentVariables.AddTANIUM_SENSOR, 1
+
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo = $processInfo
+    $process.Start | Out-Null
+
+    $process.StandardInput.Write$pythonScriptContents
+    $process.StandardInput.Close
+
+    $pythonOutput = $process.StandardOutput.ReadToEnd
+
+    $process.WaitForExit
+
+    Write-Host $pythonOutput
+}
+#- End file: util/PythonInvoker.ps1
+#------------ INCLUDES END - Do not edit above this line and INCLUDE STARTS -----
+
+$pythonScript = @
+#!/bin/sh
+# -*- coding: utf-8 -*-
+exec env TANIUM_SENSOR=1 ${TANIUM_CLIENT_ROOT}/TPython/TPython $0 $@
+
+from __future__ import unicode_literals
+
+import tanium.client
+import sqlite3, os
+
+dbFile = os.path.jointanium.client.get_client_dir,Tools,SoftwareManagement,data,software-management.db
+showTimeStamps = False
+showStartTime = False
+showSeconds = False
+if os.path.isfiledbFile:
+  try:
+    dbConn = sqlite3.connectdbFile
+    cursor = dbConn.cursor
+    cursor.execute\
+      SELECT software_package_vendor, software_package_name, software_package_version, software_package_platform, operation, was_successful, maxend_time FROM software_package_history \
+      WHERE software_package_id >= SELECT maxsoftware_package_id FROM software_packages - 1000 AND product_install_id = SELECT current_install_id FROM product_install_ids ORDER BY updated_at DESC LIMIT 1 \
+      GROUP BY software_package_id; \
+    
+    software_package_history = cursor.fetchall
+    cursor.close
+    dbConn.close
+    if lensoftware_package_history != 0:
+      for software_package in software_package_history:
+        action_id = cpe:2.3:a:{}:{}:{}:*:*:*:*:{}:*:*__1.formatsoftware_package[0], software_package[1], software_package[2], software_package[3]
+        if software_package[4] in [install, update, installOrUpdate]:
+          action_type = install_upgrade
+        else:
+          action_type = uninstall
+        if software_package[5] == 1:
+          status = success
+        else:
+          status = failed
+        tanium.results.add{}|{}|{}.formataction_id, action_type, status
+    else:
+      tanium.results.addNo software package actions in the last 24 hours.
+  except Exception as e:
+    tanium.results.addError: {}.formate
+else:
+  tanium.results.addError: Database file not found
+
+@
+
+InvokePython $</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14856</div>
+                    <div class="event-time">08/02/2026 13:38:44</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-moderate">MODERATE</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script contains suspicious features.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP6Q01APC660401</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.12.98</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">SueaPa</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">Q01_กองบังคับการ(กบก)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">powershell function Get-WmiInformation {
+    [CmdletBinding]
+    param 
+        [ParameterMandatory = $false]
+        [AliasNS]
+        [string]$WmiNamespace = Root\Cimv2,
+
+        [ParameterMandatory = $true]
+        [AliasC]
+        [string]$WmiClass,
+
+        [ParameterMandatory = $true]
+        [AliasP]
+        [ValidateScript{
+            if $_.Trim -eq * {
+                Throw Do not specify * for SelectProperties! List the properties you need to query.
+            } else {$True}
+        }]
+        [string]$SelectProperties,
+
+        [ParameterMandatory = $false]
+        [AliasF]
+        [string]$Filter,
+
+        [ParameterMandatory = $false]
+        [AliasR]
+        [bool]$Rewindable = $false,
+
+        [ParameterMandatory = $false]
+        [AliasT]
+        [int]$QueryTimeoutSeconds = 3
+    
+
+    $managementScope = New-Object System.Management.ManagementScope$WmiNameSpace
+
+    $options = New-Object System.Management.EnumerationOptions
+    $options.EnumerateDeep = $true
+    $options.ReturnImmediately = $true
+    $options.Rewindable = $Rewindable
+    $options.Timeout = New-TimeSpan -Seconds $QueryTimeoutSeconds
+
+    $filterClause = 
+    if $Filter -and -not $Filter.ToLower.StartsWithwhere {
+        $filterClause =  WHERE $Filter
+    }
+
+    $queryString = SELECT $SelectProperties FROM $WmiClass$filterClause
+    New-Object System.Management.ManagementObjectSearcher $managementScope, $queryString, $options.Get
+}
+
+$Caption = Get-WmiInformation -WmiClass win32_operatingsystem -SelectProperties Caption.Caption
+
+If $Caption -like *server* {
+    N/A on Server OS
+    Exit
+}
+
+if $Caption -like *windows 11* {
+    N/A on Windows 11
+    Exit
+}
+
+if $PSVersionTable.PSVersion -lt [Version]5.1 {
+    Write-Output Undetermined|This script requires PowerShell 5.1 or later
+    Exit
+}
+
+#=============================================================================================================================
+#
+# Description:     Verifies the hardware compliance. Return code 0 for success.
+#                  In case of failure, returns non zero error code along with error message.
+
+# This script is not supported under any Microsoft standard support program or service and is distributed under the MIT license
+
+# Copyright C 2021 Microsoft Corporation
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+# files the Software, to deal in the Software without restriction, including without limitation the rights to use, copy,
+# modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software
+# is furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# WARRANTIES OF MERCHANTABILITY, FITNESS </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14855</div>
+                    <div class="event-time">08/02/2026 10:57:16</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-low">LOW</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script detected by Script Control policy.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP2D23XPC690028</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.71.67</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">AmphornSathan</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D23_บก.พระที่นั่งอภิเศกดุสิต(พอศ)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">"C:\WINDOWS\System32\WScript.exe" "C:\Users\RO\AppData\Local\Temp\GetAdmin.vbs" </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card suspicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 14854</div>
+                    <div class="event-time">08/02/2026 10:29:03</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge detected">DETECTED</span>
+                    <span class="badge severity-low">LOW</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">N/A</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">Script detected by Script Control policy.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AU2B1002_043967</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.75.201</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">Hospital_RO</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D10_กองแพทย์ราชสำนักฯ[อัมพร](กพอ)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">powershell.exe  -ExecutionPolicy bypass -WindowStyle Hidden -NonInteractive -NoProfile -File execute_scan.ps1 -ProfileId 2</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18095</div>
+                    <div class="event-time">08/02/2026 10:13:09</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">TV2D13CPC681975</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.0.109</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">BangkokPerimeter[พื้นที่อื่นในกรุงเทพและปริมณฑล]</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">TV_เขตพระราชฐานในพระองค์ท่าวาสุกรี</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\StoreDesktopExtension.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">09a3e9678196d82bc3ddd4c4f64f9327775e8f753d0beb7e51eb835fa2aab2aa</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18094</div>
+                    <div class="event-time">08/02/2026 10:13:09</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">TV2D13CPC681975</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.0.109</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">BangkokPerimeter[พื้นที่อื่นในกรุงเทพและปริมณฑล]</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">TV_เขตพระราชฐานในพระองค์ท่าวาสุกรี</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\store.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">d98f2a707b47e2008e4ebaee96d7092435061d78ff16548096136d60f8f1891b</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18093</div>
+                    <div class="event-time">08/02/2026 08:51:12</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">SP6Q04CNB670312</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.0.86</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">SueaPa</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">Q04_กองการศึกษา วิจัย และพัฒนา(กศพ)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.7.0_x64__8wekyb3d8bbwe\StoreDesktopExtension.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">1d2eaed3254f288d3257fdd738a0e6c5d65e960108b650f71af26729998dc207</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18092</div>
+                    <div class="event-time">08/02/2026 08:51:12</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">SP6Q04CNB670312</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">192.168.0.86</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">SueaPa</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">Q04_กองการศึกษา วิจัย และพัฒนา(กศพ)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.7.0_x64__8wekyb3d8bbwe\store.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">a60ee9f11256b5586b3922a9963297370d1ada217009c10156107da28c71d069</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18091</div>
+                    <div class="event-time">08/02/2026 08:45:01</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP2D06BPC670719</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.98.39</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">AmphornSathan</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D06_กองรักษาเขตพระราชฐานงานชาวที่และระบบ904(กฐช)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\StoreDesktopExtension.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">09a3e9678196d82bc3ddd4c4f64f9327775e8f753d0beb7e51eb835fa2aab2aa</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card malicious">
+                <div class="event-header">
+                    <div class="event-id">Event ID: 18090</div>
+                    <div class="event-time">08/02/2026 08:45:00</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="badge prevented">PREVENTED</span>
+                    <span class="badge severity-high">HIGH</span>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">📋 ข้อมูลทั่วไป</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Threat Type:</div>
+                        <div class="detail-value">MALWARE_DROPPER</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">PE file identified as malicious, probably Malware - Dropper.</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">💻 Device & User Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Device Name:</div>
+                        <div class="detail-value">AP2D06BPC670719</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">IP Address:</div>
+                        <div class="detail-value">172.17.98.39</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">MSP:</div>
+                        <div class="detail-value">AmphornSathan</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Tenant:</div>
+                        <div class="detail-value">D06_กองรักษาเขตพระราชฐานงานชาวที่และระบบ904(กฐช)</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-title">🔍 Event Indicators</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Filename:</div>
+                        <div class="detail-value">C:\Program Files\WindowsApps\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\store.exe</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">File Hash:</div>
+                        <div class="detail-value"><span class="hash">d98f2a707b47e2008e4ebaee96d7092435061d78ff16548096136d60f8f1891b</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
