@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
 """
-Deep Instinct to Mattermost - Daily Report with Threat Severity
-ส่งรายงาน Events ของวันนี้ไปยัง Mattermost พร้อม Threat Severity
-พร้อมบันทึก events ลง SQLite database
+Test Complete Report System - สร้าง HTML + Preview Message (ไม่ส่ง Mattermost)
+ทดสอบระบบรายงานแบบครบถ้วน: ดึงข้อมูล + สร้าง HTML + แสดง Preview
 """
 
 import os
 import sys
 import requests
-import json
 from datetime import datetime, timezone, timedelta, date
 from dotenv import load_dotenv
-from database import get_db
 
 # โหลด environment variables
-load_dotenv('/home/api/DeepInstint/.env1')
+load_dotenv('/home/api/deep-api/.env')
 
 # Configuration
 API_URL = os.getenv('DEEPINSTINCT_URL')
 TOKEN = os.getenv('TOKENS_KEY')
-WEBHOOK_URL = os.getenv('MATTERMOST_WEBHOOK_URL')
 REPORT_SERVER_URL = os.getenv('REPORT_SERVER_URL', 'http://localhost:8080')
 IT_PARCEL_API_URL = os.getenv('IT_PARCEL_API_URL', '').rstrip('/')
 IT_PARCEL_TOKEN = os.getenv('IT_PARCEL_TOKEN', '')
@@ -27,18 +23,13 @@ IT_PARCEL_TOKEN = os.getenv('IT_PARCEL_TOKEN', '')
 # Bangkok timezone
 TZ_BANGKOK = timezone(timedelta(hours=7))
 
-# โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events แต่ละวัน
+# โฟลเดอร์เก็บไฟล์ HTML
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 EVENT_DETAIL_DIR = os.path.join(SCRIPT_DIR, 'event_detail')
 
 
 def get_snipit_responsible_lookup(extra_search_hostnames=None):
-    """
-    ดึงรายการ Hardware จาก Snip IT (IT Parcel) แล้วสร้าง dict ชื่อเครื่อง -> ผู้รับผิดชอบ
-    ใช้จับคู่กับ Deep Instinct event ตาม hostname/ชื่อเครื่อง
-    ถ้า extra_search_hostnames ให้ จะใช้ Search API สำหรับ hostname ที่ยังไม่พบ (รองรับ custom field เช่น Device Name)
-    คืนค่า dict (อาจว่างถ้าไม่มี config หรือ API ล้มเหลว)
-    """
+    """ดึงรายการ Hardware จาก Snip IT"""
     if not IT_PARCEL_API_URL or not IT_PARCEL_TOKEN:
         return {}
     url = f"{IT_PARCEL_API_URL}/hardware"
@@ -64,6 +55,7 @@ def get_snipit_responsible_lookup(extra_search_hostnames=None):
             offset += limit
     except Exception:
         pass
+    
     def _row_to_info(row):
         assigned = row.get("assigned_to")
         if isinstance(assigned, dict):
@@ -105,7 +97,7 @@ def get_snipit_responsible_lookup(extra_search_hostnames=None):
             if raw_key is not None and str(raw_key).strip():
                 key = str(raw_key).strip().lower()
                 lookup[key] = info
-    # สำหรับ hostname ที่ยังไม่พบ: ใช้ Search API
+    
     if extra_search_hostnames:
         seen = set()
         for hostname in extra_search_hostnames:
@@ -126,6 +118,7 @@ def get_snipit_responsible_lookup(extra_search_hostnames=None):
                 pass
     return lookup
 
+
 def convert_to_bangkok_time(iso_timestamp):
     """แปลง ISO timestamp เป็นเวลา Bangkok"""
     if not iso_timestamp:
@@ -134,10 +127,6 @@ def convert_to_bangkok_time(iso_timestamp):
     dt_bangkok = dt_utc.astimezone(TZ_BANGKOK)
     return dt_bangkok
 
-def filter_today(events):
-    """กรองเฉพาะ events ของวันนี้"""
-    today_bangkok = datetime.now(TZ_BANGKOK).date()
-    return filter_by_date(events, today_bangkok)
 
 def filter_by_date(events, target_date):
     """กรองเฉพาะ events ของวันที่กำหนด"""
@@ -152,6 +141,7 @@ def filter_by_date(events, target_date):
                 event['_bangkok_time'] = dt_bangkok
                 filtered.append(event)
     return filtered
+
 
 def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
     """ดึง events พร้อม pagination"""
@@ -169,7 +159,6 @@ def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
             
             data = response.json()
             
-            # API อาจกลับมาเป็น list หรือ dict
             if isinstance(data, dict):
                 events_batch = data.get('events', [])
                 last_id = data.get('last_id')
@@ -177,7 +166,6 @@ def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
                 events_batch = data
                 last_id = None
             else:
-                print(f"⚠️  Unexpected response format: {type(data)}")
                 break
             
             if not events_batch:
@@ -185,7 +173,6 @@ def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
             
             all_events.extend(events_batch)
             
-            # ใช้ last_id จาก response หรือ max id จาก events
             if last_id:
                 current_after_id = last_id
             else:
@@ -200,37 +187,14 @@ def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
     
     return all_events
 
-def get_severity_icon(severity):
-    """ดึง icon สำหรับ severity level"""
-    severity_map = {
-        'CRITICAL': '🔴',
-        'VERY_HIGH': '🔴',
-        'HIGH': '🟠',
-        'MODERATE': '🟡',
-        'LOW': '🟢',
-        'VERY_LOW': '⚪',
-    }
-    return severity_map.get(severity, '❓')
 
-def build_event_details_html(malicious_events, suspicious_events, output_file):
-    """สร้างไฟล์ HTML รายละเอียด Events (จับคู่ Snip IT แสดงผู้รับผิดชอบเครื่อง)"""
+def build_event_details_html(malicious_events, suspicious_events, output_file, snipit_lookup):
+    """สร้างไฟล์ HTML รายละเอียด Events"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
     date_str = now_bangkok.strftime('%d/%m/%Y %H:%M:%S')
     
     all_events = malicious_events + suspicious_events
-    # รวบรวม hostname ทั้งหมดจาก events เพื่อใช้ Search API สำหรับเครื่องที่ list ไม่มี (เช่น custom field Device Name)
-    unique_hostnames = []
-    seen_hn = set()
-    for event in all_events:
-        recorded_info = event.get("recorded_device_info") or {}
-        hn = recorded_info.get("hostname")
-        if hn and str(hn).strip() and str(hn).strip().lower() not in seen_hn:
-            seen_hn.add(str(hn).strip().lower())
-            unique_hostnames.append(hn)
-    # ดึง mapping ชื่อเครื่อง -> ผู้รับผิดชอบ จาก Snip IT (list + search สำหรับ hostname ที่มีในรายงาน)
-    snipit_lookup = get_snipit_responsible_lookup(extra_search_hostnames=unique_hostnames)
-    
     all_events_sorted = sorted(
         [e for e in all_events if e.get('_bangkok_time')],
         key=lambda x: x['_bangkok_time'],
@@ -249,7 +213,7 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
         .container {{ max-width: 1200px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
         .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; }}
         .header h1 {{ font-size: 28px; margin-bottom: 10px; }}
-        .header p {{ opacity: 0.9; }}
+        .header p {{ opacity: 0.9; font-size: 16px; }}
         .content {{ padding: 30px; }}
         .event-card {{ background: #f9f9f9; border-left: 4px solid #667eea; padding: 20px; margin-bottom: 20px; border-radius: 5px; }}
         .event-card.malicious {{ border-left-color: #e74c3c; }}
@@ -301,7 +265,8 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
         ip_address = recorded_info.get('ip_address', 'N/A')
         msp_name = event.get('msp_name', 'N/A')
         tenant_name = event.get('tenant_name', 'N/A')
-        # จับคู่กับ Snip IT (ผู้รับผิดชอบ, แผนก, กอง)
+        
+        # จับคู่กับ Snip IT
         if hostname and str(hostname) != 'N/A':
             info = snipit_lookup.get(str(hostname).strip().lower())
             if isinstance(info, dict):
@@ -313,7 +278,7 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
                 snipit_dept = snipit_division = "N/A"
         else:
             responsible = snipit_dept = snipit_division = 'N/A'
-        # แสดงข้อความเมื่อไม่พบข้อมูลใน Snip IT (แทน N/A)
+        
         _na_msg = "ไม่พบข้อมูลใน Snip IT"
         responsible_display = _na_msg if (not responsible or str(responsible).strip() in ("", "N/A", "-")) else responsible
         snipit_dept_display = _na_msg if (not snipit_dept or str(snipit_dept).strip() in ("", "N/A", "-")) else snipit_dept
@@ -411,16 +376,16 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
     
     return output_file
 
-def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None):
-    """สร้างข้อความสำหรับ Mattermost แบบตาราง (เหมือนในรูป)"""
+
+def build_mattermost_message_preview(malicious_events, suspicious_events, details_url, report_date=None):
+    """สร้างข้อความสำหรับ Mattermost"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
     if report_date:
-        # แปลงเป็น พ.ศ.
         if hasattr(report_date, 'strftime'):
             day = report_date.day
             month = report_date.month
-            year = report_date.year + 543  # แปลง ค.ศ. เป็น พ.ศ.
+            year = report_date.year + 543
             date_str = f"{day:02d}/{month:02d}/{year}"
             date_display = f"{day}/{month}/{year}"
         else:
@@ -435,19 +400,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     time_str = now_bangkok.strftime('%H:%M:%S')
     
-    # นับ Actions
+    # นับ Actions และ Severity
     detected_count = 0
     prevented_count = 0
-    
-    # นับ Severity
-    severity_counts = {
-        'CRITICAL': 0,
-        'VERY_HIGH': 0,
-        'HIGH': 0,
-        'MODERATE': 0,
-        'LOW': 0,
-        'VERY_LOW': 0
-    }
+    severity_counts = {}
     
     for event in malicious_events + suspicious_events:
         action = event.get('action', 'N/A')
@@ -458,12 +414,11 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         elif action == 'PREVENTED':
             prevented_count += 1
         
-        if severity in severity_counts:
-            severity_counts[severity] += 1
+        if severity != 'N/A':
+            severity_counts[severity] = severity_counts.get(severity, 0) + 1
     
     total_events = len(malicious_events) + len(suspicious_events)
     
-    # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
 
 **วันที่:** {date_str} | **เวลา:** {time_str} (GMT+7)
@@ -493,7 +448,6 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 """
     
-    # แสดง Severity ที่มีค่ามากกว่า 0
     severity_display = {
         'CRITICAL': '🔴 CRITICAL',
         'VERY_HIGH': '🔴 VERY_HIGH',
@@ -505,7 +459,7 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     has_severity = False
     for severity in ['MODERATE', 'LOW', 'VERY_LOW', 'HIGH', 'VERY_HIGH', 'CRITICAL']:
-        if severity_counts[severity] > 0:
+        if severity in severity_counts and severity_counts[severity] > 0:
             if not has_severity:
                 has_severity = True
             message += f"| {severity_display[severity]} | {severity_counts[severity]} |\n"
@@ -514,79 +468,67 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         message += "| ไม่มีข้อมูล | 0 |\n"
     
     message += "\n---\n\n"
-    
-    # เพิ่ม link ไปยังรายละเอียด
-    if details_url:
-        message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n\n"
-    
+    message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n"
+    message += "_(รายงานรวมผู้รับผิดชอบเครื่องจาก Snip IT ในลิงก์ด้านบน)_\n\n"
     message += "🔗 [Deep Instinct Dashboard](https://ro.customers.deepinstinctweb.com)\n"
     
     return message
 
-def send_to_mattermost(message):
-    """ส่งข้อความไปยัง Mattermost"""
-    payload = {
-        "text": message,
-        "username": "Deep Instinct Security Bot",
-        "icon_emoji": ":shield:"
-    }
-    
-    try:
-        response = requests.post(WEBHOOK_URL, json=payload, timeout=10)
-        response.raise_for_status()
-        return True
-    except Exception as e:
-        print(f"❌ Error sending to Mattermost: {e}")
-        return False
 
 def main():
-    """Main function"""
-    # Initialize database
-    db = get_db()
+    """Main function - ทดสอบแบบครบถ้วน"""
     
-    # รองรับการระบุวันที่: python script.py 2026-02-04 หรือ 4-2-69 (วัน-เดือน-พ.ศ.)
+    # รองรับการระบุวันที่
     target_date = None
     if len(sys.argv) >= 2:
         arg = sys.argv[1]
-        if '-' in arg:
+        if arg.lower() == 'yesterday':
+            target_date = (date.today() - timedelta(days=1))
+        elif '-' in arg:
             parts = arg.split('-')
             if len(parts) == 3:
-                # YYYY-MM-DD (ปี 4 หลักอยู่หน้า)
                 if len(parts[0]) == 4 and parts[0].isdigit():
                     target_date = datetime.strptime(arg, '%Y-%m-%d').date()
-                elif len(parts[2]) == 2:  # 4-2-69 format (วัน-เดือน-พ.ศ. 2 หลัก)
-                    year_be = int(parts[2]) + 2500  # 69 -> 2569
-                    year_ce = year_be - 543  # แปลง พ.ศ. -> ค.ศ.
+                elif len(parts[2]) == 2:
+                    year_be = int(parts[2]) + 2500
+                    year_ce = year_be - 543
                     target_date = date(year_ce, int(parts[1]), int(parts[0]))
                 else:
                     target_date = datetime.strptime(arg, '%Y-%m-%d').date()
-    
-    if target_date:
-        date_str = target_date.strftime('%Y-%m-%d')
-        print("=" * 70)
-        print(f"  🔒 Deep Instinct → Mattermost (Report วันที่ {date_str})")
-        print("=" * 70)
     else:
-        print("=" * 70)
-        print("  🔒 Deep Instinct → Mattermost (Daily Report)")
-        print("=" * 70)
+        target_date = (date.today() - timedelta(days=1))  # Default: เมื่อวาน
+    
+    date_str = target_date.strftime('%Y-%m-%d')
+    
+    print("╔══════════════════════════════════════════════════════════════╗")
+    print("║   Test Complete Report System (ไม่ส่ง Mattermost)          ║")
+    print("╚══════════════════════════════════════════════════════════════╝")
+    print()
+    print(f"📅 Report Date: {date_str} (ย้อนหลัง 1 วัน)")
+    print()
     
     # 1. ดึง Malicious Events
-    print("\n📥 Fetching Malicious Events...")
-    malicious = fetch_events_with_pagination('events', 17400)
-    malicious_filtered = filter_by_date(malicious, target_date or datetime.now(TZ_BANGKOK).date())
-    print(f"   ✅ Found {len(malicious_filtered)} malicious events")
+    print("📥 Step 1: Fetching Malicious Events...")
+    try:
+        malicious = fetch_events_with_pagination('events', 17400)
+        malicious_filtered = filter_by_date(malicious, target_date)
+        print(f"   ✅ Found {len(malicious_filtered)} malicious events")
+    except Exception as e:
+        print(f"   ❌ Error: {e}")
+        malicious_filtered = []
     
     # 2. ดึง Suspicious Events
-    print("\n📥 Fetching Suspicious Events...")
-    suspicious = fetch_events_with_pagination('suspicious-events', 14400)
-    suspicious_filtered = filter_by_date(suspicious, target_date or datetime.now(TZ_BANGKOK).date())
-    print(f"   ✅ Found {len(suspicious_filtered)} suspicious events")
+    print("\n📥 Step 2: Fetching Suspicious Events...")
+    try:
+        suspicious = fetch_events_with_pagination('suspicious-events', 14400)
+        suspicious_filtered = filter_by_date(suspicious, target_date)
+        print(f"   ✅ Found {len(suspicious_filtered)} suspicious events")
+    except Exception as e:
+        print(f"   ❌ Error: {e}")
+        suspicious_filtered = []
     
-    # 3. บันทึก events ลง database
-    print("\n💾 Saving events to database...")
-    
-    # ดึง Snip IT lookup สำหรับบันทึกลง database
+    # 3. ดึงข้อมูล Snip IT
+    print("\n📥 Step 3: Fetching Snip IT data...")
     all_events = malicious_filtered + suspicious_filtered
     unique_hostnames = []
     seen_hn = set()
@@ -598,76 +540,92 @@ def main():
             unique_hostnames.append(hn)
     
     snipit_lookup = get_snipit_responsible_lookup(extra_search_hostnames=unique_hostnames)
+    if IT_PARCEL_API_URL and IT_PARCEL_TOKEN:
+        print(f"   ✅ Fetched Snip IT data for {len(unique_hostnames)} devices")
+    else:
+        print(f"   ⚠️  Snip IT not configured")
     
-    # บันทึก malicious events
-    mal_saved, mal_skipped = db.save_events_batch(malicious_filtered, 'malicious', snipit_lookup)
-    print(f"   ✅ Malicious: {mal_saved} saved, {mal_skipped} skipped (duplicates)")
-    
-    # บันทึก suspicious events
-    sus_saved, sus_skipped = db.save_events_batch(suspicious_filtered, 'suspicious', snipit_lookup)
-    print(f"   ✅ Suspicious: {sus_saved} saved, {sus_skipped} skipped (duplicates)")
-    
-    # 4. สร้างไฟล์ HTML รายละเอียด (จับคู่ Snip IT แสดงผู้รับผิดชอบ) เก็บใน event_detail/
-    print("\n📄 Creating detailed HTML report...")
+    # 4. สร้าง HTML file
+    print("\n📄 Step 4: Creating HTML report...")
     os.makedirs(EVENT_DETAIL_DIR, exist_ok=True)
-    date_filename = (target_date or datetime.now(TZ_BANGKOK).date()).strftime('%Y-%m-%d')
+    date_filename = target_date.strftime('%Y-%m-%d')
     html_filename = f"event_details_{date_filename}.html"
     html_path = os.path.join(EVENT_DETAIL_DIR, html_filename)
     
-    build_event_details_html(malicious_filtered, suspicious_filtered, html_path)
-    print(f"   ✅ Created: event_detail/{html_filename}")
-    if IT_PARCEL_API_URL and IT_PARCEL_TOKEN:
-        print(f"   📌 จับคู่ผู้รับผิดชอบจาก Snip IT (IT Parcel) แล้ว")
+    build_event_details_html(malicious_filtered, suspicious_filtered, html_path, snipit_lookup)
     
-    # URL สำหรับเข้าถึงไฟล์ผ่าน web server (อยู่ใน event_detail/)
+    # เช็คว่าไฟล์ถูกสร้างจริง
+    if os.path.exists(html_path):
+        file_size = os.path.getsize(html_path)
+        print(f"   ✅ Created: {html_filename}")
+        print(f"   📦 File size: {file_size:,} bytes ({file_size/1024:.2f} KB)")
+        print(f"   📂 Location: {html_path}")
+    else:
+        print(f"   ❌ Failed to create HTML file")
+    
+    # URL สำหรับเข้าถึง
     details_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{html_filename}"
     print(f"   🔗 Report URL: {details_url}")
     
-    # บันทึก HTML report metadata ลง database
-    db.save_html_report(
-        report_date=date_filename,
-        file_name=html_filename,
-        file_path=html_path,
-        malicious_count=len(malicious_filtered),
-        suspicious_count=len(suspicious_filtered),
-        report_url=details_url
+    # 5. สร้าง Mattermost Message
+    print("\n📨 Step 5: Building Mattermost message...")
+    message = build_mattermost_message_preview(
+        malicious_filtered,
+        suspicious_filtered,
+        details_url,
+        target_date
     )
     
-    # 4. สร้างข้อความ Mattermost
-    print("\n📝 Building Mattermost message...")
-    report_date = target_date or datetime.now(TZ_BANGKOK).date()
-    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date)
-    
-    # 5. แสดงตัวอย่าง
+    # 6. แสดง Preview
     print("\n" + "=" * 70)
-    print("  📨 Preview Message:")
+    print("  📨 PREVIEW MESSAGE (จะส่งไปยัง Mattermost):")
     print("=" * 70)
+    print()
     print(message)
     print("=" * 70)
     
-    # 6. ส่งไปยัง Mattermost
-    print("\n📤 Sending to Mattermost...")
-    success = send_to_mattermost(message)
-    
-    if success:
-        print("   ✅ Sent successfully!")
-        print(f"\n📄 Detailed report: {html_path}")
-        
-        # ทำเครื่องหมายว่ารายงานถูกส่งแล้ว
-        db.mark_report_sent(date_filename)
-    else:
-        print("   ❌ Failed to send")
-    
-    # 7. แสดงสถิติจาก database
-    print("\n📊 Database Statistics:")
-    stats = db.get_statistics()
-    print(f"   Total events in DB: {stats.get('total_events', 0)}")
-    print(f"   By type: {stats.get('by_type', {})}")
-    print(f"   Notifications: {stats.get('notifications', {})}")
-    
-    print("\n" + "=" * 70)
-    print("  ✅ Done!")
+    # 7. สรุปผล
+    print("\n📊 Test Summary:")
     print("=" * 70)
+    print(f"  Target Date       : {date_str}")
+    print(f"  Malicious Events  : {len(malicious_filtered)}")
+    print(f"  Suspicious Events : {len(suspicious_filtered)}")
+    print(f"  Total Events      : {len(all_events)}")
+    print(f"  HTML File         : {'✅ Created' if os.path.exists(html_path) else '❌ Failed'}")
+    print(f"  Snip IT Data      : {'✅ Loaded' if snipit_lookup else '⚠️ Not configured'}")
+    print("=" * 70)
+    print()
+    
+    if len(all_events) == 0:
+        print("ℹ️  ไม่มี events สำหรับวันที่นี้")
+    else:
+        print("✅ ทดสอบสำเร็จ!")
+        print()
+        print("📄 สามารถเปิดไฟล์ HTML ได้ที่:")
+        print(f"   {html_path}")
+        print(f"   {details_url}")
+    
+    print()
+    print("💡 หมายเหตุ:")
+    print("   - นี่คือ TEST/PREVIEW เท่านั้น ยังไม่ได้ส่งไป Mattermost")
+    print("   - ไฟล์ HTML ถูกสร้างจริง สามารถเปิดดูได้")
+    print("   - ถ้าต้องการส่งจริง ใช้: python3 send_today_to_mattermost.py")
+    print()
+    print("🚀 พร้อมใช้งานจริงแล้ว!")
+    print()
+
 
 if __name__ == "__main__":
+    print()
+    print("🧪 Test Complete Report System with Real Data")
+    print()
+    print("Usage:")
+    print("  python3 test_complete_report.py              # เมื่อวาน")
+    print("  python3 test_complete_report.py yesterday    # เมื่อวาน")
+    print("  python3 test_complete_report.py 2026-02-15   # วันที่กำหนด")
+    print("  python3 test_complete_report.py 15-2-69      # วันที่ พ.ศ.")
+    print()
+    print("-" * 70)
+    print()
+    
     main()

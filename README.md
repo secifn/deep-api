@@ -20,6 +20,8 @@
 - ✅ **Docker Support** - Deploy ง่ายด้วย Docker Compose
 - ✅ **Timezone Support** - รองรับ Bangkok timezone (GMT+7)
 - ✅ **Pagination Support** - ดึงข้อมูลจำนวนมากได้
+- ✅ **SQLite Database** - เก็บ event history และป้องกันส่งซ้ำ ⭐ NEW
+- ✅ **Query & Analytics** - ค้นหาและวิเคราะห์ events ⭐ NEW
 
 ## 🚀 Quick Start
 
@@ -68,6 +70,7 @@ crontab -e
 - 🏗️ **Production Deployment**: [DEPLOYMENT.md](DEPLOYMENT.md)
 - 🔧 **Integration Guide**: [README_INTEGRATION.md](README_INTEGRATION.md)
 - 📊 **Report System**: [README_REPORTS.md](README_REPORTS.md)
+- 🗄️ **Database Guide**: [README_DATABASE.md](README_DATABASE.md) ⭐ NEW
 - 🗺️ **Roadmap**: [ROADMAP.md](ROADMAP.md)
 
 ## 🏗️ Architecture
@@ -214,11 +217,17 @@ deep-api/
 ├── deepinstinct_to_mattermost.py    # Real-time monitor
 ├── serve_reports.py                  # HTTP server
 ├── test_connection.py                # Connection tester
+├── database.py                       # Database manager ⭐ NEW
+├── query_events.py                   # Query events tool ⭐ NEW
+├── db_maintenance.py                 # Database maintenance ⭐ NEW
 ├── docker-compose.yml                # Docker orchestration
 ├── Dockerfile                        # Container image
 ├── Makefile                          # Quick commands
 ├── requirements.txt                  # Python dependencies
-└── event_detail/                     # Generated reports
+├── data/
+│   └── events.db                    # SQLite database ⭐ NEW
+├── event_detail/                     # Generated reports
+└── backups/                          # Database backups ⭐ NEW
 ```
 
 ## 🐛 Troubleshooting

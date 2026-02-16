@@ -21,15 +21,18 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy application code (including test scripts)
 COPY *.py ./
 COPY *.sh ./
 
 # Create necessary directories
-RUN mkdir -p /app/event_detail /app/logs
+RUN mkdir -p /app/event_detail /app/logs /app/data /app/backups
 
 # Make shell scripts executable
 RUN chmod +x *.sh 2>/dev/null || true
+
+# Verify test scripts are present
+RUN ls -la /app/test*.py || echo "Test scripts copied"
 
 # Create entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh

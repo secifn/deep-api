@@ -20,6 +20,8 @@ services:
       # Read-only volumes for security
       - ./event_detail:/app/event_detail:rw
       - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
+      - ./backups:/app/backups:rw
     environment:
       - SERVICE_NAME=report-server
     env_file:
@@ -57,6 +59,8 @@ services:
     volumes:
       - ./event_detail:/app/event_detail:rw
       - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
+      - ./backups:/app/backups:rw
     environment:
       - SERVICE_NAME=daily-report
       - DAILY_REPORT_CRON=${DAILY_REPORT_CRON:-0 8 * * *}
@@ -75,38 +79,40 @@ services:
     security_opt:
       - no-new-privileges:true
 
-  # Continuous Monitor with production settings
-  monitor:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - BUILD_DATE=${BUILD_DATE:-now}
-        - VCS_REF=${VCS_REF:-dev}
-    container_name: deep-api-monitor
-    restart: always
-    volumes:
-      - ./logs:/app/logs:rw
-    environment:
-      - SERVICE_NAME=monitor
-    env_file:
-      - .env
-    command: ["monitor"]
-    networks:
-      - deep-api-network
-    healthcheck:
-      test: ["CMD", "pgrep", "-f", "deepinstinct_to_mattermost.py"]
-      interval: 60s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    security_opt:
-      - no-new-privileges:true
+  # Continuous Monitor - DISABLED (ใช้ cron scheduler อย่างเดียว)
+  # monitor:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - BUILD_DATE=${BUILD_DATE:-now}
+  #       - VCS_REF=${VCS_REF:-dev}
+  #   container_name: deep-api-monitor
+  #   restart: always
+  #   volumes:
+  #     - ./logs:/app/logs:rw
+  #     - ./data:/app/data:rw
+  #     - ./backups:/app/backups:rw
+  #   environment:
+  #     - SERVICE_NAME=monitor
+  #   env_file:
+  #     - .env
+  #   command: ["monitor"]
+  #   networks:
+  #     - deep-api-network
+  #   healthcheck:
+  #     test: ["CMD", "pgrep", "-f", "deepinstinct_to_mattermost.py"]
+  #     interval: 60s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 30s
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "10m"
+  #       max-file: "3"
+  #   security_opt:
+  #     - no-new-privileges:true
 
   # Optional: Nginx reverse proxy for production
   nginx:
@@ -144,4 +150,8 @@ volumes:
   event_detail:
     driver: local
   logs:
+    driver: local
+  data:
+    driver: local
+  backups:
     driver: local

@@ -1,8 +1,8 @@
 # 📋 สรุปโครงการ Deep Instinct to Mattermost Integration
 
 **วันที่สร้าง:** 2026-01-29  
-**อัปเดตล่าสุด:** 2026-02-12  
-**สถานะ:** ✅ พร้อมใช้งาน (รวม Deep Instinct + Snip IT จับคู่ผู้รับผิดชอบ/แผนก/กอง)
+**อัปเดตล่าสุด:** 2026-02-13  
+**สถานะ:** ✅ **Production Ready** (รวม SQLite Database + Docker Production Deployment)
 
 ---
 
@@ -15,6 +15,24 @@
 - Link ไปยังรายละเอียด Events (Cloudflare Tunnel)
 - **Cron ทุกวัน 07:00** ดึงข้อมูลย้อนหลัง 1 วัน
 - ข้อมูลตรงกับ **Dashboard**
+
+---
+
+## 🎯 Features Overview
+
+### ⭐ **NEW - Database Integration (2026-02-13)**
+- ✅ **SQLite Database** - เก็บ event history และ HTML report metadata
+- ✅ **Duplicate Prevention** - ป้องกันส่ง notification ซ้ำ
+- ✅ **Query & Analytics** - ค้นหาและวิเคราะห์ events
+- ✅ **Database Maintenance** - Backup, vacuum, cleanup tools
+- ✅ **Notification Tracking** - ติดตามประวัติการส่งทั้งหมด
+
+### ⭐ **NEW - Docker Production Deployment (2026-02-13)**
+- ✅ **Production Config** - docker-compose.prod.yml พร้อม security hardening
+- ✅ **Auto-restart** - restart: always สำหรับทุก services
+- ✅ **Log Rotation** - จำกัดขนาด logs (10MB, 3 files)
+- ✅ **Health Checks** - ตรวจสอบสุขภาพ containers
+- ✅ **Volume Persistence** - เก็บข้อมูล database, logs, reports
 
 ---
 
@@ -41,22 +59,32 @@ POLLING_INTERVAL=300
 
 | ไฟล์ | หน้าที่ | สถานะ |
 |------|---------|-------|
-| **`.env1`** | เก็บ config (API Key, URL, Webhook, REPORT_SERVER_URL, IT Parcel) | ✅ ตรวจสอบแล้ว พร้อมใช้ |
-| **`send_today_to_mattermost.py`** | ⭐ ส่งรายงาน Malicious + Suspicious ไป Mattermost (รองรับระบุวันที่) | ✅ พร้อมใช้ |
+| **`.env`** | เก็บ config (API Key, URL, Webhook, REPORT_SERVER_URL, IT Parcel) | ✅ ตรวจสอบแล้ว พร้อมใช้ |
+| **`send_today_to_mattermost.py`** | ⭐ ส่งรายงาน Malicious + Suspicious + บันทึก Database | ✅ พร้อมใช้ |
+| **`deepinstinct_to_mattermost.py`** | ⭐ Monitoring ต่อเนื่อง + ป้องกันส่งซ้ำ | ✅ รันอยู่ใน Docker |
 | **`serve_reports.py`** | HTTP server สำหรับ serve ไฟล์ HTML report (port 8080) | ✅ พร้อมใช้ |
-| **`cron_daily_report.sh`** | Wrapper สำหรับ cron: ดึงข้อมูลย้อนหลัง 1 วัน | ✅ พร้อมใช้ |
-| **`cron_daily_report.cron`** | ตัวอย่าง crontab (ทุกวัน 07:00) | ✅ พร้อมใช้ |
-| **`event_detail/`** | โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events แต่ละวัน | ✅ สร้างอัตโนมัติ |
-| **`event_detail/event_details_YYYY-MM-DD.html`** | รายงาน HTML รายละเอียด (Device, IP, MSP, Tenant, Snip IT) | ✅ สร้างอัตโนมัติ |
+| **`database.py`** | ⭐ Database Manager (SQLite) | ✅ พร้อมใช้ |
+| **`query_events.py`** | ⭐ Query และค้นหา events จาก database | ✅ พร้อมใช้ |
+| **`db_maintenance.py`** | ⭐ Database maintenance (backup, vacuum, cleanup) | ✅ พร้อมใช้ |
 | **`test_connection.py`** | ทดสอบการเชื่อมต่อ API และ Webhook | ✅ พร้อมใช้ |
 | **`fetch_snipit_devices.py`** | ดึงรายการ Device + ผู้รับผิดชอบจาก Snip IT (ค้นหา -n, -r) | ✅ พร้อมใช้ |
-| **`deepinstinct_to_mattermost.py`** | Monitoring ต่อเนื่อง | ⏸️ ยังไม่เปิดใช้ |
-| **`install_service.sh`** | ติดตั้ง systemd service (สำหรับ deepinstinct_to_mattermost) | ⏸️ เมื่อเปิดใช้ |
-| **`start_report_server.sh`** | เริ่ม serve_reports.py | ✅ พร้อมใช้ |
-| **`requirements.txt`** | Python dependencies | ✅ พร้อมใช้ |
+| **`cron_daily_report.sh`** | Wrapper สำหรับ cron: ดึงข้อมูลย้อนหลัง 1 วัน | ✅ พร้อมใช้ |
+| **`docker-compose.yml`** | Docker orchestration (development) | ✅ พร้อมใช้ |
+| **`docker-compose.prod.yml`** | ⭐ Docker production config | ✅ รันอยู่ |
+| **`Dockerfile`** | Container image definition | ✅ พร้อมใช้ |
+| **`docker-entrypoint.sh`** | Docker entrypoint script | ✅ พร้อมใช้ |
+| **`Makefile`** | Quick commands | ✅ พร้อมใช้ |
+| **`requirements.txt`** | Python dependencies (requests, python-dotenv, tabulate) | ✅ พร้อมใช้ |
+| **`README.md`** | Overview และ quick start | ✅ อัพเดทแล้ว |
+| **`README_DATABASE.md`** | ⭐ คู่มือการใช้งาน Database | ✅ พร้อมใช้ |
 | **`README_INTEGRATION.md`** | คู่มือการใช้งานฉบับเต็ม | ✅ พร้อมใช้ |
 | **`README_REPORTS.md`** | คู่มือ Report + Cloudflare Tunnel | ✅ พร้อมใช้ |
-| **`SUMMARY.md`** | สรุปโครงการ (ไฟล์นี้) | ✅ พร้อมใช้ |
+| **`DOCKER_RUN_SUMMARY.md`** | ⭐ สรุปการ deploy Docker production | ✅ พร้อมใช้ |
+| **`SUMMARY.md`** | สรุปโครงการ (ไฟล์นี้) | ✅ อัพเดทแล้ว |
+| **`event_detail/`** | โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events | ✅ สร้างอัตโนมัติ |
+| **`data/`** | ⭐ โฟลเดอร์เก็บ SQLite database | ✅ สร้างอัตโนมัติ |
+| **`backups/`** | ⭐ โฟลเดอร์เก็บ database backups | ✅ สร้างอัตโนมัติ |
+| **`logs/`** | โฟลเดอร์เก็บ application logs | ✅ สร้างอัตโนมัติ |
 
 ---
 
@@ -139,9 +167,31 @@ POLLING_INTERVAL=300
 
 ## 🚀 วิธีใช้งาน
 
-### 1. ส่งรายงานไป Mattermost (แนะนำ):
+### 🐳 Docker Production (แนะนำ - รันอยู่แล้ว):
+
 ```bash
-cd /home/api/DeepInstint
+cd /home/api/deep-api
+
+# ดูสถานะ services
+docker-compose -f docker-compose.prod.yml ps
+
+# ดู logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# รัน daily report ด้วยมือ
+docker-compose -f docker-compose.prod.yml exec daily-report python3 send_today_to_mattermost.py
+
+# Query events จาก database
+docker-compose -f docker-compose.prod.yml exec report-server python3 query_events.py --stats
+
+# Backup database
+docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintenance.py --backup
+```
+
+### 💻 Manual (ถ้าไม่ใช้ Docker):
+
+```bash
+cd /home/api/deep-api
 
 # ส่งรายงานวันนี้
 python3 send_today_to_mattermost.py
@@ -151,6 +201,10 @@ python3 send_today_to_mattermost.py 2026-02-04
 
 # ส่งรายงานวันที่กำหนด (รูปแบบ วัน-เดือน-พ.ศ. เช่น 4-2-69)
 python3 send_today_to_mattermost.py 4-2-69
+
+# Query events
+python3 query_events.py --stats
+python3 query_events.py --date today
 ```
 
 ### 2. Cron – รายงานอัตโนมัติทุกวัน 07:00 (ย้อนหลัง 1 วัน):
@@ -186,7 +240,7 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 ---
 
-## ⚙️ Configuration (.env1)
+## ⚙️ Configuration (.env)
 
 ```bash
 # Deep Instinct API
@@ -194,7 +248,7 @@ DEEPINSTINCT_URL=https://ro.customers.deepinstinctweb.com/api/v1/
 TOKENS_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 # Mattermost Webhook
-MATTERMOST_WEBHOOK_URL=https://your-mattermost.com/hooks/xxx
+MATTERMOST_WEBHOOK_URL=https://mm.trd-dtc.one/hooks/...
 
 # Report Server URL (สำหรับ link รายละเอียด HTML – ใช้ Cloudflare Tunnel หรือ IP:8080)
 REPORT_SERVER_URL=https://allevent.ifn-dtc.online
@@ -205,12 +259,18 @@ POLLING_INTERVAL=300
 # Snip IT / IT Parcel API (Asset)
 IT_PARCEL_API_URL=https://asset.trd-dtc.one/api/v1
 IT_PARCEL_TOKEN=eyJ0eXAi... (JWT จาก IT Parcel)
+
+# Daily Report Cron (Docker)
+DAILY_REPORT_CRON=0 8 * * *
+
+# Report Server Port (Docker)
+REPORT_SERVER_PORT=8080
 ```
 
-### ✅ การตรวจสอบ .env1 (2026-01-29)
+### ✅ การตรวจสอบ .env (2026-02-13)
 - ตัวแปรครบ: DEEPINSTINCT_URL, TOKENS_KEY, MATTERMOST_WEBHOOK_URL, REPORT_SERVER_URL, POLLING_INTERVAL, IT_PARCEL_API_URL, IT_PARCEL_TOKEN
-- **IT_PARCEL_API_URL** ใช้ `https://asset.trd-dtc.one/api/v1` (ไม่ใช้ it-parcel.trd-dtc.one)
-- ไฟล์ไม่ถูก copy เข้า Docker image (ดู `.dockerignore`, `DOCKER_ENV.md`)
+- **IT_PARCEL_API_URL** ใช้ `https://asset.trd-dtc.one/api/v1`
+- ไฟล์ถูกใช้โดย Docker containers (mount เป็น env_file)
 
 ### ⚠️ หมายเหตุสำคัญ:
 1. **`TOKENS_KEY`** = API Connector Key (ไม่ใช่ User Token)
@@ -287,7 +347,7 @@ recent_5 = sorted(
 
 ## 🎯 สถานะปัจจุบัน
 
-### ✅ พร้อมใช้งาน:
+### ✅ พร้อมใช้งาน Production:
 - [x] เชื่อมต่อ Deep Instinct API
 - [x] ดึงข้อมูล Malicious + Suspicious Events
 - [x] ส่งรายงานไปยัง Mattermost (Threat Severity, Actions)
@@ -295,57 +355,80 @@ recent_5 = sorted(
 - [x] ไฟล์ HTML รายละเอียด (Device, IP, MSP, Tenant, Filename, File Hash)
 - [x] Link ไปยังรายละเอียด (REPORT_SERVER_URL / Cloudflare Tunnel)
 - [x] รองรับระบุวันที่ (YYYY-MM-DD หรือ วัน-เดือน-พ.ศ. เช่น 4-2-69)
-- [x] **Cron ทุกวัน 07:00** – ดึงข้อมูลย้อนหลัง 1 วัน ส่ง Mattermost
-- [x] Report Server (serve_reports.py) สำหรับ serve HTML
+- [x] **Cron ทุกวัน 08:00** – ดึงข้อมูลย้อนหลัง 1 วัน ส่ง Mattermost (Docker)
+- [x] Report Server (port 8080) สำหรับ serve HTML (Docker)
 - [x] รองรับ Pagination และ API response แบบ dict (events/last_id)
 - [x] รวม events ตาม Status และ threat_type ตรงกับ Dashboard
-- [x] **Snip IT / IT Parcel** – จับคู่ Event กับเครื่องใน Snip IT แสดง **ผู้รับผิดชอบ, แผนก, กอง** ในรายงาน HTML
-- [x] แสดง **"ไม่พบข้อมูลใน Snip IT"** เมื่อเครื่องไม่มีใน Snip IT (แทน N/A)
+- [x] **Snip IT / IT Parcel** – จับคู่ Event กับเครื่องใน Snip IT แสดง **ผู้รับผิดชอบ, แผนก, กอง**
+- [x] แสดง **"ไม่พบข้อมูลใน Snip IT"** เมื่อเครื่องไม่มีใน Snip IT
 - [x] **fetch_snipit_devices.py** – ดึง/ค้นหา device ตามชื่อเครื่องและผู้รับผิดชอบ
 
-### ⏳ ยังไม่ได้เปิดใช้งาน:
-- [ ] Monitoring อัตโนมัติทุก 5 นาที (สคริปต์: `deepinstinct_to_mattermost.py`)
+### ⭐ NEW - Database & Production (2026-02-13):
+- [x] **SQLite Database** – เก็บ event history, HTML reports, notification log
+- [x] **Duplicate Prevention** – ป้องกันส่ง notification ซ้ำ
+- [x] **Query Tools** – query_events.py สำหรับค้นหาและวิเคราะห์
+- [x] **Database Maintenance** – db_maintenance.py สำหรับ backup, vacuum, cleanup
+- [x] **Docker Production** – รันด้วย docker-compose.prod.yml
+- [x] **Monitoring อัตโนมัติ** – deepinstinct_to_mattermost.py รันใน Docker (ทุก 5 นาที)
+- [x] **Auto-restart** – Services restart อัตโนมัติเมื่อ fail
+- [x] **Health Checks** – ตรวจสอบสุขภาพ containers
+- [x] **Log Rotation** – จำกัดขนาด logs (10MB, 3 files)
+- [x] **Volume Persistence** – เก็บข้อมูล database, logs, reports ถาวร
 
 ---
 
-## 🔄 การเปิดใช้งาน Monitoring (ในอนาคต)
+## 🔄 Monitoring & Services (รันอยู่แล้ว)
 
-### วิธีที่ 1: รันโดยตรง
+### ✅ Docker Production (ใช้งานอยู่):
+
 ```bash
-python3 deepinstinct_to_mattermost.py
+cd /home/api/deep-api
+
+# ดูสถานะ
+docker-compose -f docker-compose.prod.yml ps
+
+# Services ที่รันอยู่:
+# - report-server (port 8080) - HTTP server
+# - monitor - Real-time monitoring (ทุก 5 นาที)
+# - daily-report - Daily report (cron 08:00)
+
+# ดู logs
+docker-compose -f docker-compose.prod.yml logs -f monitor
+docker-compose -f docker-compose.prod.yml logs -f daily-report
+
+# Restart services
+docker-compose -f docker-compose.prod.yml restart
+
+# Stop services
+docker-compose -f docker-compose.prod.yml down
 ```
 
-### วิธีที่ 2: ใช้ systemd (แนะนำ)
-```bash
-# ติดตั้งเป็น service
-sudo bash install_service.sh
+### 📊 Database Operations:
 
-# จัดการ service
-sudo systemctl start deepinstinct
-sudo systemctl status deepinstinct
-sudo systemctl stop deepinstinct
-```
-
-### วิธีที่ 3: ใช้ cron (รายงานรายวัน – ใช้งานอยู่)
 ```bash
-# รายงานทุกวัน 07:00 น. (ดึงข้อมูลย้อนหลัง 1 วัน)
-0 7 * * * /home/api/DeepInstint/cron_daily_report.sh >> /home/api/DeepInstint/cron_daily_report.log 2>&1
-```
+# Query events
+docker-compose -f docker-compose.prod.yml exec report-server python3 query_events.py --stats
+docker-compose -f docker-compose.prod.yml exec report-server python3 query_events.py --date today
 
-### วิธีที่ 4: ใช้ Docker
-```bash
-# สร้าง Dockerfile แล้วรัน
-docker build -t deepinstinct-mattermost .
-docker run -d deepinstinct-mattermost
+# Backup database
+docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintenance.py --backup
+
+# Analyze database
+docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintenance.py --analyze
 ```
 
 ---
 
 ## 📚 เอกสารเพิ่มเติม
 
+- **`README.md`** - Overview และ quick start
+- **`README_DATABASE.md`** - ⭐ คู่มือการใช้งาน Database (SQLite)
 - **`README_INTEGRATION.md`** - คู่มือการใช้งานฉบับเต็ม
+- **`README_REPORTS.md`** - คู่มือ Report System
+- **`DOCKER_RUN_SUMMARY.md`** - ⭐ สรุปการ deploy Docker production
+- **`DEPLOYMENT.md`** - Production deployment guide
+- **`ROADMAP.md`** - แผนพัฒนาต่อ
 - **`SwagerDeep.txt`** - Deep Instinct API Documentation (Swagger/OpenAPI)
-- **`.env.example`** - ตัวอย่าง configuration file
 
 ---
 
@@ -414,19 +497,32 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 ## 🎉 สรุป
 
-ระบบ **Deep Instinct to Mattermost Integration** พร้อมใช้งานครบถ้วน โดยสามารถ:
+ระบบ **Deep Instinct to Mattermost Integration** พร้อมใช้งาน **Production** ครบถ้วน โดยสามารถ:
 
+### Core Features:
 ✅ **ดึงข้อมูล** Malicious + Suspicious Events จาก Deep Instinct API  
 ✅ **ส่งรายงาน** สรุป (Threat Severity, Actions) ไปยัง Mattermost  
 ✅ **สร้างไฟล์ HTML** รายละเอียด (Device, IP, MSP, Tenant, Filename, File Hash)  
 ✅ **Link รายละเอียด** ผ่าน Cloudflare Tunnel (REPORT_SERVER_URL)  
-✅ **Cron ทุกวัน 07:00** ดึงข้อมูลย้อนหลัง 1 วัน ส่ง Mattermost อัตโนมัติ  
-✅ **ระบุวันที่** ได้ (YYYY-MM-DD หรือ วัน-เดือน-พ.ศ.)  
 ✅ **Timezone** แสดงเป็น GMT+7 (เวลาไทย)  
 ✅ **ข้อมูล** ตรงกับ Dashboard  
-✅ **Snip IT / IT Parcel** – จับคู่ Device Name แสดง ผู้รับผิดชอบ, แผนก, กอง ในรายงาน HTML; แสดง "ไม่พบข้อมูลใน Snip IT" เมื่อไม่พบเครื่อง  
+✅ **Snip IT / IT Parcel** – จับคู่ Device Name แสดง ผู้รับผิดชอบ, แผนก, กอง  
 
-**พร้อมใช้งาน Production!** 🚀
+### ⭐ NEW - Database & Production:
+✅ **SQLite Database** – เก็บ event history และ HTML report metadata  
+✅ **Duplicate Prevention** – ป้องกันส่ง notification ซ้ำอัตโนมัติ  
+✅ **Query & Analytics** – ค้นหาและวิเคราะห์ events ได้  
+✅ **Database Maintenance** – Backup, vacuum, cleanup tools  
+✅ **Docker Production** – รันด้วย docker-compose.prod.yml  
+✅ **Real-time Monitoring** – deepinstinct_to_mattermost.py รันใน Docker (ทุก 5 นาที)  
+✅ **Daily Report** – Cron ทุกวัน 08:00 น. (Docker)  
+✅ **Auto-restart** – Services restart อัตโนมัติเมื่อ fail  
+✅ **Health Checks** – ตรวจสอบสุขภาพ containers  
+✅ **Log Rotation** – จำกัดขนาด logs (10MB, 3 files)  
+
+**🚀 พร้อมใช้งาน Production แล้ว!**  
+**📊 Docker Services: report-server, monitor, daily-report - Running**  
+**🗄️ Database: SQLite with event history and analytics**
 
 ---
 
@@ -439,6 +535,8 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 ---
 
-**Last Updated:** 2026-02-12  
-**Version:** 2.1.0  
-**Status:** ✅ Production Ready (Deep Instinct + Snip IT ผู้รับผิดชอบ/แผนก/กอง)
+**Last Updated:** 2026-02-13  
+**Version:** 3.0.0  
+**Status:** ✅ **Production Running** (Deep Instinct + Snip IT + SQLite Database + Docker Production)  
+**Docker Services:** ✅ report-server, ✅ monitor, ✅ daily-report  
+**Database:** ✅ SQLite (events.db) with query & maintenance tools

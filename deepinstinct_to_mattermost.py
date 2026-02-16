@@ -2,6 +2,7 @@
 """
 Deep Instinct to Mattermost Integration Script
 ดึงข้อมูล Events และ Suspicious Events จาก Deep Instinct API และส่งไปยัง Mattermost Webhook
+พร้อมป้องกันการส่งซ้ำด้วย SQLite database
 """
 
 import os
@@ -11,6 +12,7 @@ import time
 from datetime import datetime
 from typing import Dict, List, Optional
 from dotenv import load_dotenv
+from database import get_db
 
 # โหลด environment variables
 load_dotenv('.env1')
@@ -300,10 +302,11 @@ class DeepInstinctMonitor:
         self.mm_notifier = mm_notifier
         self.last_event_id = 0
         self.last_suspicious_event_id = 0
+        self.db = get_db()  # Database instance
     
     def process_events(self, events: List[Dict], event_type: str = "Event") -> int:
         """
-        ประมวลผลและส่ง events ไปยัง Mattermost
+        ประมวลผลและส่ง events ไปยัง Mattermost (พร้อมป้องกันส่งซ้ำ)
         
         Args:
             events: List ของ events
@@ -313,23 +316,61 @@ class DeepInstinctMonitor:
             จำนวน events ที่ส่งสำเร็จ
         """
         count = 0
+        skipped = 0
         
         for event in events:
             try:
-                attachment = self.mm_notifier.format_event_message(event, event_type)
+                event_id = event.get('id')
+                if not event_id:
+                    continue
+                
+                # เช็คว่าเคยส่งแล้วหรือไม่
+                event_type_db = 'malicious' if event_type == 'Event' else 'suspicious'
+                
+                # บันทึก event ลง database ก่อน (จะ skip ถ้ามีอยู่แล้ว)
+                saved = self.db.save_event(event, event_type_db)
+                
+                # ถ้า event มีอยู่แล้วและเคยส่ง notification แล้ว ให้ skip
+                if not saved and self.db.event_exists(event_id, event_type_db):
+                    # เช็คว่าเคยส่ง notification หรือยัง
+                    with self.db.get_connection() as conn:
+                        cursor = conn.cursor()
+                        cursor.execute("""
+                            SELECT notified FROM events 
+                            WHERE event_id = ? AND event_type = ?
+                        """, (event_id, event_type_db))
+                        result = cursor.fetchone()
+                        
+                        if result and result[0] == 1:
+                            skipped += 1
+                            print(f"⏭️  Skipped {event_type} ID: {event_id} (already notified)")
+                            continue
                 
                 # ส่งไปยัง Mattermost
+                attachment = self.mm_notifier.format_event_message(event, event_type)
+                
                 if self.mm_notifier.send_message('', attachments=[attachment]):
                     count += 1
-                    print(f"✅ Sent {event_type} ID: {event.get('id', 'N/A')}")
+                    print(f"✅ Sent {event_type} ID: {event_id}")
+                    
+                    # ทำเครื่องหมายว่าส่งแล้ว
+                    self.db.mark_as_notified(event_id, 'mattermost', success=True)
                 else:
-                    print(f"⚠️  Failed to send {event_type} ID: {event.get('id', 'N/A')}")
+                    print(f"⚠️  Failed to send {event_type} ID: {event_id}")
+                    self.db.mark_as_notified(event_id, 'mattermost', success=False, 
+                                            error_message="Failed to send to Mattermost")
                 
                 # หน่วงเวลาเล็กน้อยเพื่อไม่ให้ spam
                 time.sleep(0.5)
             
             except Exception as e:
                 print(f"❌ Error processing event: {e}")
+                if event_id:
+                    self.db.mark_as_notified(event_id, 'mattermost', success=False, 
+                                            error_message=str(e))
+        
+        if skipped > 0:
+            print(f"📊 Summary: {count} sent, {skipped} skipped (duplicates)")
         
         return count
     
