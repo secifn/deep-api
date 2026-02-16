@@ -12,6 +12,7 @@ import json
 from datetime import datetime, timezone, timedelta, date
 from dotenv import load_dotenv
 from database import get_db
+from build_not_found_devices_html import build_not_found_devices_html
 
 # โหลด environment variables
 load_dotenv('/home/api/DeepInstint/.env1')
@@ -231,6 +232,27 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
     # ดึง mapping ชื่อเครื่อง -> ผู้รับผิดชอบ จาก Snip IT (list + search สำหรับ hostname ที่มีในรายงาน)
     snipit_lookup = get_snipit_responsible_lookup(extra_search_hostnames=unique_hostnames)
     
+    # ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+    devices_not_found = []
+    for event in all_events:
+        recorded_info = event.get("recorded_device_info") or {}
+        hostname = recorded_info.get("hostname")
+        if hostname and str(hostname).strip() and str(hostname) != 'N/A':
+            key = str(hostname).strip().lower()
+            if key not in snipit_lookup:
+                # เก็บข้อมูลเครื่องที่ไม่พบ
+                device_info = {
+                    'hostname': hostname,
+                    'ip_address': recorded_info.get('ip_address', 'N/A'),
+                    'os': recorded_info.get('os', 'N/A'),
+                    'event_id': event.get('id'),
+                    'event_type': 'malicious' if event in malicious_events else 'suspicious',
+                    'timestamp': event.get('_bangkok_time')
+                }
+                # เช็คว่ามีในรายการแล้วหรือยัง (ตาม hostname)
+                if not any(d['hostname'] == hostname for d in devices_not_found):
+                    devices_not_found.append(device_info)
+    
     all_events_sorted = sorted(
         [e for e in all_events if e.get('_bangkok_time')],
         key=lambda x: x['_bangkok_time'],
@@ -409,9 +431,9 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(html)
     
-    return output_file
+    return output_file, devices_not_found
 
-def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None):
+def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None, not_found_url=None, not_found_count=0):
     """สร้างข้อความสำหรับ Mattermost แบบตาราง (เหมือนในรูป)"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
@@ -517,7 +539,13 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     # เพิ่ม link ไปยังรายละเอียด
     if details_url:
-        message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n\n"
+        message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n"
+        
+        # เพิ่มลิงก์สำหรับเครื่องที่ไม่พบใน Snip IT
+        if not_found_url and not_found_count > 0:
+            message += f"⚠️ [รายละเอียดเครื่องที่ไม่พบใน Snip IT ({not_found_count} เครื่อง)]({not_found_url})\n"
+        
+        message += "\n"
     
     message += "🔗 [Deep Instinct Dashboard](https://ro.customers.deepinstinctweb.com)\n"
     
@@ -614,10 +642,23 @@ def main():
     html_filename = f"event_details_{date_filename}.html"
     html_path = os.path.join(EVENT_DETAIL_DIR, html_filename)
     
-    build_event_details_html(malicious_filtered, suspicious_filtered, html_path)
+    html_path, devices_not_found = build_event_details_html(malicious_filtered, suspicious_filtered, html_path)
     print(f"   ✅ Created: event_detail/{html_filename}")
     if IT_PARCEL_API_URL and IT_PARCEL_TOKEN:
         print(f"   📌 จับคู่ผู้รับผิดชอบจาก Snip IT (IT Parcel) แล้ว")
+    
+    # สร้างรายงานเครื่องที่ไม่พบใน Snip IT
+    not_found_html_filename = f"not_found_devices_{date_filename}.html"
+    not_found_html_path = os.path.join(EVENT_DETAIL_DIR, not_found_html_filename)
+    not_found_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{not_found_html_filename}"
+    
+    if devices_not_found:
+        build_not_found_devices_html(devices_not_found, not_found_html_path)
+        print(f"   ⚠️  พบ {len(devices_not_found)} เครื่องที่ไม่อยู่ใน Snip IT")
+        print(f"   📄 Not Found Report: event_detail/{not_found_html_filename}")
+    else:
+        not_found_url = None
+        print(f"   ✅ เครื่องทั้งหมดพบใน Snip IT")
     
     # URL สำหรับเข้าถึงไฟล์ผ่าน web server (อยู่ใน event_detail/)
     details_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{html_filename}"
@@ -636,7 +677,7 @@ def main():
     # 4. สร้างข้อความ Mattermost
     print("\n📝 Building Mattermost message...")
     report_date = target_date or datetime.now(TZ_BANGKOK).date()
-    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date)
+    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date, not_found_url, len(devices_not_found) if devices_not_found else 0)
     
     # 5. แสดงตัวอย่าง
     print("\n" + "=" * 70)
