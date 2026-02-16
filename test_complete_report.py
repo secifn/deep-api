@@ -143,8 +143,8 @@ def filter_by_date(events, target_date):
     return filtered
 
 
-def fetch_events_with_pagination(endpoint, after_id, max_pages=20):
-    """ดึง events พร้อม pagination"""
+def fetch_events_with_pagination(endpoint, after_id, max_pages=50):
+    """ดึง events พร้อม pagination (เพิ่ม max_pages เป็น 50)"""
     url = f"{API_URL}{endpoint}"
     headers = {'Authorization': TOKEN}
     
