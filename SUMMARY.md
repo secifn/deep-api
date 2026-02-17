@@ -1,8 +1,8 @@
 # 📋 สรุปโครงการ Deep Instinct to Mattermost Integration
 
 **วันที่สร้าง:** 2026-01-29  
-**อัปเดตล่าสุด:** 2026-02-13  
-**สถานะ:** ✅ **Production Ready** (รวม SQLite Database + Docker Production Deployment)
+**อัปเดตล่าสุด:** 2026-02-17  
+**สถานะ:** ✅ **Production Ready** (SQLite Database + Docker Production + Not Found Devices Report)
 
 ---
 
@@ -20,6 +20,12 @@
 
 ## 🎯 Features Overview
 
+### ⭐ **NEW - Not Found Devices Report (2026-02-17)**
+- ✅ **Device Validation** - ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+- ✅ **Separate HTML Report** - รายงานแยกสำหรับเครื่องที่ไม่พบ
+- ✅ **Mattermost Alert** - แสดงจำนวนเครื่องที่ไม่พบในรายงาน
+- ✅ **Detailed Information** - Hostname, IP, OS, Event Type, Event ID
+
 ### ⭐ **NEW - Database Integration (2026-02-13)**
 - ✅ **SQLite Database** - เก็บ event history และ HTML report metadata
 - ✅ **Duplicate Prevention** - ป้องกันส่ง notification ซ้ำ
@@ -33,6 +39,7 @@
 - ✅ **Log Rotation** - จำกัดขนาด logs (10MB, 3 files)
 - ✅ **Health Checks** - ตรวจสอบสุขภาพ containers
 - ✅ **Volume Persistence** - เก็บข้อมูล database, logs, reports
+- ✅ **Cron Only** - ปิด real-time monitor, ใช้ cron scheduler อย่างเดียว
 
 ---
 
@@ -60,17 +67,21 @@ POLLING_INTERVAL=300
 | ไฟล์ | หน้าที่ | สถานะ |
 |------|---------|-------|
 | **`.env`** | เก็บ config (API Key, URL, Webhook, REPORT_SERVER_URL, IT Parcel) | ✅ ตรวจสอบแล้ว พร้อมใช้ |
-| **`send_today_to_mattermost.py`** | ⭐ ส่งรายงาน Malicious + Suspicious + บันทึก Database | ✅ พร้อมใช้ |
-| **`deepinstinct_to_mattermost.py`** | ⭐ Monitoring ต่อเนื่อง + ป้องกันส่งซ้ำ | ✅ รันอยู่ใน Docker |
+| **`send_today_to_mattermost.py`** | ⭐ ส่งรายงาน Malicious + Suspicious + Not Found Devices | ✅ พร้อมใช้ |
+| **`deepinstinct_to_mattermost.py`** | Monitoring ต่อเนื่อง (ปิดการใช้งาน) | ⚠️ DISABLED |
 | **`serve_reports.py`** | HTTP server สำหรับ serve ไฟล์ HTML report (port 8080) | ✅ พร้อมใช้ |
 | **`database.py`** | ⭐ Database Manager (SQLite) | ✅ พร้อมใช้ |
 | **`query_events.py`** | ⭐ Query และค้นหา events จาก database | ✅ พร้อมใช้ |
 | **`db_maintenance.py`** | ⭐ Database maintenance (backup, vacuum, cleanup) | ✅ พร้อมใช้ |
+| **`build_not_found_devices_html.py`** | ⭐ สร้างรายงานเครื่องที่ไม่พบใน Snip IT | ✅ พร้อมใช้ |
+| **`test_complete_report.py`** | ⭐ Test script (ไม่ส่ง Mattermost) | ✅ พร้อมใช้ |
+| **`test_report_preview.py`** | Test script (preview only) | ✅ พร้อมใช้ |
 | **`test_connection.py`** | ทดสอบการเชื่อมต่อ API และ Webhook | ✅ พร้อมใช้ |
 | **`fetch_snipit_devices.py`** | ดึงรายการ Device + ผู้รับผิดชอบจาก Snip IT (ค้นหา -n, -r) | ✅ พร้อมใช้ |
 | **`cron_daily_report.sh`** | Wrapper สำหรับ cron: ดึงข้อมูลย้อนหลัง 1 วัน | ✅ พร้อมใช้ |
 | **`docker-compose.yml`** | Docker orchestration (development) | ✅ พร้อมใช้ |
-| **`docker-compose.prod.yml`** | ⭐ Docker production config | ✅ รันอยู่ |
+| **`docker-compose.prod.yml`** | ⭐ Docker production config (monitor disabled) | ✅ รันอยู่ |
+| **`docker-manage.sh`** | ⭐ Docker management script | ✅ พร้อมใช้ |
 | **`Dockerfile`** | Container image definition | ✅ พร้อมใช้ |
 | **`docker-entrypoint.sh`** | Docker entrypoint script | ✅ พร้อมใช้ |
 | **`Makefile`** | Quick commands | ✅ พร้อมใช้ |
@@ -80,6 +91,7 @@ POLLING_INTERVAL=300
 | **`README_INTEGRATION.md`** | คู่มือการใช้งานฉบับเต็ม | ✅ พร้อมใช้ |
 | **`README_REPORTS.md`** | คู่มือ Report + Cloudflare Tunnel | ✅ พร้อมใช้ |
 | **`DOCKER_RUN_SUMMARY.md`** | ⭐ สรุปการ deploy Docker production | ✅ พร้อมใช้ |
+| **`DOCKER_GUIDE.md`** | ⭐ คู่มือการใช้งาน Docker | ✅ พร้อมใช้ |
 | **`SUMMARY.md`** | สรุปโครงการ (ไฟล์นี้) | ✅ อัพเดทแล้ว |
 | **`event_detail/`** | โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events | ✅ สร้างอัตโนมัติ |
 | **`data/`** | ⭐ โฟลเดอร์เก็บ SQLite database | ✅ สร้างอัตโนมัติ |
@@ -94,31 +106,44 @@ POLLING_INTERVAL=300
 
 ```markdown
 ### 🔒 Deep Instinct Security Report
-**วันที่:** 04/02/2026 | **เวลา:** 15:28:48 (GMT+7)
+**วันที่:** 16/02/2569 | **เวลา:** 09:28:59 (GMT+7)
 
-#### 📊 สรุป Events วันที่ 04/02/2026
+#### 📊 สรุป Events วันที่ 16/2/2569
 | หมวดหมู่   | จำนวน |
-| Malicious  | 73   |
-| Suspicious | 36   |
-| รวมทั้งหมด | 109  |
+| Malicious  | 78   |
+| Suspicious | 45   |
+| รวมทั้งหมด | 123  |
 
 #### 🛡️ การดำเนินการ (Actions)
-| DETECTED  | 80 |
-| PREVENTED | 29 |
+| DETECTED  | 47 |
+| PREVENTED | 76 |
 
 #### ⚠️ ระดับความรุนแรง (Threat Severity)
-| VERY_HIGH | 2 | MODERATE | 48 | LOW | 54 | ...
+| MODERATE  | 61 |
+| LOW       | 42 |
+| HIGH      | 13 |
+| VERY_HIGH | 7  |
+
+⚠️ พบ 17 เครื่องที่ไม่อยู่ใน Snip IT
 
 📄 ดูรายละเอียด Events ทั้งหมด (link ไป HTML report)
+⚠️ รายละเอียดเครื่องที่ไม่พบใน Snip IT (17 เครื่อง) (link)
 🔗 Deep Instinct Dashboard
 ```
 
-#### ไฟล์ HTML รายละเอียด (event_details_YYYY-MM-DD.html):
+#### ไฟล์ HTML รายละเอียด:
+
+**1. event_details_YYYY-MM-DD.html:**
 - **Device & User Details:** Device Name, IP Address, MSP, Tenant
 - **จาก Snip IT (IT Parcel):** ผู้รับผิดชอบ, แผนก, กอง (จับคู่ตาม Device Name)
 - **Event Indicators:** Filename, Details, File Hash
 - เมื่อไม่พบเครื่องใน Snip IT แสดงข้อความ **"ไม่พบข้อมูลใน Snip IT"**
-- เข้าถึงผ่าน Cloudflare Tunnel (REPORT_SERVER_URL ใน .env1)
+
+**2. not_found_devices_YYYY-MM-DD.html:** ⭐ **ใหม่**
+- รายการเครื่องที่ไม่พบใน Snip IT
+- แสดง: Hostname, IP Address, OS, Event Type, Event ID, Timestamp
+- ตารางสวยงาม พร้อม alert banner
+- เข้าถึงผ่าน Cloudflare Tunnel (REPORT_SERVER_URL ใน .env)
 
 ---
 
@@ -173,19 +198,27 @@ POLLING_INTERVAL=300
 cd /home/api/deep-api
 
 # ดูสถานะ services
-docker-compose -f docker-compose.prod.yml ps
+docker ps | grep deep-api
+
+# ส่งรายงานด้วยมือ (ระบุวันที่ชัดเจน)
+docker exec deep-api-report-server python3 send_today_to_mattermost.py 2026-02-16
+docker exec deep-api-report-server python3 send_today_to_mattermost.py 16-2-69
 
 # ดู logs
-docker-compose -f docker-compose.prod.yml logs -f
-
-# รัน daily report ด้วยมือ
-docker-compose -f docker-compose.prod.yml exec daily-report python3 send_today_to_mattermost.py
+docker logs -f deep-api-daily-report
+docker logs -f deep-api-report-server
 
 # Query events จาก database
-docker-compose -f docker-compose.prod.yml exec report-server python3 query_events.py --stats
+docker exec deep-api-report-server python3 query_events.py --stats
+docker exec deep-api-report-server python3 query_events.py --date 2026-02-16
 
 # Backup database
-docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintenance.py --backup
+docker exec deep-api-report-server python3 db_maintenance.py backup
+
+# ใช้ management script (แนะนำ)
+./docker-manage.sh status
+./docker-manage.sh test complete 2026-02-16
+./docker-manage.sh logs
 ```
 
 ### 💻 Manual (ถ้าไม่ใช้ Docker):
@@ -369,11 +402,18 @@ recent_5 = sorted(
 - [x] **Query Tools** – query_events.py สำหรับค้นหาและวิเคราะห์
 - [x] **Database Maintenance** – db_maintenance.py สำหรับ backup, vacuum, cleanup
 - [x] **Docker Production** – รันด้วย docker-compose.prod.yml
-- [x] **Monitoring อัตโนมัติ** – deepinstinct_to_mattermost.py รันใน Docker (ทุก 5 นาที)
+- [x] **Daily Report** – Cron ทุกวัน 08:00 น. (Docker)
 - [x] **Auto-restart** – Services restart อัตโนมัติเมื่อ fail
 - [x] **Health Checks** – ตรวจสอบสุขภาพ containers
 - [x] **Log Rotation** – จำกัดขนาด logs (10MB, 3 files)
 - [x] **Volume Persistence** – เก็บข้อมูล database, logs, reports ถาวร
+
+### ⭐ NEW - Not Found Devices (2026-02-17):
+- [x] **Device Validation** – ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+- [x] **Not Found Report** – สร้างรายงาน HTML แยกสำหรับเครื่องที่ไม่พบ
+- [x] **Alert in Message** – แสดง "⚠️ พบ X เครื่องที่ไม่อยู่ใน Snip IT" ในรายงาน
+- [x] **Detailed Link** – ลิงก์ไปยังรายงานเครื่องที่ไม่พบ
+- [x] **Pagination Fix** – เพิ่ม max_pages จาก 20 → 50 (ดึงข้อมูลครบถ้วน)
 
 ---
 
@@ -385,19 +425,19 @@ recent_5 = sorted(
 cd /home/api/deep-api
 
 # ดูสถานะ
-docker-compose -f docker-compose.prod.yml ps
+docker ps | grep deep-api
 
 # Services ที่รันอยู่:
 # - report-server (port 8080) - HTTP server
-# - monitor - Real-time monitoring (ทุก 5 นาที)
 # - daily-report - Daily report (cron 08:00)
+# - monitor - DISABLED (ปิดการใช้งาน)
 
 # ดู logs
-docker-compose -f docker-compose.prod.yml logs -f monitor
-docker-compose -f docker-compose.prod.yml logs -f daily-report
+docker logs -f deep-api-daily-report
+docker logs -f deep-api-report-server
 
 # Restart services
-docker-compose -f docker-compose.prod.yml restart
+docker-compose -f docker-compose.prod.yml restart report-server daily-report
 
 # Stop services
 docker-compose -f docker-compose.prod.yml down
