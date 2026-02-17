@@ -537,6 +537,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     message += "\n---\n\n"
     
+    # แสดงข้อมูลเครื่องที่ไม่พบใน Snip IT (ก่อนลิงก์)
+    if not_found_count > 0:
+        message += f"⚠️ **พบ {not_found_count} เครื่องที่ไม่อยู่ใน Snip IT**\n\n"
+    
     # เพิ่ม link ไปยังรายละเอียด
     if details_url:
         message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n"
