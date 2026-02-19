@@ -1,8 +1,10 @@
 # 📋 สรุปโครงการ Deep Instinct to Mattermost Integration
 
 **วันที่สร้าง:** 2026-01-29  
-**อัปเดตล่าสุด:** 2026-02-17  
+**อัปเดตล่าสุด:** 2026-02-19  
 **สถานะ:** ✅ **Production Ready** (SQLite Database + Docker Production + Not Found Devices Report)
+
+> 📖 **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** – สรุปคำสั่งที่ใช้บ่อย และการตั้งค่า
 
 ---
 
@@ -13,7 +15,7 @@
 - สรุป **Threat Severity**, **Actions** (DETECTED/PREVENTED), **Status**
 - ไฟล์ HTML รายละเอียด (Device, IP, MSP, Tenant, Filename, File Hash)
 - Link ไปยังรายละเอียด Events (Cloudflare Tunnel)
-- **Cron ทุกวัน 07:00** ดึงข้อมูลย้อนหลัง 1 วัน
+- **Cron ทุกวัน 08:00** ดึงข้อมูลย้อนหลัง 1 วัน (รายงานเมื่อวาน)
 - ข้อมูลตรงกับ **Dashboard**
 
 ---
@@ -40,6 +42,7 @@
 - ✅ **Health Checks** - ตรวจสอบสุขภาพ containers
 - ✅ **Volume Persistence** - เก็บข้อมูล database, logs, reports
 - ✅ **Cron Only** - ปิด real-time monitor, ใช้ cron scheduler อย่างเดียว
+- ✅ **.env Mount** - Mount .env เข้า container อ่านค่าล่าสุด (รวม MATTERMOST_WEBHOOK_URL)
 
 ---
 
@@ -92,6 +95,7 @@ POLLING_INTERVAL=300
 | **`README_REPORTS.md`** | คู่มือ Report + Cloudflare Tunnel | ✅ พร้อมใช้ |
 | **`DOCKER_RUN_SUMMARY.md`** | ⭐ สรุปการ deploy Docker production | ✅ พร้อมใช้ |
 | **`DOCKER_GUIDE.md`** | ⭐ คู่มือการใช้งาน Docker | ✅ พร้อมใช้ |
+| **`QUICK_REFERENCE.md`** | ⭐ สรุปคำสั่งที่ใช้บ่อย | ✅ พร้อมใช้ |
 | **`SUMMARY.md`** | สรุปโครงการ (ไฟล์นี้) | ✅ อัพเดทแล้ว |
 | **`event_detail/`** | โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events | ✅ สร้างอัตโนมัติ |
 | **`data/`** | ⭐ โฟลเดอร์เก็บ SQLite database | ✅ สร้างอัตโนมัติ |
@@ -106,7 +110,8 @@ POLLING_INTERVAL=300
 
 ```markdown
 ### 🔒 Deep Instinct Security Report
-**วันที่:** 16/02/2569 | **เวลา:** 09:28:59 (GMT+7)
+
+รายงานเหตุการณ์วันที่: 16/02/2569 | ส่งเมื่อ: 09:28:59 (GMT+7)
 
 #### 📊 สรุป Events วันที่ 16/2/2569
 | หมวดหมู่   | จำนวน |
@@ -240,13 +245,18 @@ python3 query_events.py --stats
 python3 query_events.py --date today
 ```
 
-### 2. Cron – รายงานอัตโนมัติทุกวัน 07:00 (ย้อนหลัง 1 วัน):
+### 2. Cron – รายงานอัตโนมัติทุกวัน 08:00 (Docker):
 ```bash
-# ติดตั้งแล้ว (ตรวจสอบด้วย crontab -l)
-0 7 * * * /home/api/DeepInstint/cron_daily_report.sh >> /home/api/DeepInstint/cron_daily_report.log 2>&1
+# Docker: Cron รันอัตโนมัติใน container daily-report
+# Schedule: 0 8 * * * = ทุกวัน 08:00 น.
+# รายงาน: events ของเมื่อวาน (ย้อนหลัง 1 วัน)
+# กำหนดใน .env: DAILY_REPORT_CRON=0 8 * * *
 
-# ทดสอบรันด้วยมือ
-/home/api/DeepInstint/cron_daily_report.sh
+# ดู logs
+docker logs -f deep-api-daily-report
+
+# ทดสอบส่งด้วยมือ (รายงานเมื่อวาน)
+docker exec deep-api-report-server python3 send_today_to_mattermost.py
 ```
 
 ### 3. Report Server (สำหรับเปิดไฟล์ HTML จากภายนอก):
@@ -300,10 +310,15 @@ DAILY_REPORT_CRON=0 8 * * *
 REPORT_SERVER_PORT=8080
 ```
 
-### ✅ การตรวจสอบ .env (2026-02-13)
+### ✅ การตรวจสอบ .env (2026-02-19)
 - ตัวแปรครบ: DEEPINSTINCT_URL, TOKENS_KEY, MATTERMOST_WEBHOOK_URL, REPORT_SERVER_URL, POLLING_INTERVAL, IT_PARCEL_API_URL, IT_PARCEL_TOKEN
 - **IT_PARCEL_API_URL** ใช้ `https://asset.trd-dtc.one/api/v1`
-- ไฟล์ถูกใช้โดย Docker containers (mount เป็น env_file)
+- **.env ถูก mount เข้า container** – แก้ไข .env แล้วจะมีผลทันที (ไม่ต้อง restart)
+
+### 🔄 การเปลี่ยน Mattermost Webhook URL
+1. แก้ไขไฟล์ `.env` → เปลี่ยนค่า `MATTERMOST_WEBHOOK_URL`
+2. **ไม่ต้อง restart** – Container อ่าน .env ล่าสุดจาก volume ที่ mount ไว้
+3. ทดสอบส่ง: `docker exec deep-api-report-server python3 send_today_to_mattermost.py`
 
 ### ⚠️ หมายเหตุสำคัญ:
 1. **`TOKENS_KEY`** = API Connector Key (ไม่ใช่ User Token)
@@ -462,6 +477,7 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 ## 📚 เอกสารเพิ่มเติม
 
 - **`README.md`** - Overview และ quick start
+- **`QUICK_REFERENCE.md`** - ⭐ สรุปคำสั่งที่ใช้บ่อยและขั้นตอนสำคัญ
 - **`README_DATABASE.md`** - ⭐ คู่มือการใช้งาน Database (SQLite)
 - **`README_INTEGRATION.md`** - คู่มือการใช้งานฉบับเต็ม
 - **`README_REPORTS.md`** - คู่มือ Report System
@@ -480,7 +496,7 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 1. ไปที่ Deep Instinct UI → Settings → API Connectors
 2. สร้าง API Connector ใหม่ (ถ้ายังไม่มี)
 3. คัดลอก API Key (JWT token)
-4. อัพเดทใน `.env1` → `TOKENS_KEY`
+4. อัพเดทใน `.env` → `TOKENS_KEY`
 
 ### ปัญหา: เวลาไม่ตรง
 **สาเหตุ:** API ส่งมาเป็น UTC  
@@ -499,8 +515,12 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 **วิธีแก้:** รัน `python3 serve_reports.py` (หรือ nohup ใน background) และตั้ง Cloudflare Tunnel Service เป็น `http://localhost:8080`
 
 ### ปัญหา: Cron ไม่รันหรือวันที่ผิด
-**สาเหตุ:** สคริปต์ส่งรูปแบบ YYYY-MM-DD; ถ้า parse ผิดจะ error  
-**วิธีแก้:** ใช้ `cron_daily_report.sh` ซึ่งส่ง `date -d yesterday +%Y-%m-%d` ให้อัตโนมัติ ตรวจสอบ log: `tail -f cron_daily_report.log`
+**สาเหตุ:** Container daily-report รัน cron ภายใน  
+**วิธีแก้:** ตรวจสอบ logs ด้วย `docker logs deep-api-daily-report`; Cron ส่งรายงานเมื่อวานอัตโนมัติ (ไม่ต้องส่ง argument)
+
+### ปัญหา: ส่งไป Mattermost channel เดิม (เปลี่ยน webhook แล้วยังไม่เปลี่ยน)
+**สาเหตุ:** ค่าเก่ายังอยู่ใน environment  
+**วิธีแก้:** ระบบใช้ `.env` ที่ mount เข้า container พร้อม `load_dotenv(override=True)` – แก้ .env แล้วรันใหม่จะมีผลทันที; ถ้ายังไม่ได้ ลอง restart: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
 
 ---
 
@@ -575,8 +595,8 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 ---
 
-**Last Updated:** 2026-02-13  
-**Version:** 3.0.0  
+**Last Updated:** 2026-02-19  
+**Version:** 4.1.0  
 **Status:** ✅ **Production Running** (Deep Instinct + Snip IT + SQLite Database + Docker Production)  
 **Docker Services:** ✅ report-server, ✅ monitor, ✅ daily-report  
 **Database:** ✅ SQLite (events.db) with query & maintenance tools

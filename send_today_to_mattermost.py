@@ -15,7 +15,9 @@ from database import get_db
 from build_not_found_devices_html import build_not_found_devices_html
 
 # โหลด environment variables
-load_dotenv('/home/api/DeepInstint/.env1')
+# โหลดจาก .env ในโฟลเดอร์โปรเจกต์ (Docker ใช้ env_file จาก docker-compose)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(SCRIPT_DIR, '.env'), override=True)  # override เพื่อใช้ค่าจาก .env ล่าสุด (รองรับการเปลี่ยน webhook)
 
 # Configuration
 API_URL = os.getenv('DEEPINSTINCT_URL')
@@ -29,7 +31,6 @@ IT_PARCEL_TOKEN = os.getenv('IT_PARCEL_TOKEN', '')
 TZ_BANGKOK = timezone(timedelta(hours=7))
 
 # โฟลเดอร์เก็บไฟล์ HTML รายละเอียด Events แต่ละวัน
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 EVENT_DETAIL_DIR = os.path.join(SCRIPT_DIR, 'event_detail')
 
 
@@ -488,7 +489,7 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
 
-**วันที่:** {date_str} | **เวลา:** {time_str} (GMT+7)
+รายงานเหตุการณ์วันที่: {date_str} | ส่งเมื่อ: {time_str} (GMT+7)
 
 ---
 
@@ -576,11 +577,14 @@ def main():
     # Initialize database
     db = get_db()
     
-    # รองรับการระบุวันที่: python script.py 2026-02-04 หรือ 4-2-69 (วัน-เดือน-พ.ศ.)
-    target_date = None
+    # รองรับการระบุวันที่: python script.py 2026-02-04 หรือ 4-2-69 หรือ yesterday
+    # ถ้าไม่ระบุ = ใช้เมื่อวาน (สำหรับ cron รายวัน)
+    target_date = datetime.now(TZ_BANGKOK).date() - timedelta(days=1)  # default: เมื่อวาน
     if len(sys.argv) >= 2:
         arg = sys.argv[1]
-        if '-' in arg:
+        if arg.lower() == 'yesterday':
+            target_date = datetime.now(TZ_BANGKOK).date() - timedelta(days=1)
+        elif '-' in arg:
             parts = arg.split('-')
             if len(parts) == 3:
                 # YYYY-MM-DD (ปี 4 หลักอยู่หน้า)

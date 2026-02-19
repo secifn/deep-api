@@ -86,8 +86,13 @@ REPORT_SERVER_PORT=8080
 REPORT_SERVER_URL=https://allevent.ifn-dtc.online
 
 # Daily Report Schedule (Cron format)
-DAILY_REPORT_CRON=0 8 * * *  # ทุกวัน 08:00 น.
+DAILY_REPORT_CRON=0 8 * * *  # ทุกวัน 08:00 น. (รายงานเมื่อวาน)
 ```
+
+### การเปลี่ยน Mattermost Webhook URL
+- แก้ไข `.env` → `MATTERMOST_WEBHOOK_URL=https://mm.example.com/hooks/xxx`
+- **ไม่ต้อง restart** – .env ถูก mount เข้า container อ่านค่าล่าสุด
+- ทดสอบ: `docker exec deep-api-report-server python3 send_today_to_mattermost.py`
 
 ---
 
