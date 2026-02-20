@@ -17,6 +17,35 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
     
+    def _is_blocked(self, path):
+        """ตรวจสอบว่า path ถูกบล็อกหรือไม่"""
+        name = os.path.basename(path.rstrip('/'))
+        if not name:
+            return False
+        if name.startswith('.'):
+            return True
+        if name in ('logs', 'data', 'backups'):
+            return True
+        if name.endswith('.py') or name.endswith('.db') or name.endswith('.log'):
+            return True
+        return False
+    
+    def list_directory(self, path):
+        """ปิด directory listing - ห้ามแสดงรายการไฟล์"""
+        self.send_error(403, "Directory listing is disabled")
+        return None
+    
+    def do_GET(self):
+        """Override เพื่อบล็อกไฟล์ที่ละเอียดอ่อน"""
+        # หา path จริง (แปลง URL path เป็นไฟล์ path)
+        path = self.translate_path(self.path)
+        if os.path.isdir(path):
+            path = os.path.join(path, 'index.html')
+        if self._is_blocked(path):
+            self.send_error(403, "Forbidden")
+            return
+        super().do_GET()
+    
     def end_headers(self):
         # เพิ่ม CORS headers
         self.send_header('Access-Control-Allow-Origin', '*')

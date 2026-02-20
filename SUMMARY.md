@@ -313,11 +313,11 @@ REPORT_SERVER_PORT=8080
 ### ✅ การตรวจสอบ .env (2026-02-19)
 - ตัวแปรครบ: DEEPINSTINCT_URL, TOKENS_KEY, MATTERMOST_WEBHOOK_URL, REPORT_SERVER_URL, POLLING_INTERVAL, IT_PARCEL_API_URL, IT_PARCEL_TOKEN
 - **IT_PARCEL_API_URL** ใช้ `https://asset.trd-dtc.one/api/v1`
-- **.env ถูก mount เข้า container** – แก้ไข .env แล้วจะมีผลทันที (ไม่ต้อง restart)
+- **.env ใช้ env_file** – ไม่ mount เข้า container (ปลอดภัยกว่า) เปลี่ยน config ต้อง restart
 
 ### 🔄 การเปลี่ยน Mattermost Webhook URL
 1. แก้ไขไฟล์ `.env` → เปลี่ยนค่า `MATTERMOST_WEBHOOK_URL`
-2. **ไม่ต้อง restart** – Container อ่าน .env ล่าสุดจาก volume ที่ mount ไว้
+2. Restart containers: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
 3. ทดสอบส่ง: `docker exec deep-api-report-server python3 send_today_to_mattermost.py`
 
 ### ⚠️ หมายเหตุสำคัญ:
@@ -520,7 +520,7 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 
 ### ปัญหา: ส่งไป Mattermost channel เดิม (เปลี่ยน webhook แล้วยังไม่เปลี่ยน)
 **สาเหตุ:** ค่าเก่ายังอยู่ใน environment  
-**วิธีแก้:** ระบบใช้ `.env` ที่ mount เข้า container พร้อม `load_dotenv(override=True)` – แก้ .env แล้วรันใหม่จะมีผลทันที; ถ้ายังไม่ได้ ลอง restart: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
+**วิธีแก้:** แก้ `.env` แล้ว restart: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
 
 ---
 

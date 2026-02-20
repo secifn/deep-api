@@ -51,7 +51,7 @@ docker-compose -f docker-compose.prod.yml restart report-server daily-report
 ## 🔗 การเปลี่ยน Mattermost Webhook
 
 1. แก้ไข `.env` → `MATTERMOST_WEBHOOK_URL=https://mm.xxx/hooks/yyy`
-2. **ไม่ต้อง restart** – ระบบอ่านค่าจาก .env ที่ mount ไว้
+2. Restart: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
 3. ทดสอบส่งอีกครั้ง
 
 ---

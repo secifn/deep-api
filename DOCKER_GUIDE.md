@@ -91,7 +91,7 @@ DAILY_REPORT_CRON=0 8 * * *  # ทุกวัน 08:00 น. (รายงาน
 
 ### การเปลี่ยน Mattermost Webhook URL
 - แก้ไข `.env` → `MATTERMOST_WEBHOOK_URL=https://mm.example.com/hooks/xxx`
-- **ไม่ต้อง restart** – .env ถูก mount เข้า container อ่านค่าล่าสุด
+- Restart: `docker-compose -f docker-compose.prod.yml restart report-server daily-report`
 - ทดสอบ: `docker exec deep-api-report-server python3 send_today_to_mattermost.py`
 
 ---

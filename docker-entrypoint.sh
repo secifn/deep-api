@@ -56,7 +56,11 @@ case "$SERVICE_MODE" in
         echo -e "${GREEN}✅ Cron job scheduled: ${CRON_SCHEDULE}${NC}"
         echo -e "${BLUE}ℹ️  Logs: /app/logs/daily-report.log${NC}"
         
-        # Start cron in foreground
+        # สร้างโฟลเดอร์และไฟล์ log (ถ้ายังไม่มี)
+        mkdir -p /app/logs
+        touch /app/logs/daily-report.log
+        
+        # Start cron in foreground and tail log
         cron && tail -f /app/logs/daily-report.log
         ;;
     
