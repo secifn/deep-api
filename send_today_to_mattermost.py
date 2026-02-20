@@ -538,36 +538,6 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     message += "\n---\n\n"
     
-    # รายการ Events (แสดงใน Mattermost) - สูงสุด 25 รายการ เรียงตามเวลาใหม่สุด
-    all_events_sorted = sorted(
-        [e for e in (malicious_events + suspicious_events) if e.get('_bangkok_time')],
-        key=lambda x: x['_bangkok_time'],
-        reverse=True
-    )
-    max_list = 25
-    events_to_show = all_events_sorted[:max_list]
-    
-    if events_to_show:
-        message += "#### 📋 รายการ Events\n\n"
-        message += "| # | Event ID | เวลา | เครื่อง | ประเภท | Action | Severity |\n"
-        message += "|:--|:---------|:-----|:--------|:-------|:-------|:--------|\n"
-        for i, ev in enumerate(events_to_show, 1):
-            eid = ev.get('id', 'N/A')
-            dt = ev.get('_bangkok_time')
-            time_str = dt.strftime('%H:%M') if dt else 'N/A'
-            rd = ev.get('recorded_device_info') or {}
-            hostname = (rd.get('hostname') or 'N/A')[:20]  # ตัดให้สั้น
-            etype = '🔴Mal' if ev in malicious_events else '🟡Sus'
-            action = ev.get('action', 'N/A')[:3]  # DET/PRE
-            sev = (ev.get('threat_severity') or 'N/A')[:4]
-            message += f"| {i} | {eid} | {time_str} | {hostname} | {etype} | {action} | {sev} |\n"
-        if len(all_events_sorted) > max_list:
-            message += f"\n_แสดง {max_list} รายการล่าสุด จากทั้งหมด {len(all_events_sorted)} events_\n\n"
-    else:
-        message += "_ไม่มี events สำหรับวันที่นี้_\n\n"
-    
-    message += "---\n\n"
-    
     # แสดงข้อมูลเครื่องที่ไม่พบใน Snip IT (ก่อนลิงก์)
     if not_found_count > 0:
         message += f"⚠️ **พบ {not_found_count} เครื่องที่ไม่อยู่ใน Snip IT**\n\n"
