@@ -10,10 +10,15 @@ ENV PYTHONUNBUFFERED=1 \
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies + timezone
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
+
+# Set timezone to Asia/Bangkok
+ENV TZ=Asia/Bangkok
+RUN ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && echo "Asia/Bangkok" > /etc/timezone
 
 # Copy requirements first for better caching
 COPY requirements.txt .

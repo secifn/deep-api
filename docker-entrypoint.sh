@@ -42,23 +42,40 @@ case "$SERVICE_MODE" in
     "daily-report")
         echo -e "${GREEN}📅 Starting Daily Report Service (Cron)...${NC}"
         
-        # Install cron if not available
-        apt-get update > /dev/null 2>&1 && apt-get install -y cron > /dev/null 2>&1
+        # Install cron and tzdata if not available
+        apt-get update > /dev/null 2>&1 && apt-get install -y cron tzdata > /dev/null 2>&1
         
-        # Get cron schedule from environment or use default (8 AM daily)
+        # Set timezone to Bangkok
+        export TZ="Asia/Bangkok"
+        ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
+        echo "Asia/Bangkok" > /etc/timezone
+
+        # Get cron schedule from environment or use default (8 AM daily Bangkok time)
         CRON_SCHEDULE="${DAILY_REPORT_CRON:-0 8 * * *}"
         
-        # Create cron job
-        echo "$CRON_SCHEDULE cd /app && python3 /app/send_today_to_mattermost.py >> /app/logs/daily-report.log 2>&1" > /etc/cron.d/daily-report
+        # Export all env vars to a file so cron can load them (with proper bash quoting)
+        mkdir -p /app/logs
+        touch /app/logs/daily-report.log
+        while IFS='=' read -r name value; do
+            printf 'export %s=%q\n' "$name" "$value"
+        done < <(printenv | grep -v "no_proxy") > /app/.docker_env
+        chmod 600 /app/.docker_env
+        
+        # Find the full path to python3
+        PYTHON_BIN=$(which python3)
+        
+        # Create cron job with full python path and env loading
+        echo "SHELL=/bin/bash
+TZ=Asia/Bangkok
+$CRON_SCHEDULE . /app/.docker_env; cd /app && $PYTHON_BIN /app/send_today_to_mattermost.py >> /app/logs/daily-report.log 2>&1
+" > /etc/cron.d/daily-report
         chmod 0644 /etc/cron.d/daily-report
         crontab /etc/cron.d/daily-report
         
-        echo -e "${GREEN}✅ Cron job scheduled: ${CRON_SCHEDULE}${NC}"
+        echo -e "${GREEN}✅ Cron job scheduled: ${CRON_SCHEDULE} (Asia/Bangkok)${NC}"
+        echo -e "${BLUE}ℹ️  Python: ${PYTHON_BIN}${NC}"
+        echo -e "${BLUE}ℹ️  Timezone: $(date +%Z) $(date)${NC}"
         echo -e "${BLUE}ℹ️  Logs: /app/logs/daily-report.log${NC}"
-        
-        # สร้างโฟลเดอร์และไฟล์ log (ถ้ายังไม่มี)
-        mkdir -p /app/logs
-        touch /app/logs/daily-report.log
         
         # Start cron in foreground and tail log
         cron && tail -f /app/logs/daily-report.log
