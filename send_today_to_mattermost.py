@@ -607,13 +607,13 @@ def main():
         print("  🔒 Deep Instinct → Mattermost (Daily Report)")
         print("=" * 70)
     
-    # 1. ดึง Malicious Events
+    # 1. ดึง Malicious Events (เริ่มจาก ID ย้อนหลัง 2-3 วัน เพื่อความเร็ว)
     print("\n📥 Fetching Malicious Events...")
-    malicious = fetch_events_with_pagination('events', 17400)
+    malicious = fetch_events_with_pagination('events', 19200)
     malicious_filtered = filter_by_date(malicious, target_date or datetime.now(TZ_BANGKOK).date())
     print(f"   ✅ Found {len(malicious_filtered)} malicious events")
     
-    # 2. ดึง Suspicious Events
+    # 2. ดึง Suspicious Events (เริ่มจาก ID ย้อนหลัง 2-3 วัน)
     print("\n📥 Fetching Suspicious Events...")
     suspicious = fetch_events_with_pagination('suspicious-events', 14400)
     suspicious_filtered = filter_by_date(suspicious, target_date or datetime.now(TZ_BANGKOK).date())
