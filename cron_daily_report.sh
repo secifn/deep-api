@@ -2,7 +2,7 @@
 # Deep Instinct Daily Report - ดึงข้อมูลย้อนหลัง 1 วัน
 # ใช้กับ cron: รันทุกวัน 07:00
 
-cd /home/api/DeepInstint
+cd /home/api/deep-api
 
 # คำนวณวันที่เมื่อวาน (ย้อนหลัง 1 วัน)
 YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
