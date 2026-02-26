@@ -29,8 +29,8 @@ services:
     environment:
       - DEBUG=1
       - PYTHONUNBUFFERED=1
-      # More frequent reports for testing (every minute)
-      - DAILY_REPORT_CRON=* * * * *
+      # Daily report at 07:00 (production schedule)
+      - DAILY_REPORT_CRON=0 7 * * *
     
     restart: "no"
 
