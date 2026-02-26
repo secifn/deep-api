@@ -514,8 +514,6 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 | 🟡 Suspicious | {len(suspicious_events)} | {royal_suspicious} |
 | **รวมทั้งหมด** | **{total_events}** | **{royal_total}** |
 
-_หมายเหตุ: โครงการส่วนพระองค์ = Royal Chitralada Projects (L3)_
-
 ---
 
 #### 🛡️ การดำเนินการ (Actions)
