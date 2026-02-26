@@ -472,9 +472,14 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         'VERY_LOW': 0
     }
     
+    # นับ events จาก Royal Chitralada Projects
+    royal_malicious = 0
+    royal_suspicious = 0
+    
     for event in malicious_events + suspicious_events:
         action = event.get('action', 'N/A')
         severity = event.get('threat_severity', 'N/A')
+        tenant = event.get('tenant_name', '')
         
         if action == 'DETECTED':
             detected_count += 1
@@ -483,8 +488,16 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         
         if severity in severity_counts:
             severity_counts[severity] += 1
+        
+        # นับ events จาก Royal Chitralada Projects
+        if 'Royal Chitralada Projects' in tenant:
+            if event in malicious_events:
+                royal_malicious += 1
+            else:
+                royal_suspicious += 1
     
     total_events = len(malicious_events) + len(suspicious_events)
+    royal_total = royal_malicious + royal_suspicious
     
     # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
@@ -495,11 +508,13 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 #### 📊 สรุป Events วันที่ {date_display}
 
-| หมวดหมู่ | จำนวน |
-|:---------|------:|
-| 🔴 Malicious | {len(malicious_events)} |
-| 🟡 Suspicious | {len(suspicious_events)} |
-| **รวมทั้งหมด** | **{total_events}** |
+| หมวดหมู่ | จำนวน | เป็นเครื่องของโครงการส่วนพระองค์ |
+|:---------|------:|--------------------------------:|
+| 🔴 Malicious | {len(malicious_events)} | {royal_malicious} |
+| 🟡 Suspicious | {len(suspicious_events)} | {royal_suspicious} |
+| **รวมทั้งหมด** | **{total_events}** | **{royal_total}** |
+
+_หมายเหตุ: โครงการส่วนพระองค์ = Royal Chitralada Projects (L3)_
 
 ---
 
