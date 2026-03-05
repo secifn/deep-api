@@ -466,6 +466,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     detected_devices = set()
     prevented_devices = set()
     
+    # นับ unique devices จาก Royal Chitralada Projects แยกตาม action
+    royal_detected_devices = set()
+    royal_prevented_devices = set()
+    
     # นับ Severity
     severity_counts = {
         'CRITICAL': 0,
@@ -489,20 +493,27 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         recorded_info = event.get('recorded_device_info', {})
         device_name = recorded_info.get('hostname') or recorded_info.get('device_name', 'N/A')
         
+        # ตรวจสอบว่าเป็น Royal Chitralada Projects หรือไม่
+        is_royal = 'Royal Chitralada Projects' in tenant
+        
         if action == 'DETECTED':
             detected_count += 1
             if device_name and device_name != 'N/A':
                 detected_devices.add(device_name)
+                if is_royal:
+                    royal_detected_devices.add(device_name)
         elif action == 'PREVENTED':
             prevented_count += 1
             if device_name and device_name != 'N/A':
                 prevented_devices.add(device_name)
+                if is_royal:
+                    royal_prevented_devices.add(device_name)
         
         if severity in severity_counts:
             severity_counts[severity] += 1
         
         # นับ events จาก Royal Chitralada Projects
-        if 'Royal Chitralada Projects' in tenant:
+        if is_royal:
             if event in malicious_events:
                 royal_malicious += 1
             else:
@@ -514,6 +525,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     # จำนวนเครื่องแยกตาม action
     detected_device_count = len(detected_devices)
     prevented_device_count = len(prevented_devices)
+    
+    # จำนวนเครื่องจาก Royal Chitralada Projects แยกตาม action
+    royal_detected_device_count = len(royal_detected_devices)
+    royal_prevented_device_count = len(royal_prevented_devices)
     
     # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
@@ -534,10 +549,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 #### 🛡️ การดำเนินการ (Actions)
 
-| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง |
-|:-------|---------------:|-------------:|
-| 👁️ DETECTED | {detected_count} | {detected_device_count} |
-| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} |
+| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง | เป็นเครื่องของโครงการส่วนพระองค์/จำนวน |
+|:-------|---------------:|-------------:|--------------------------------------:|
+| 👁️ DETECTED | {detected_count} | {detected_device_count} | {royal_detected_device_count} |
+| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} | {royal_prevented_device_count} |
 
 ---
 
