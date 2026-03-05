@@ -13,6 +13,7 @@ from datetime import datetime, timezone, timedelta, date
 from dotenv import load_dotenv
 from database import get_db
 from build_not_found_devices_html import build_not_found_devices_html
+from build_royal_devices_html import build_royal_devices_html
 
 # โหลด environment variables
 # โหลดจาก .env ในโฟลเดอร์โปรเจกต์ (Docker ใช้ env_file จาก docker-compose)
@@ -434,7 +435,45 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
     
     return output_file, devices_not_found
 
-def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None, not_found_url=None, not_found_count=0):
+
+def collect_royal_devices_with_events(malicious_events, suspicious_events):
+    """
+    รวบรวมเครื่องของ Royal Chitralada Projects แยกตาม Action
+    Returns: (royal_detected, royal_prevented)
+    royal_detected = [(device_name, [events]), ...]
+    royal_prevented = [(device_name, [events]), ...]
+    """
+    from collections import defaultdict
+    royal_detected = defaultdict(list)
+    royal_prevented = defaultdict(list)
+
+    def process_events(events, event_type):
+        for event in events:
+            tenant = event.get('tenant_name', '')
+            if 'Royal Chitralada Projects' not in tenant:
+                continue
+            action = event.get('action', 'N/A')
+            rec = event.get('recorded_device_info', {})
+            device = rec.get('hostname') or rec.get('device_name') or event.get('device_name')
+            if not device or device == 'N/A':
+                continue
+            e_copy = dict(event)
+            e_copy['_event_type'] = event_type
+            if action == 'DETECTED':
+                royal_detected[device].append(e_copy)
+            elif action == 'PREVENTED':
+                royal_prevented[device].append(e_copy)
+
+    process_events(malicious_events, 'malicious')
+    process_events(suspicious_events, 'suspicious')
+
+    return (
+        list(royal_detected.items()),
+        list(royal_prevented.items())
+    )
+
+
+def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None, not_found_url=None, not_found_count=0, royal_detected_url=None, royal_prevented_url=None):
     """สร้างข้อความสำหรับ Mattermost แบบตาราง (เหมือนในรูป)"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
@@ -560,7 +599,17 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     # รวมจำนวนเครื่องจาก Royal Chitralada Projects (Malicious + Suspicious) แยกตาม action
     royal_detected_device_count = len(royal_detected_devices_malicious | royal_detected_devices_suspicious)
     royal_prevented_device_count = len(royal_prevented_devices_malicious | royal_prevented_devices_suspicious)
-    
+
+    # สร้างลิงก์สำหรับเลข Royal (คลิก DETECTED → หน้า DETECTED เท่านั้น, PREVENTED → หน้า PREVENTED เท่านั้น)
+    if royal_detected_url and royal_detected_device_count > 0:
+        royal_detected_display = f"[{royal_detected_device_count}]({royal_detected_url})"
+    else:
+        royal_detected_display = str(royal_detected_device_count)
+    if royal_prevented_url and royal_prevented_device_count > 0:
+        royal_prevented_display = f"[{royal_prevented_device_count}]({royal_prevented_url})"
+    else:
+        royal_prevented_display = str(royal_prevented_device_count)
+
     # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
 
@@ -582,8 +631,8 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 | Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง | เป็นเครื่องของโครงการส่วนพระองค์/จำนวน |
 |:-------|---------------:|-------------:|--------------------------------------:|
-| 👁️ DETECTED | {detected_count} | {detected_device_count} | {royal_detected_device_count} |
-| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} | {royal_prevented_device_count} |
+| 👁️ DETECTED | {detected_count} | {detected_device_count} | {royal_detected_display} |
+| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} | {royal_prevented_display} |
 
 ---
 
@@ -746,6 +795,19 @@ def main():
     # URL สำหรับเข้าถึงไฟล์ผ่าน web server (อยู่ใน event_detail/)
     details_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{html_filename}"
     print(f"   🔗 Report URL: {details_url}")
+
+    # สร้างไฟล์ HTML เครื่องโครงการส่วนพระองค์ แยก DETECTED และ PREVENTED
+    royal_detected_list, royal_prevented_list = collect_royal_devices_with_events(malicious_filtered, suspicious_filtered)
+    royal_detected_filename, royal_prevented_filename = build_royal_devices_html(
+        royal_detected_list, royal_prevented_list, EVENT_DETAIL_DIR, date_filename,
+        target_date or datetime.now(TZ_BANGKOK).date()
+    )
+    base_url = REPORT_SERVER_URL.rstrip('/') + '/event_detail/'
+    royal_detected_url = base_url + royal_detected_filename
+    royal_prevented_url = base_url + royal_prevented_filename
+    if royal_detected_list or royal_prevented_list:
+        print(f"   👑 Royal DETECTED: event_detail/{royal_detected_filename}")
+        print(f"   👑 Royal PREVENTED: event_detail/{royal_prevented_filename}")
     
     # บันทึก HTML report metadata ลง database
     db.save_html_report(
@@ -760,7 +822,7 @@ def main():
     # 4. สร้างข้อความ Mattermost
     print("\n📝 Building Mattermost message...")
     report_date = target_date or datetime.now(TZ_BANGKOK).date()
-    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date, not_found_url, len(devices_not_found) if devices_not_found else 0)
+    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date, not_found_url, len(devices_not_found) if devices_not_found else 0, royal_detected_url, royal_prevented_url)
     
     # 5. แสดงตัวอย่าง
     print("\n" + "=" * 70)
@@ -769,16 +831,25 @@ def main():
     print(message)
     print("=" * 70)
     
-    # 6. ส่งไปยัง Mattermost
-    print("\n📤 Sending to Mattermost...")
-    success = send_to_mattermost(message)
+    # 6. ส่งไปยัง Mattermost (ข้ามได้ด้วย --no-send สำหรับทดสอบ)
+    if '--no-send' in sys.argv:
+        print("\n📤 [ข้ามส่ง] ใช้ --no-send สำหรับทดสอบ (ไม่ส่งไป Mattermost)")
+        success = True
+    else:
+        print("\n📤 Sending to Mattermost...")
+        success = send_to_mattermost(message)
     
     if success:
-        print("   ✅ Sent successfully!")
-        print(f"\n📄 Detailed report: {html_path}")
-        
-        # ทำเครื่องหมายว่ารายงานถูกส่งแล้ว
-        db.mark_report_sent(date_filename)
+        if '--no-send' in sys.argv:
+            print("   ✅ รายงานสร้างเรียบร้อย (ไม่ได้ส่ง)")
+            print(f"\n📄 Detailed report: {html_path}")
+            print(f"   👑 Royal DETECTED: {os.path.join(EVENT_DETAIL_DIR, royal_detected_filename)}")
+            print(f"   👑 Royal PREVENTED: {os.path.join(EVENT_DETAIL_DIR, royal_prevented_filename)}")
+        else:
+            print("   ✅ Sent successfully!")
+            print(f"\n📄 Detailed report: {html_path}")
+            # ทำเครื่องหมายว่ารายงานถูกส่งแล้ว
+            db.mark_report_sent(date_filename)
     else:
         print("   ❌ Failed to send")
     
