@@ -462,6 +462,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     detected_count = 0
     prevented_count = 0
     
+    # นับ unique devices แยกตาม action
+    detected_devices = set()
+    prevented_devices = set()
+    
     # นับ Severity
     severity_counts = {
         'CRITICAL': 0,
@@ -481,10 +485,18 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         severity = event.get('threat_severity', 'N/A')
         tenant = event.get('tenant_name', '')
         
+        # ดึงชื่อ device
+        recorded_info = event.get('recorded_device_info', {})
+        device_name = recorded_info.get('hostname') or recorded_info.get('device_name', 'N/A')
+        
         if action == 'DETECTED':
             detected_count += 1
+            if device_name and device_name != 'N/A':
+                detected_devices.add(device_name)
         elif action == 'PREVENTED':
             prevented_count += 1
+            if device_name and device_name != 'N/A':
+                prevented_devices.add(device_name)
         
         if severity in severity_counts:
             severity_counts[severity] += 1
@@ -498,6 +510,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     total_events = len(malicious_events) + len(suspicious_events)
     royal_total = royal_malicious + royal_suspicious
+    
+    # จำนวนเครื่องแยกตาม action
+    detected_device_count = len(detected_devices)
+    prevented_device_count = len(prevented_devices)
     
     # สร้าง message แบบตาราง (เหมือนในรูป)
     message = f"""### 🔒 Deep Instinct Security Report
@@ -518,10 +534,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 #### 🛡️ การดำเนินการ (Actions)
 
-| Action | จำนวน |
-|:-------|------:|
-| 👁️ DETECTED | {detected_count} |
-| 🛡️ PREVENTED | {prevented_count} |
+| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง |
+|:-------|---------------:|-------------:|
+| 👁️ DETECTED | {detected_count} | {detected_device_count} |
+| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} |
 
 ---
 
