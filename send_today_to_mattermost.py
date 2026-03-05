@@ -508,8 +508,8 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 #### 📊 สรุป Events วันที่ {date_display}
 
-| หมวดหมู่ | จำนวน | เป็นเครื่องของโครงการส่วนพระองค์ |
-|:---------|------:|--------------------------------:|
+| หมวดหมู่ | จำนวน/เหตุการณ์ | เป็นเหตุการณ์ของโครงการส่วนพระองค์ |
+|:---------|---------------:|----------------------------------:|
 | 🔴 Malicious | {len(malicious_events)} | {royal_malicious} |
 | 🟡 Suspicious | {len(suspicious_events)} | {royal_suspicious} |
 | **รวมทั้งหมด** | **{total_events}** | **{royal_total}** |
