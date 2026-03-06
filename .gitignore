@@ -60,6 +60,8 @@ logs/
 
 # Event details
 event_detail/*.html
+event_detail/*.md
+event_detail/index.html
 events_today_*.json
 
 # Docker

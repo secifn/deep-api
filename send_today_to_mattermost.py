@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from database import get_db
 from build_not_found_devices_html import build_not_found_devices_html
 from build_royal_devices_html import build_royal_devices_html
+from build_reports_index import build_reports_index
 
 # โหลด environment variables
 # โหลดจาก .env ในโฟลเดอร์โปรเจกต์ (Docker ใช้ env_file จาก docker-compose)
@@ -473,7 +474,7 @@ def collect_royal_devices_with_events(malicious_events, suspicious_events):
     )
 
 
-def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None, not_found_url=None, not_found_count=0, royal_detected_url=None, royal_prevented_url=None):
+def build_mattermost_message(malicious_events, suspicious_events, details_url=None, report_date=None, not_found_url=None, not_found_count=0, royal_detected_url=None, royal_prevented_url=None, reports_index_url=None):
     """สร้างข้อความสำหรับ Mattermost แบบตาราง (เหมือนในรูป)"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
@@ -531,22 +532,23 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         severity = event.get('threat_severity', 'N/A')
         tenant = event.get('tenant_name', '')
         
-        # ดึงชื่อ device
+        # ดึงชื่อ device (hostname, device_name จาก recorded_info หรือ event level) + normalize ด้วย strip
         recorded_info = event.get('recorded_device_info', {})
-        device_name = recorded_info.get('hostname') or recorded_info.get('device_name', 'N/A')
+        raw = recorded_info.get('hostname') or recorded_info.get('device_name') or event.get('device_name') or ''
+        device_name = str(raw).strip() if raw and str(raw).lower() not in ('n/a', 'none', '') else None
         
         # ตรวจสอบว่าเป็น Royal Chitralada Projects หรือไม่
         is_royal = 'Royal Chitralada Projects' in tenant
         
         if action == 'DETECTED':
             detected_count += 1
-            if device_name and device_name != 'N/A':
+            if device_name:
                 detected_devices.add(device_name)
                 if is_royal:
                     royal_detected_devices_malicious.add(device_name)
         elif action == 'PREVENTED':
             prevented_count += 1
-            if device_name and device_name != 'N/A':
+            if device_name:
                 prevented_devices.add(device_name)
                 if is_royal:
                     royal_prevented_devices_malicious.add(device_name)
@@ -563,22 +565,23 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         severity = event.get('threat_severity', 'N/A')
         tenant = event.get('tenant_name', '')
         
-        # ดึงชื่อ device
+        # ดึงชื่อ device (hostname, device_name จาก recorded_info หรือ event level) + normalize ด้วย strip
         recorded_info = event.get('recorded_device_info', {})
-        device_name = recorded_info.get('hostname') or recorded_info.get('device_name', 'N/A')
+        raw = recorded_info.get('hostname') or recorded_info.get('device_name') or event.get('device_name') or ''
+        device_name = str(raw).strip() if raw and str(raw).lower() not in ('n/a', 'none', '') else None
         
         # ตรวจสอบว่าเป็น Royal Chitralada Projects หรือไม่
         is_royal = 'Royal Chitralada Projects' in tenant
         
         if action == 'DETECTED':
             detected_count += 1
-            if device_name and device_name != 'N/A':
+            if device_name:
                 detected_devices.add(device_name)
                 if is_royal:
                     royal_detected_devices_suspicious.add(device_name)
         elif action == 'PREVENTED':
             prevented_count += 1
-            if device_name and device_name != 'N/A':
+            if device_name:
                 prevented_devices.add(device_name)
                 if is_royal:
                     royal_prevented_devices_suspicious.add(device_name)
@@ -673,6 +676,10 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
         # เพิ่มลิงก์สำหรับเครื่องที่ไม่พบใน Snip IT
         if not_found_url and not_found_count > 0:
             message += f"⚠️ [รายละเอียดเครื่องที่ไม่พบใน Snip IT ({not_found_count} เครื่อง)]({not_found_url})\n"
+        
+        # ลิงก์ไปยังหน้ารวมรายงาน (Daily-report, เครื่องที่ไม่อยู่ใน Snipe-IT) เพื่อดูย้อนหลัง
+        if reports_index_url:
+            message += f"🔗 [Deep Instinct Security Report]({reports_index_url})\n"
         
         message += "\n"
     
@@ -822,7 +829,15 @@ def main():
     # 4. สร้างข้อความ Mattermost
     print("\n📝 Building Mattermost message...")
     report_date = target_date or datetime.now(TZ_BANGKOK).date()
-    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date, not_found_url, len(devices_not_found) if devices_not_found else 0, royal_detected_url, royal_prevented_url)
+    reports_index_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/"
+    message = build_mattermost_message(malicious_filtered, suspicious_filtered, details_url, report_date, not_found_url, len(devices_not_found) if devices_not_found else 0, royal_detected_url, royal_prevented_url, reports_index_url)
+
+    # บันทึก message เป็นไฟล์ .md และอัปเดต index สำหรับดูย้อนหลัง
+    md_filename = f"{date_filename}-daily-report.md"
+    md_path = os.path.join(EVENT_DETAIL_DIR, md_filename)
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(message)
+    build_reports_index(EVENT_DETAIL_DIR)
     
     # 5. แสดงตัวอย่าง
     print("\n" + "=" * 70)
@@ -830,6 +845,25 @@ def main():
     print("=" * 70)
     print(message)
     print("=" * 70)
+
+    # --debug-devices: แสดงรายการเครื่อง PREVENTED/DETECTED เพื่อเปรียบเทียบกับ export
+    if '--debug-devices' in sys.argv:
+        det, prev = set(), set()
+        for e in malicious_filtered + suspicious_filtered:
+            rec = e.get('recorded_device_info') or {}
+            raw = rec.get('hostname') or rec.get('device_name') or e.get('device_name') or ''
+            dn = str(raw).strip() if raw and str(raw).lower() not in ('n/a', 'none', '') else None
+            if dn and e.get('action') == 'DETECTED':
+                det.add(dn)
+            elif dn and e.get('action') == 'PREVENTED':
+                prev.add(dn)
+        print("\n📋 [DEBUG] รายการเครื่องสำหรับเปรียบเทียบกับ Export:")
+        print(f"   DETECTED: {len(det)} เครื่อง")
+        for i, d in enumerate(sorted(det), 1):
+            print(f"      {i:2}. {d}")
+        print(f"   PREVENTED: {len(prev)} เครื่อง")
+        for i, d in enumerate(sorted(prev), 1):
+            print(f"      {i:2}. {d}")
     
     # 6. ส่งไปยัง Mattermost (ข้ามได้ด้วย --no-send สำหรับทดสอบ)
     if '--no-send' in sys.argv:
