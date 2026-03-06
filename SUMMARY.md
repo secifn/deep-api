@@ -1,8 +1,8 @@
 # 📋 สรุปโครงการ Deep Instinct to Mattermost Integration
 
 **วันที่สร้าง:** 2026-01-29  
-**อัปเดตล่าสุด:** 2026-02-19  
-**สถานะ:** ✅ **Production Ready** (SQLite Database + Docker Production + Not Found Devices Report)
+**อัปเดตล่าสุด:** 2026-03-06  
+**สถานะ:** ✅ **Production Ready** (SQLite + Docker + Not Found Devices + Royal Reports + Reports Index)
 
 > 📖 **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** – สรุปคำสั่งที่ใช้บ่อย และการตั้งค่า
 
@@ -21,6 +21,13 @@
 ---
 
 ## 🎯 Features Overview
+
+### ⭐ **NEW - Reports Index & Royal Devices (2026-03-06)**
+- ✅ **หน้ารายงานย้อนหลัง** – เก็บ Daily-report และ เครื่องที่ไม่อยู่ใน Snipe-IT แยกหัวข้อ
+- ✅ **Deep Instinct Security Report** – ลิงก์ใน Mattermost ไปยังหน้ารวมรายงาน
+- ✅ **Royal Chitralada Projects** – แสดงจำนวนเครื่องโครงการส่วนพระองค์ (คลิกดูรายละเอียด)
+- ✅ **ไฟล์ .md** – บันทึก YYYY-MM-DD-daily-report.md สำหรับ Raw MD
+- ✅ **build_reports_index.py** – สร้าง index.html แบ่ง Daily-report / เครื่องที่ไม่อยู่ใน Snipe-IT
 
 ### ⭐ **NEW - Not Found Devices Report (2026-02-17)**
 - ✅ **Device Validation** - ตรวจสอบเครื่องที่ไม่พบใน Snip IT
@@ -77,6 +84,8 @@ POLLING_INTERVAL=300
 | **`query_events.py`** | ⭐ Query และค้นหา events จาก database | ✅ พร้อมใช้ |
 | **`db_maintenance.py`** | ⭐ Database maintenance (backup, vacuum, cleanup) | ✅ พร้อมใช้ |
 | **`build_not_found_devices_html.py`** | ⭐ สร้างรายงานเครื่องที่ไม่พบใน Snip IT | ✅ พร้อมใช้ |
+| **`build_royal_devices_html.py`** | ⭐ สร้างรายงานเครื่องโครงการส่วนพระองค์ (DETECTED/PREVENTED) | ✅ พร้อมใช้ |
+| **`build_reports_index.py`** | ⭐ สร้างหน้า index รายงานย้อนหลัง (Daily-report, เครื่องที่ไม่อยู่ใน Snipe-IT) | ✅ พร้อมใช้ |
 | **`test_complete_report.py`** | ⭐ Test script (ไม่ส่ง Mattermost) | ✅ พร้อมใช้ |
 | **`test_report_preview.py`** | Test script (preview only) | ✅ พร้อมใช้ |
 | **`test_connection.py`** | ทดสอบการเชื่อมต่อ API และ Webhook | ✅ พร้อมใช้ |
@@ -120,8 +129,9 @@ POLLING_INTERVAL=300
 | รวมทั้งหมด | 123  |
 
 #### 🛡️ การดำเนินการ (Actions)
-| DETECTED  | 47 |
-| PREVENTED | 76 |
+| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง | เป็นเครื่องของโครงการส่วนพระองค์/จำนวน |
+| DETECTED  | 47 | 37 | 5 (คลิกดูรายละเอียด) |
+| PREVENTED | 76 | 22 | 1 (คลิกดูรายละเอียด) |
 
 #### ⚠️ ระดับความรุนแรง (Threat Severity)
 | MODERATE  | 61 |
@@ -133,6 +143,7 @@ POLLING_INTERVAL=300
 
 📄 ดูรายละเอียด Events ทั้งหมด (link ไป HTML report)
 ⚠️ รายละเอียดเครื่องที่ไม่พบใน Snip IT (17 เครื่อง) (link)
+🔗 Deep Instinct Security Report (link ไปหน้ารวมรายงานย้อนหลัง)
 🔗 Deep Instinct Dashboard
 ```
 
@@ -268,7 +279,8 @@ nohup python3 serve_reports.py > server.log 2>&1 &
 ./start_report_server.sh
 ```
 ตั้งค่า Cloudflare Tunnel ชี้ไปที่ `http://localhost:8080` แล้วใส่ URL ใน .env1 → `REPORT_SERVER_URL`  
-ลิงก์รายงาน: `{REPORT_SERVER_URL}/event_detail/event_details_YYYY-MM-DD.html`
+ลิงก์รายงาน: `{REPORT_SERVER_URL}/event_detail/event_details_YYYY-MM-DD.html`  
+หน้ารวมรายงาน: `{REPORT_SERVER_URL}/event_detail/` (Daily-report, เครื่องที่ไม่อยู่ใน Snipe-IT)
 
 ### 4. ทดสอบการเชื่อมต่อ:
 ```bash
@@ -430,6 +442,13 @@ recent_5 = sorted(
 - [x] **Detailed Link** – ลิงก์ไปยังรายงานเครื่องที่ไม่พบ
 - [x] **Pagination Fix** – เพิ่ม max_pages จาก 20 → 50 (ดึงข้อมูลครบถ้วน)
 
+### ⭐ NEW - Reports Index & Royal Devices (2026-03-06):
+- [x] **หน้ารายงานย้อนหลัง** – `event_detail/index.html` แบ่งหัวข้อ Daily-report และ เครื่องที่ไม่อยู่ใน Snipe-IT
+- [x] **Deep Instinct Security Report** – ลิงก์ใน Mattermost → หน้ารวมรายงาน
+- [x] **Royal Chitralada Projects** – คอลัมน์ "เป็นเครื่องของโครงการส่วนพระองค์" (DETECTED/PREVENTED แยกไฟล์)
+- [x] **ไฟล์ .md** – บันทึก `YYYY-MM-DD-daily-report.md` สำหรับ Raw MD
+- [x] **จำนวนเครื่อง** – รวม Malicious + Suspicious ตาม Device Name (ตรงกับ Export)
+
 ---
 
 ## 🔄 Monitoring & Services (รันอยู่แล้ว)
@@ -484,7 +503,7 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 - **`DOCKER_RUN_SUMMARY.md`** - ⭐ สรุปการ deploy Docker production
 - **`DEPLOYMENT.md`** - Production deployment guide
 - **`ROADMAP.md`** - แผนพัฒนาต่อ
-- **`SwagerDeep.txt`** - Deep Instinct API Documentation (Swagger/OpenAPI)
+- **`SwagerDeep.json`** - Deep Instinct API Documentation (Swagger/OpenAPI)
 
 ---
 
@@ -595,8 +614,9 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 ---
 
-**Last Updated:** 2026-02-19  
-**Version:** 4.1.0  
-**Status:** ✅ **Production Running** (Deep Instinct + Snip IT + SQLite Database + Docker Production)  
-**Docker Services:** ✅ report-server, ✅ monitor, ✅ daily-report  
-**Database:** ✅ SQLite (events.db) with query & maintenance tools
+**Last Updated:** 2026-03-06  
+**Version:** 4.2.0  
+**Status:** ✅ **Production Running** (Deep Instinct + Snip IT + SQLite + Reports Index + Royal Devices)  
+**Docker Services:** ✅ report-server, ✅ daily-report  
+**Database:** ✅ SQLite (events.db) with query & maintenance tools  
+**Reports:** ✅ event_detail/ (index, event_details, not_found, royal_devices, daily-report.md)
