@@ -47,8 +47,8 @@ case "$SERVICE_MODE" in
         
         # Set timezone to Bangkok
         export TZ="Asia/Bangkok"
-        ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime
-        echo "Asia/Bangkok" > /etc/timezone
+        ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime || true
+        echo "Asia/Bangkok" > /etc/timezone || true
 
         # Get cron schedule from environment or use default (8 AM daily Bangkok time)
         CRON_SCHEDULE="${DAILY_REPORT_CRON:-0 8 * * *}"
