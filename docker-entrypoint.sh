@@ -42,16 +42,11 @@ case "$SERVICE_MODE" in
     "daily-report")
         echo -e "${GREEN}📅 Starting Daily Report Service (Cron)...${NC}"
         
-        # Install cron and tzdata if not available
-        apt-get update > /dev/null 2>&1 && apt-get install -y cron tzdata > /dev/null 2>&1
-        
-        # Set timezone to Bangkok
+        # Set timezone to Bangkok (cron and tzdata already installed in Dockerfile)
         export TZ="Asia/Bangkok"
-        ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime || true
-        echo "Asia/Bangkok" > /etc/timezone || true
-
-        # Get cron schedule from environment or use default (8 AM daily Bangkok time)
-        CRON_SCHEDULE="${DAILY_REPORT_CRON:-0 8 * * *}"
+        
+        # Get cron schedule from environment or use default (7 AM daily Bangkok time)
+        CRON_SCHEDULE="${DAILY_REPORT_CRON:-0 7 * * *}"
         
         # Export all env vars to a file so cron can load them (with proper bash quoting)
         mkdir -p /app/logs

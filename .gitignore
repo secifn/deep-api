@@ -40,6 +40,7 @@ venv.bak/
 .env1
 .env.local
 .env.*.local
+.docker_env
 
 # Database
 *.db
