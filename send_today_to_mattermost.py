@@ -144,21 +144,32 @@ def filter_today(events):
     return filter_by_date(events, today_bangkok)
 
 def filter_by_date(events, target_date):
-    """กรองเฉพาะ events ของวันที่กำหนด"""
+    """
+    กรองเฉพาะ events ของวันที่กำหนด
+    ใช้ช่วงเวลา 00:00:00 - 23:59:59.999999 ในเขต Bangkok timezone
+    """
     if isinstance(target_date, str):
         target_date = datetime.strptime(target_date, '%Y-%m-%d').date()
+    
+    # สร้าง datetime range สำหรับวันที่กำหนดใน Bangkok timezone
+    start_of_day = datetime.combine(target_date, datetime.min.time()).replace(tzinfo=TZ_BANGKOK)
+    end_of_day = datetime.combine(target_date, datetime.max.time()).replace(tzinfo=TZ_BANGKOK)
+    
     filtered = []
     for event in events:
+        # ลอง timestamp หลัก ก่อน ถ้าไม่มีใช้ insertion_timestamp
         timestamp = event.get('timestamp') or event.get('insertion_timestamp')
         if timestamp:
             dt_bangkok = convert_to_bangkok_time(timestamp)
-            if dt_bangkok and dt_bangkok.date() == target_date:
-                event['_bangkok_time'] = dt_bangkok
-                filtered.append(event)
+            if dt_bangkok:
+                # เช็คว่าอยู่ในช่วงเวลาของวันนั้น (แทนที่จะเช็คแค่ date)
+                if start_of_day <= dt_bangkok <= end_of_day:
+                    event['_bangkok_time'] = dt_bangkok
+                    filtered.append(event)
     return filtered
 
-def fetch_events_with_pagination(endpoint, after_id, max_pages=50):
-    """ดึง events พร้อม pagination (เพิ่ม max_pages เป็น 50)"""
+def fetch_events_with_pagination(endpoint, after_id, max_pages=200):
+    """ดึง events พร้อม pagination (เพิ่ม max_pages เป็น 200 เพื่อรองรับ events เยอะ)"""
     url = f"{API_URL}{endpoint}"
     headers = {'Authorization': TOKEN}
     
@@ -188,6 +199,10 @@ def fetch_events_with_pagination(endpoint, after_id, max_pages=50):
                 break
             
             all_events.extend(events_batch)
+            
+            # แสดง progress ทุก 10 pages
+            if (page + 1) % 10 == 0:
+                print(f"   📄 Fetched {len(all_events)} events so far (page {page + 1})...")
             
             # ใช้ last_id จาก response หรือ max id จาก events
             if last_id:
@@ -738,15 +753,49 @@ def main():
         print("  🔒 Deep Instinct → Mattermost (Daily Report)")
         print("=" * 70)
     
-    # 1. ดึง Malicious Events (เริ่มจาก ID ย้อนหลัง 2-3 วัน เพื่อความเร็ว)
+    # 1. ดึง Malicious Events
+    # คำนวณ starting ID โดยประมาณจากวันที่ต้องการ (ย้อนหลัง 14 วัน = ~1400 events ที่ 100/วัน)
+    # สูตร: target_date - 14 วัน * 100 events/วัน = starting_id
+    days_back = 14
+    avg_events_per_day = 100
+    # ดึงจาก database หา max event_id ที่เคยบันทึก
+    try:
+        with db.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT MAX(event_id) FROM events WHERE event_type='malicious'")
+            max_saved_id = cursor.fetchone()[0]
+            if max_saved_id:
+                # เริ่มย้อนหลัง 14 วัน จาก max_id
+                estimated_starting_id = max(0, max_saved_id - (days_back * avg_events_per_day))
+            else:
+                # ถ้าไม่มีข้อมูล ใช้ค่าประมาณ (event ~1218 เป็นวันที่ 3/7/2025)
+                # สำหรับวันนี้ (มี.ค. 2026) ควรมี ID ~25000-27000
+                estimated_starting_id = max(0, 25000 - (days_back * avg_events_per_day))
+    except:
+        estimated_starting_id = 20000  # fallback
+    
     print("\n📥 Fetching Malicious Events...")
-    malicious = fetch_events_with_pagination('events', 19200)
+    print(f"   🔍 Starting from event ID: {estimated_starting_id}")
+    malicious = fetch_events_with_pagination('events', estimated_starting_id)
     malicious_filtered = filter_by_date(malicious, target_date or datetime.now(TZ_BANGKOK).date())
     print(f"   ✅ Found {len(malicious_filtered)} malicious events")
     
-    # 2. ดึง Suspicious Events (เริ่มจาก ID ย้อนหลัง 2-3 วัน)
+    # 2. ดึง Suspicious Events (ใช้วิธีเดียวกัน)
+    try:
+        with db.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT MAX(event_id) FROM events WHERE event_type='suspicious'")
+            max_saved_id = cursor.fetchone()[0]
+            if max_saved_id:
+                estimated_starting_id = max(0, max_saved_id - (days_back * avg_events_per_day * 4))  # suspicious มักมากกว่า 4 เท่า
+            else:
+                estimated_starting_id = max(0, 16000 - (days_back * avg_events_per_day * 4))
+    except:
+        estimated_starting_id = 14000  # fallback
+    
     print("\n📥 Fetching Suspicious Events...")
-    suspicious = fetch_events_with_pagination('suspicious-events', 14400)
+    print(f"   🔍 Starting from event ID: {estimated_starting_id}")
+    suspicious = fetch_events_with_pagination('suspicious-events', estimated_starting_id)
     suspicious_filtered = filter_by_date(suspicious, target_date or datetime.now(TZ_BANGKOK).date())
     print(f"   ✅ Found {len(suspicious_filtered)} suspicious events")
     
