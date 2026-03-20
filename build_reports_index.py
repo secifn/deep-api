@@ -134,7 +134,7 @@ def build_reports_index(event_detail_dir):
     <div class="container">
         <h1><span class="shield">🛡️</span> Deep Instinct Security Reports</h1>
 
-        <details class="section" open>
+        <details class="section">
             <summary>📅 Daily-report</summary>
             <div class="section-content">
                 <table>
