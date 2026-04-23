@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-สร้างไฟล์ HTML สำหรับเครื่องที่ไม่พบใน Snip IT
+สร้างไฟล์ HTML สำหรับเครื่องที่ไม่พบใน Snipe IT
 """
 
 from datetime import datetime, timezone, timedelta
@@ -9,7 +9,7 @@ TZ_BANGKOK = timezone(timedelta(hours=7))
 
 
 def build_not_found_devices_html(devices_not_found, output_file):
-    """สร้างไฟล์ HTML สำหรับเครื่องที่ไม่พบใน Snip IT"""
+    """สร้างไฟล์ HTML สำหรับเครื่องที่ไม่พบใน Snipe IT"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
     date_str = now_bangkok.strftime('%d/%m/%Y %H:%M:%S')
@@ -19,7 +19,7 @@ def build_not_found_devices_html(devices_not_found, output_file):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เครื่องที่ไม่พบใน Snip IT - Deep Instinct</title>
+    <title>เครื่องที่ไม่พบใน Snipe IT - Deep Instinct</title>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 20px; }}
@@ -49,14 +49,14 @@ def build_not_found_devices_html(devices_not_found, output_file):
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚠️ เครื่องที่ไม่พบใน Snip IT</h1>
-            <p>รายการเครื่องที่ตรวจพบ Events แต่ไม่พบข้อมูลใน Snip IT</p>
+            <h1>⚠️ เครื่องที่ไม่พบใน Snipe IT</h1>
+            <p>รายการเครื่องที่ตรวจพบ Events แต่ไม่พบข้อมูลใน Snipe IT</p>
             <p>สร้างเมื่อ: {date_str} (GMT+7)</p>
         </div>
         
         <div class="alert">
             <div class="alert-title">⚠️ คำเตือน</div>
-            <div class="alert-text">เครื่องเหล่านี้ไม่พบข้อมูลใน Snip IT ทำให้ไม่สามารถระบุผู้รับผิดชอบได้ กรุณาตรวจสอบและเพิ่มข้อมูลเข้า Snip IT</div>
+            <div class="alert-text">เครื่องเหล่านี้ไม่พบข้อมูลใน Snipe IT ทำให้ไม่สามารถระบุผู้รับผิดชอบได้ กรุณาตรวจสอบและเพิ่มข้อมูลเข้า Snipe IT</div>
         </div>
         
         <div class="content">
@@ -110,8 +110,8 @@ def build_not_found_devices_html(devices_not_found, output_file):
     else:
         html += """
             <div class="no-data">
-                <p style="font-size: 18px;">✅ ไม่พบเครื่องที่ไม่อยู่ใน Snip IT</p>
-                <p>เครื่องทั้งหมดมีข้อมูลใน Snip IT ครบถ้วน</p>
+                <p style="font-size: 18px;">✅ ไม่พบเครื่องที่ไม่อยู่ใน Snipe IT</p>
+                <p>เครื่องทั้งหมดมีข้อมูลใน Snipe IT ครบถ้วน</p>
             </div>
 """
     

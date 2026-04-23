@@ -38,7 +38,7 @@ EVENT_DETAIL_DIR = os.path.join(SCRIPT_DIR, 'event_detail')
 
 def get_snipit_responsible_lookup(extra_search_hostnames=None):
     """
-    ดึงรายการ Hardware จาก Snip IT (IT Parcel) แล้วสร้าง dict ชื่อเครื่อง -> ผู้รับผิดชอบ
+    ดึงรายการ Hardware จาก Snipe IT (IT Parcel) แล้วสร้าง dict ชื่อเครื่อง -> ผู้รับผิดชอบ
     ใช้จับคู่กับ Deep Instinct event ตาม hostname/ชื่อเครื่อง
     ถ้า extra_search_hostnames ให้ จะใช้ Search API สำหรับ hostname ที่ยังไม่พบ (รองรับ custom field เช่น Device Name)
     คืนค่า dict (อาจว่างถ้าไม่มี config หรือ API ล้มเหลว)
@@ -232,7 +232,7 @@ def get_severity_icon(severity):
     return severity_map.get(severity, '❓')
 
 def build_event_details_html(malicious_events, suspicious_events, output_file):
-    """สร้างไฟล์ HTML รายละเอียด Events (จับคู่ Snip IT แสดงผู้รับผิดชอบเครื่อง)"""
+    """สร้างไฟล์ HTML รายละเอียด Events (จับคู่ Snipe IT แสดงผู้รับผิดชอบเครื่อง)"""
     
     now_bangkok = datetime.now(TZ_BANGKOK)
     date_str = now_bangkok.strftime('%d/%m/%Y %H:%M:%S')
@@ -247,12 +247,17 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
         if hn and str(hn).strip() and str(hn).strip().lower() not in seen_hn:
             seen_hn.add(str(hn).strip().lower())
             unique_hostnames.append(hn)
-    # ดึง mapping ชื่อเครื่อง -> ผู้รับผิดชอบ จาก Snip IT (list + search สำหรับ hostname ที่มีในรายงาน)
+    # ดึง mapping ชื่อเครื่อง -> ผู้รับผิดชอบ จาก Snipe IT (list + search สำหรับ hostname ที่มีในรายงาน)
     snipit_lookup = get_snipit_responsible_lookup(extra_search_hostnames=unique_hostnames)
     
-    # ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+    # ตรวจสอบเครื่องที่ไม่พบใน Snipe IT (ยกเว้นเครื่องของโครงการส่วนพระองค์)
     devices_not_found = []
     for event in all_events:
+        # ข้ามเครื่องของโครงการส่วนพระองค์
+        tenant = event.get('tenant_name', '')
+        if 'Royal Chitralada Projects' in tenant:
+            continue
+            
         recorded_info = event.get("recorded_device_info") or {}
         hostname = recorded_info.get("hostname")
         if hostname and str(hostname).strip() and str(hostname) != 'N/A':
@@ -353,8 +358,8 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
                 snipit_dept = snipit_division = "N/A"
         else:
             responsible = snipit_dept = snipit_division = 'N/A'
-        # แสดงข้อความเมื่อไม่พบข้อมูลใน Snip IT (แทน N/A)
-        _na_msg = "ไม่พบข้อมูลใน Snip IT"
+        # แสดงข้อความเมื่อไม่พบข้อมูลใน Snipe IT (แทน N/A)
+        _na_msg = "ไม่พบข้อมูลใน Snipe IT"
         responsible_display = _na_msg if (not responsible or str(responsible).strip() in ("", "N/A", "-")) else responsible
         snipit_dept_display = _na_msg if (not snipit_dept or str(snipit_dept).strip() in ("", "N/A", "-")) else snipit_dept
         snipit_division_display = _na_msg if (not snipit_division or str(snipit_division).strip() in ("", "N/A", "-")) else snipit_division
@@ -411,15 +416,15 @@ def build_event_details_html(malicious_events, suspicious_events, output_file):
                         <div class="detail-value">{tenant_name}</div>
                     </div>
                     <div class="detail-row">
-                        <div class="detail-label">ผู้รับผิดชอบ (Snip IT):</div>
+                        <div class="detail-label">ผู้รับผิดชอบ (Snipe IT):</div>
                         <div class="detail-value">{responsible_display}</div>
                     </div>
                     <div class="detail-row">
-                        <div class="detail-label">แผนก (Snip IT):</div>
+                        <div class="detail-label">แผนก (Snipe IT):</div>
                         <div class="detail-value">{snipit_dept_display}</div>
                     </div>
                     <div class="detail-row">
-                        <div class="detail-label">กอง (Snip IT):</div>
+                        <div class="detail-label">กอง (Snipe IT):</div>
                         <div class="detail-value">{snipit_division_display}</div>
                     </div>
                 </div>
@@ -628,7 +633,7 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     else:
         royal_prevented_display = str(royal_prevented_device_count)
 
-    # สร้าง message แบบตาราง (เหมือนในรูป)
+    # สร้าง message แบบตาราง (ไม่แสดงข้อมูล Royal Chitralada Projects)
     message = f"""### 🔒 Deep Instinct Security Report
 
 รายงานเหตุการณ์วันที่: {date_str} | ส่งเมื่อ: {time_str} (GMT+7)
@@ -637,20 +642,20 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
 
 #### 📊 สรุป Events วันที่ {date_display}
 
-| หมวดหมู่ | จำนวน/เหตุการณ์ | เป็นเหตุการณ์ของโครงการส่วนพระองค์ |
-|:---------|---------------:|----------------------------------:|
-| 🔴 Malicious | {len(malicious_events)} | {royal_malicious} |
-| 🟡 Suspicious | {len(suspicious_events)} | {royal_suspicious} |
-| **รวมทั้งหมด** | **{total_events}** | **{royal_total}** |
+| หมวดหมู่ | จำนวน/เหตุการณ์ |
+|:---------|---------------:|
+| 🔴 Malicious | {len(malicious_events)} |
+| 🟡 Suspicious | {len(suspicious_events)} |
+| **รวมทั้งหมด** | **{total_events}** |
 
 ---
 
 #### 🛡️ การดำเนินการ (Actions)
 
-| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง | เป็นเครื่องของโครงการส่วนพระองค์/จำนวน |
-|:-------|---------------:|-------------:|--------------------------------------:|
-| 👁️ DETECTED | {detected_count} | {detected_device_count} | {royal_detected_display} |
-| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} | {royal_prevented_display} |
+| Action | จำนวน/เหตุการณ์ | จำนวน/เครื่อง |
+|:-------|---------------:|-------------:|
+| 👁️ DETECTED | {detected_count} | {detected_device_count} |
+| 🛡️ PREVENTED | {prevented_count} | {prevented_device_count} |
 
 ---
 
@@ -680,17 +685,17 @@ def build_mattermost_message(malicious_events, suspicious_events, details_url=No
     
     message += "\n---\n\n"
     
-    # แสดงข้อมูลเครื่องที่ไม่พบใน Snip IT (ก่อนลิงก์)
+    # แสดงข้อมูลเครื่องที่ไม่พบใน Snipe IT (ก่อนลิงก์)
     if not_found_count > 0:
-        message += f"⚠️ **พบ {not_found_count} เครื่องที่ไม่อยู่ใน Snip IT**\n\n"
+        message += f"⚠️ **พบ {not_found_count} เครื่องที่ไม่อยู่ใน Snipe IT**\n\n"
     
     # เพิ่ม link ไปยังรายละเอียด
     if details_url:
         message += f"📄 [ดูรายละเอียด Events ทั้งหมด]({details_url})\n"
         
-        # เพิ่มลิงก์สำหรับเครื่องที่ไม่พบใน Snip IT
+        # เพิ่มลิงก์สำหรับเครื่องที่ไม่พบใน Snipe IT
         if not_found_url and not_found_count > 0:
-            message += f"⚠️ [รายละเอียดเครื่องที่ไม่พบใน Snip IT ({not_found_count} เครื่อง)]({not_found_url})\n"
+            message += f"⚠️ [รายละเอียดเครื่องที่ไม่พบใน Snipe IT ({not_found_count} เครื่อง)]({not_found_url})\n"
         
         # ลิงก์ไปยังหน้ารวมรายงาน (Daily-report, เครื่องที่ไม่อยู่ใน Snipe-IT) เพื่อดูย้อนหลัง
         if reports_index_url:
@@ -802,7 +807,7 @@ def main():
     # 3. บันทึก events ลง database
     print("\n💾 Saving events to database...")
     
-    # ดึง Snip IT lookup สำหรับบันทึกลง database
+    # ดึง Snipe IT lookup สำหรับบันทึกลง database
     all_events = malicious_filtered + suspicious_filtered
     unique_hostnames = []
     seen_hn = set()
@@ -823,7 +828,7 @@ def main():
     sus_saved, sus_skipped = db.save_events_batch(suspicious_filtered, 'suspicious', snipit_lookup)
     print(f"   ✅ Suspicious: {sus_saved} saved, {sus_skipped} skipped (duplicates)")
     
-    # 4. สร้างไฟล์ HTML รายละเอียด (จับคู่ Snip IT แสดงผู้รับผิดชอบ) เก็บใน event_detail/
+    # 4. สร้างไฟล์ HTML รายละเอียด (จับคู่ Snipe IT แสดงผู้รับผิดชอบ) เก็บใน event_detail/
     print("\n📄 Creating detailed HTML report...")
     os.makedirs(EVENT_DETAIL_DIR, exist_ok=True)
     date_filename = (target_date or datetime.now(TZ_BANGKOK).date()).strftime('%Y-%m-%d')
@@ -833,20 +838,20 @@ def main():
     html_path, devices_not_found = build_event_details_html(malicious_filtered, suspicious_filtered, html_path)
     print(f"   ✅ Created: event_detail/{html_filename}")
     if IT_PARCEL_API_URL and IT_PARCEL_TOKEN:
-        print(f"   📌 จับคู่ผู้รับผิดชอบจาก Snip IT (IT Parcel) แล้ว")
+        print(f"   📌 จับคู่ผู้รับผิดชอบจาก Snipe IT (IT Parcel) แล้ว")
     
-    # สร้างรายงานเครื่องที่ไม่พบใน Snip IT
+    # สร้างรายงานเครื่องที่ไม่พบใน Snipe IT
     not_found_html_filename = f"not_found_devices_{date_filename}.html"
     not_found_html_path = os.path.join(EVENT_DETAIL_DIR, not_found_html_filename)
     not_found_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{not_found_html_filename}"
     
     if devices_not_found:
         build_not_found_devices_html(devices_not_found, not_found_html_path)
-        print(f"   ⚠️  พบ {len(devices_not_found)} เครื่องที่ไม่อยู่ใน Snip IT")
+        print(f"   ⚠️  พบ {len(devices_not_found)} เครื่องที่ไม่อยู่ใน Snipe IT")
         print(f"   📄 Not Found Report: event_detail/{not_found_html_filename}")
     else:
         not_found_url = None
-        print(f"   ✅ เครื่องทั้งหมดพบใน Snip IT")
+        print(f"   ✅ เครื่องทั้งหมดพบใน Snipe IT")
     
     # URL สำหรับเข้าถึงไฟล์ผ่าน web server (อยู่ใน event_detail/)
     details_url = f"{REPORT_SERVER_URL.rstrip('/')}/event_detail/{html_filename}"
