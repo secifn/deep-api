@@ -48,14 +48,14 @@ deep-api-monitor         Up (health: starting)
 📅 Report Date: 2026-02-15
 📥 Malicious Events   : 0
 📥 Suspicious Events  : 10
-📥 Snip IT Data       : 4 devices
+📥 Snipe IT Data       : 4 devices
 📄 HTML File          : 44 KB ✅
 🔗 Report URL         : https://allevent.ifn-dtc.online/...
 ```
 
 ---
 
-### 3. 📄 HTML Reports (พร้อม Snip IT Data)
+### 3. 📄 HTML Reports (พร้อม Snipe IT Data)
 
 **ไฟล์ที่สร้าง:**
 ```
@@ -66,9 +66,9 @@ deep-api-monitor         Up (health: starting)
 - ✅ Event ID และเวลา
 - ✅ Action และ Severity badges (สี)
 - ✅ Device Name, IP Address
-- ✅ **ผู้รับผิดชอบ (Snip IT)** ⭐
-- ✅ **แผนก (Snip IT)** ⭐
-- ✅ **กอง (Snip IT)** ⭐
+- ✅ **ผู้รับผิดชอบ (Snipe IT)** ⭐
+- ✅ **แผนก (Snipe IT)** ⭐
+- ✅ **กอง (Snipe IT)** ⭐
 - ✅ Filename และ File Hash
 
 ---
@@ -99,7 +99,7 @@ deep-api-monitor         Up (health: starting)
 │ 🟢 LOW      │ 7 │
 
 📄 ดูรายละเอียด Events ทั้งหมด (link)
-(รายงานรวมผู้รับผิดชอบเครื่องจาก Snip IT)
+(รายงานรวมผู้รับผิดชอบเครื่องจาก Snipe IT)
 ```
 
 ---
@@ -147,7 +147,7 @@ deep-api-monitor         Up (health: starting)
 - Events storage (malicious + suspicious)
 - HTML reports metadata
 - Notification logs
-- Snip IT data caching
+- Snipe IT data caching
 
 **Query Tools:**
 ```bash
@@ -265,7 +265,7 @@ DAILY_REPORT_CRON=30 9 * * *  # 09:30 ทุกวัน
 - [x] Production send script
 - [x] Database integration
 - [x] Query และ maintenance tools
-- [x] HTML reports with Snip IT data
+- [x] HTML reports with Snipe IT data
 - [x] Mattermost message format (ตรงตามรูป)
 - [x] Cron scheduler (daily reports)
 - [x] Real-time monitor
@@ -279,7 +279,7 @@ DAILY_REPORT_CRON=30 9 * * *  # 09:30 ทุกวัน
 
 1. ✅ **Docker Production Environment** - พร้อมใช้งาน 3 services
 2. ✅ **Test Scripts** - ทดสอบได้ครบทุกแบบ ไม่ต้องส่ง Mattermost
-3. ✅ **HTML Reports** - แสดงรายละเอียดพร้อมข้อมูล Snip IT
+3. ✅ **HTML Reports** - แสดงรายละเอียดพร้อมข้อมูล Snipe IT
 4. ✅ **Management Script** - จัดการทุกอย่างด้วยคำสั่งเดียว
 5. ✅ **Database Integration** - บันทึกและ query ข้อมูลได้
 6. ✅ **Automated Reports** - Cron schedule ส่งอัตโนมัติ
@@ -291,7 +291,7 @@ DAILY_REPORT_CRON=30 9 * * *  # 09:30 ทุกวัน
 - ✅ Start services สำเร็จ
 - ✅ Test scripts ทำงานใน Docker
 - ✅ สร้าง HTML reports ได้
-- ✅ ดึงข้อมูล Snip IT ได้
+- ✅ ดึงข้อมูล Snipe IT ได้
 - ✅ Message format ตรงตามต้องการ 100%
 
 ---

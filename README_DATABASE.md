@@ -44,7 +44,7 @@ CREATE TABLE events (
     file_hash TEXT,
     container_hash TEXT,
     
-    -- Snip IT integration
+    -- Snipe IT integration
     responsible_person TEXT,
     department TEXT,
     division TEXT,
@@ -139,7 +139,7 @@ python3 send_today_to_mattermost.py 2026-02-13
 
 **Features:**
 - ✅ บันทึก events ทั้งหมดลง database
-- ✅ จับคู่กับ Snip IT และบันทึกผู้รับผิดชอบ
+- ✅ จับคู่กับ Snipe IT และบันทึกผู้รับผิดชอบ
 - ✅ บันทึก HTML report metadata
 - ✅ แสดงสถิติจาก database
 

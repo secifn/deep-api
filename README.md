@@ -8,14 +8,14 @@
 
 ## 📋 Overview
 
-ระบบนี้ดึงข้อมูล Security Events จาก Deep Instinct API และส่งการแจ้งเตือนไปยัง Mattermost พร้อมทั้งสร้างรายงาน HTML รายละเอียด รวมถึงการเชื่อมต่อกับ IT Parcel/Snip IT สำหรับข้อมูลผู้รับผิดชอบเครื่อง
+ระบบนี้ดึงข้อมูล Security Events จาก Deep Instinct API และส่งการแจ้งเตือนไปยัง Mattermost พร้อมทั้งสร้างรายงาน HTML รายละเอียด รวมถึงการเชื่อมต่อกับ IT Parcel/Snipe IT สำหรับข้อมูลผู้รับผิดชอบเครื่อง
 
 ### ✨ Features
 
 - ✅ **Real-time Monitoring** - ตรวจสอบ events แบบ real-time
 - ✅ **Daily Reports** - รายงานสรุปประจำวัน
 - ✅ **HTML Reports** - รายงานละเอียดแบบ HTML พร้อม responsive design
-- ✅ **Device Management Integration** - เชื่อมต่อ IT Parcel/Snip IT
+- ✅ **Device Management Integration** - เชื่อมต่อ IT Parcel/Snipe IT
 - ✅ **Threat Severity Analysis** - วิเคราะห์ระดับความรุนแรง
 - ✅ **Docker Support** - Deploy ง่ายด้วย Docker Compose
 - ✅ **Timezone Support** - รองรับ Bangkok timezone (GMT+7)
@@ -91,7 +91,7 @@ crontab -e
         ┌───────────────────┼───────────────────┐
         ↓                   ↓                   ↓
   Deep Instinct          Mattermost        IT Parcel
-      API                Webhook           (Snip IT)
+      API                Webhook           (Snipe IT)
 ```
 
 ### Services
@@ -183,7 +183,7 @@ python3 serve_reports.py
 Reports are generated in HTML format with:
 - ✅ Event details and severity
 - ✅ Device information
-- ✅ Responsible person (from Snip IT)
+- ✅ Responsible person (from Snipe IT)
 - ✅ Department and division
 - ✅ File hashes and paths
 - ✅ Responsive design

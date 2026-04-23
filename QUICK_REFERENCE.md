@@ -64,9 +64,9 @@ docker-compose -f docker-compose.prod.yml restart report-server daily-report
 📊 สรุป Events
 🛡️ การดำเนินการ (DETECTED/PREVENTED)
 ⚠️ ระดับความรุนแรง
-⚠️ พบ X เครื่องที่ไม่อยู่ใน Snip IT
+⚠️ พบ X เครื่องที่ไม่อยู่ใน Snipe IT
 📄 ดูรายละเอียด Events ทั้งหมด
-⚠️ รายละเอียดเครื่องที่ไม่พบใน Snip IT
+⚠️ รายละเอียดเครื่องที่ไม่พบใน Snipe IT
 ```
 
 ---
@@ -75,7 +75,7 @@ docker-compose -f docker-compose.prod.yml restart report-server daily-report
 
 | ไฟล์ | หน้าที่ |
 |------|---------|
-| `.env` | Config (Webhook, API, Snip IT) |
+| `.env` | Config (Webhook, API, Snipe IT) |
 | `send_today_to_mattermost.py` | ส่งรายงานจริง |
 | `test_complete_report.py` | ทดสอบก่อนส่ง |
 

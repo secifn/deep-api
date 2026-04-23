@@ -77,7 +77,7 @@ DEEPINSTINCT_URL=https://ro.customers.deepinstinctweb.com/api/v1/
 TOKENS_KEY=your_token_here
 MATTERMOST_WEBHOOK_URL=your_webhook_url_here
 
-# IT Parcel / Snip IT Configuration
+# IT Parcel / Snipe IT Configuration
 IT_PARCEL_API_URL=https://itparcel.example.com/api/v1
 IT_PARCEL_TOKEN=your_snipit_token_here
 
@@ -253,8 +253,8 @@ deep-api-monitor         Up (health: starting)
 📥 Step 2: Fetching Suspicious Events...
    ✅ Found 10 suspicious events
 
-📥 Step 3: Fetching Snip IT data...
-   ✅ Fetched Snip IT data for 4 devices
+📥 Step 3: Fetching Snipe IT data...
+   ✅ Fetched Snipe IT data for 4 devices
 
 📄 Step 4: Creating HTML report...
    ✅ Created: event_details_2026-02-15.html
@@ -686,7 +686,7 @@ nano send_today_to_mattermost.py
 ✅ **Database:** SQLite with full query/maintenance tools  
 ✅ **Cron:** Automated daily reports  
 ✅ **Monitor:** Real-time alerts  
-✅ **HTML Reports:** Detailed event information with Snip IT data  
+✅ **HTML Reports:** Detailed event information with Snipe IT data  
 
 **Management Script:** `docker-manage.sh` (one command for everything)
 

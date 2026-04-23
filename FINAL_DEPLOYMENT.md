@@ -80,7 +80,7 @@ Database Statistics:
 │ 🟢 LOW      │ 10 │
 
 📄 ดูรายละเอียด Events ทั้งหมด
-(รายงานรวมผู้รับผิดชอบเครื่องจาก Snip IT)
+(รายงานรวมผู้รับผิดชอบเครื่องจาก Snipe IT)
 
 🔗 Deep Instinct Dashboard
 ```
@@ -112,7 +112,7 @@ json.dumps(event, ensure_ascii=False, default=str)
 ## 📊 Features ที่ใช้งานได้
 
 ✅ **Docker Production** - 2 services (report-server, daily-report)  
-✅ **HTML Reports** - พร้อมข้อมูล Snip IT (ผู้รับผิดชอบ, แผนก, กอง)  
+✅ **HTML Reports** - พร้อมข้อมูล Snipe IT (ผู้รับผิดชอบ, แผนก, กอง)  
 ✅ **Mattermost Integration** - ส่งรายงานได้ (ทดสอบแล้ว)  
 ✅ **Database** - SQLite พร้อม query tools  
 ✅ **Cron Scheduler** - รายงานอัตโนมัติ (08:00 น.)  
@@ -214,7 +214,7 @@ docker exec deep-api-report-server python3 send_today_to_mattermost.py yesterday
 **Verified:**
 - [x] No JSON serialization errors
 - [x] Database saves events correctly
-- [x] HTML report created with Snip IT data
+- [x] HTML report created with Snipe IT data
 - [x] Mattermost receives message
 - [x] Message format matches requirements
 
@@ -259,7 +259,7 @@ DEEPINSTINCT_URL=https://ro.customers.deepinstinctweb.com/api/v1/
 TOKENS_KEY=***
 MATTERMOST_WEBHOOK_URL=***
 
-# IT Parcel / Snip IT
+# IT Parcel / Snipe IT
 IT_PARCEL_API_URL=https://itparcel.***
 IT_PARCEL_TOKEN=***
 
@@ -322,7 +322,7 @@ Notifications:
 ### 1. Manual Sending
 - ✅ ใช้งานได้ปกติ
 - ✅ ส่งไป Mattermost สำเร็จ
-- ✅ สร้าง HTML report พร้อม Snip IT data
+- ✅ สร้าง HTML report พร้อม Snipe IT data
 - ✅ บันทึก database สำเร็จ (no errors)
 
 ### 2. Automated Daily Reports

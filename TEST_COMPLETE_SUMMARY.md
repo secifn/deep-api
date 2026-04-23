@@ -31,7 +31,7 @@
 │ 🟢 LOW      │ 7 │
 
 📄 ดูรายละเอียด Events ทั้งหมด (link)
-(รายงานรวมผู้รับผิดชอบเครื่องจาก Snip IT ในลิงก์ด้านบน)
+(รายงานรวมผู้รับผิดชอบเครื่องจาก Snipe IT ในลิงก์ด้านบน)
 ```
 
 **ผลลัพธ์:** ✅ **ตรงกับรูปที่ต้องการ 100%**
@@ -57,21 +57,21 @@
     - IP Address
     - MSP
     - Tenant
-    - **ผู้รับผิดชอบ (Snip IT)** ⭐
-    - **แผนก (Snip IT)** ⭐
-    - **กอง (Snip IT)** ⭐
+    - **ผู้รับผิดชอบ (Snipe IT)** ⭐
+    - **แผนก (Snipe IT)** ⭐
+    - **กอง (Snipe IT)** ⭐
   - Event Indicators (Filename, File Hash)
 
 **URL:** `https://allevent.ifn-dtc.online/event_detail/event_details_2026-02-15.html`
 
 ---
 
-### ✅ 3. Snip IT Integration
+### ✅ 3. Snipe IT Integration
 
-- ✅ ดึงข้อมูล hardware จาก Snip IT API
+- ✅ ดึงข้อมูล hardware จาก Snipe IT API
 - ✅ จับคู่ 4 devices กับ hostname
 - ✅ แสดงผู้รับผิดชอบ, แผนก, กอง ใน HTML
-- ✅ แสดง "ไม่พบข้อมูลใน Snip IT" เมื่อไม่พบ
+- ✅ แสดง "ไม่พบข้อมูลใน Snipe IT" เมื่อไม่พบ
 
 ---
 
@@ -97,7 +97,7 @@
 |-----------|------|--------|
 | API Connection | ดึงข้อมูลจาก Deep Instinct | ✅ PASS (10 events) |
 | Data Filtering | กรองวันที่ 15/02/2026 | ✅ PASS |
-| Snip IT Integration | ดึงข้อมูลผู้รับผิดชอบ | ✅ PASS (4 devices) |
+| Snipe IT Integration | ดึงข้อมูลผู้รับผิดชอบ | ✅ PASS (4 devices) |
 | HTML Generation | สร้างไฟล์รายละเอียด | ✅ PASS (44 KB) |
 | Message Format | รูปแบบตาราง Mattermost | ✅ PASS (เหมือนรูป) |
 | Date Format | แสดง พ.ศ. | ✅ PASS (15/02/2569) |
@@ -119,7 +119,7 @@
 
 ### 3. `test_complete_report.py` ⭐
 - **ครบถ้วนที่สุด**
-- ดึงข้อมูลจริง + Snip IT
+- ดึงข้อมูลจริง + Snipe IT
 - สร้าง HTML file พร้อมรายละเอียด
 - แสดง preview message
 - **ไม่ส่งไป Mattermost**
@@ -184,9 +184,9 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 send_today_
   - Device Name
   - IP Address
   - MSP, Tenant
-  - **ผู้รับผิดชอบ (จาก Snip IT)** ⭐
-  - **แผนก (จาก Snip IT)** ⭐
-  - **กอง (จาก Snip IT)** ⭐
+  - **ผู้รับผิดชอบ (จาก Snipe IT)** ⭐
+  - **แผนก (จาก Snipe IT)** ⭐
+  - **กอง (จาก Snipe IT)** ⭐
 - **Event Indicators**:
   - Filename/Path
   - File Hash
@@ -220,9 +220,9 @@ Event ID: 15059
   IP Address: 192.168.1.100
   MSP: TRD-DTC
   Tenant: TRD-DTC
-  ผู้รับผิดชอบ (Snip IT): นายสมชาย ใจดี
-  แผนก (Snip IT): กองเทคโนโลยี
-  กอง (Snip IT): กลุ่มงานโครงสร้างพื้นฐาน
+  ผู้รับผิดชอบ (Snipe IT): นายสมชาย ใจดี
+  แผนก (Snipe IT): กองเทคโนโลยี
+  กอง (Snipe IT): กลุ่มงานโครงสร้างพื้นฐาน
 
 🔍 Event Indicators
   Filename: C:\suspicious\file.exe
@@ -240,7 +240,7 @@ Event ID: 15059
 - [x] Mattermost message ตรงกับรูป 100%
 - [x] HTML file ถูกสร้าง (44 KB)
 - [x] มี 10 event cards ครบถ้วน
-- [x] แสดงข้อมูล Snip IT (ผู้รับผิดชอบ, แผนก, กอง)
+- [x] แสดงข้อมูล Snipe IT (ผู้รับผิดชอบ, แผนก, กอง)
 - [x] วันที่เป็น พ.ศ. (15/02/2569)
 - [x] Severity แสดงเฉพาะที่มีค่า
 - [x] Link ไปยัง HTML report ทำงาน
@@ -256,17 +256,17 @@ Event ID: 15059
 
 ### สิ่งที่ได้:
 1. ✅ **Message format** - ตรงกับรูปที่ต้องการ 100%
-2. ✅ **HTML report** - สร้างครบถ้วนพร้อมข้อมูล Snip IT
+2. ✅ **HTML report** - สร้างครบถ้วนพร้อมข้อมูล Snipe IT
 3. ✅ **Test scripts** - 3 สคริปต์สำหรับทดสอบ
 4. ✅ **Data accuracy** - ข้อมูลตรงกับ API 100%
 5. ✅ **Thai format** - วันที่เป็น พ.ศ.
-6. ✅ **Snip IT integration** - แสดงผู้รับผิดชอบเครื่อง
+6. ✅ **Snipe IT integration** - แสดงผู้รับผิดชอบเครื่อง
 
 ### พร้อมใช้งาน Production:
 - ✅ ทดสอบแล้ว ทำงานถูกต้อง
 - ✅ สร้าง HTML file ได้
 - ✅ Format ตรงตามต้องการ
-- ✅ ดึงข้อมูล Snip IT ได้
+- ✅ ดึงข้อมูล Snipe IT ได้
 - ✅ รองรับย้อนหลัง 1 วัน
 
 ---

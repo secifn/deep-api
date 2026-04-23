@@ -30,7 +30,7 @@
 - ✅ **build_reports_index.py** – สร้าง index.html แบ่ง Daily-report / เครื่องที่ไม่อยู่ใน Snipe-IT
 
 ### ⭐ **NEW - Not Found Devices Report (2026-02-17)**
-- ✅ **Device Validation** - ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+- ✅ **Device Validation** - ตรวจสอบเครื่องที่ไม่พบใน Snipe IT
 - ✅ **Separate HTML Report** - รายงานแยกสำหรับเครื่องที่ไม่พบ
 - ✅ **Mattermost Alert** - แสดงจำนวนเครื่องที่ไม่พบในรายงาน
 - ✅ **Detailed Information** - Hostname, IP, OS, Event Type, Event ID
@@ -83,13 +83,13 @@ POLLING_INTERVAL=300
 | **`database.py`** | ⭐ Database Manager (SQLite) | ✅ พร้อมใช้ |
 | **`query_events.py`** | ⭐ Query และค้นหา events จาก database | ✅ พร้อมใช้ |
 | **`db_maintenance.py`** | ⭐ Database maintenance (backup, vacuum, cleanup) | ✅ พร้อมใช้ |
-| **`build_not_found_devices_html.py`** | ⭐ สร้างรายงานเครื่องที่ไม่พบใน Snip IT | ✅ พร้อมใช้ |
+| **`build_not_found_devices_html.py`** | ⭐ สร้างรายงานเครื่องที่ไม่พบใน Snipe IT | ✅ พร้อมใช้ |
 | **`build_royal_devices_html.py`** | ⭐ สร้างรายงานเครื่องโครงการส่วนพระองค์ (DETECTED/PREVENTED) | ✅ พร้อมใช้ |
 | **`build_reports_index.py`** | ⭐ สร้างหน้า index รายงานย้อนหลัง (Daily-report, เครื่องที่ไม่อยู่ใน Snipe-IT) | ✅ พร้อมใช้ |
 | **`test_complete_report.py`** | ⭐ Test script (ไม่ส่ง Mattermost) | ✅ พร้อมใช้ |
 | **`test_report_preview.py`** | Test script (preview only) | ✅ พร้อมใช้ |
 | **`test_connection.py`** | ทดสอบการเชื่อมต่อ API และ Webhook | ✅ พร้อมใช้ |
-| **`fetch_snipit_devices.py`** | ดึงรายการ Device + ผู้รับผิดชอบจาก Snip IT (ค้นหา -n, -r) | ✅ พร้อมใช้ |
+| **`fetch_snipit_devices.py`** | ดึงรายการ Device + ผู้รับผิดชอบจาก Snipe IT (ค้นหา -n, -r) | ✅ พร้อมใช้ |
 | **`cron_daily_report.sh`** | Wrapper สำหรับ cron: ดึงข้อมูลย้อนหลัง 1 วัน | ✅ พร้อมใช้ |
 | **`docker-compose.yml`** | Docker orchestration (development) | ✅ พร้อมใช้ |
 | **`docker-compose.prod.yml`** | ⭐ Docker production config (monitor disabled) | ✅ รันอยู่ |
@@ -139,10 +139,10 @@ POLLING_INTERVAL=300
 | HIGH      | 13 |
 | VERY_HIGH | 7  |
 
-⚠️ พบ 17 เครื่องที่ไม่อยู่ใน Snip IT
+⚠️ พบ 17 เครื่องที่ไม่อยู่ใน Snipe IT
 
 📄 ดูรายละเอียด Events ทั้งหมด (link ไป HTML report)
-⚠️ รายละเอียดเครื่องที่ไม่พบใน Snip IT (17 เครื่อง) (link)
+⚠️ รายละเอียดเครื่องที่ไม่พบใน Snipe IT (17 เครื่อง) (link)
 🔗 Deep Instinct Security Report (link ไปหน้ารวมรายงานย้อนหลัง)
 🔗 Deep Instinct Dashboard
 ```
@@ -151,12 +151,12 @@ POLLING_INTERVAL=300
 
 **1. event_details_YYYY-MM-DD.html:**
 - **Device & User Details:** Device Name, IP Address, MSP, Tenant
-- **จาก Snip IT (IT Parcel):** ผู้รับผิดชอบ, แผนก, กอง (จับคู่ตาม Device Name)
+- **จาก Snipe IT (IT Parcel):** ผู้รับผิดชอบ, แผนก, กอง (จับคู่ตาม Device Name)
 - **Event Indicators:** Filename, Details, File Hash
-- เมื่อไม่พบเครื่องใน Snip IT แสดงข้อความ **"ไม่พบข้อมูลใน Snip IT"**
+- เมื่อไม่พบเครื่องใน Snipe IT แสดงข้อความ **"ไม่พบข้อมูลใน Snipe IT"**
 
 **2. not_found_devices_YYYY-MM-DD.html:** ⭐ **ใหม่**
-- รายการเครื่องที่ไม่พบใน Snip IT
+- รายการเครื่องที่ไม่พบใน Snipe IT
 - แสดง: Hostname, IP Address, OS, Event Type, Event ID, Timestamp
 - ตารางสวยงาม พร้อม alert banner
 - เข้าถึงผ่าน Cloudflare Tunnel (REPORT_SERVER_URL ใน .env)
@@ -287,7 +287,7 @@ nohup python3 serve_reports.py > server.log 2>&1 &
 python3 test_connection.py
 ```
 
-### 5. ดึง/ค้นหา device จาก Snip IT:
+### 5. ดึง/ค้นหา device จาก Snipe IT:
 ```bash
 python3 fetch_snipit_devices.py
 python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ"
@@ -311,7 +311,7 @@ REPORT_SERVER_URL=https://allevent.ifn-dtc.online
 # Polling Interval (seconds) – ใช้กับ deepinstinct_to_mattermost.py
 POLLING_INTERVAL=300
 
-# Snip IT / IT Parcel API (Asset)
+# Snipe IT / IT Parcel API (Asset)
 IT_PARCEL_API_URL=https://asset.trd-dtc.one/api/v1
 IT_PARCEL_TOKEN=eyJ0eXAi... (JWT จาก IT Parcel)
 
@@ -419,8 +419,8 @@ recent_5 = sorted(
 - [x] Report Server (port 8080) สำหรับ serve HTML (Docker)
 - [x] รองรับ Pagination และ API response แบบ dict (events/last_id)
 - [x] รวม events ตาม Status และ threat_type ตรงกับ Dashboard
-- [x] **Snip IT / IT Parcel** – จับคู่ Event กับเครื่องใน Snip IT แสดง **ผู้รับผิดชอบ, แผนก, กอง**
-- [x] แสดง **"ไม่พบข้อมูลใน Snip IT"** เมื่อเครื่องไม่มีใน Snip IT
+- [x] **Snipe IT / IT Parcel** – จับคู่ Event กับเครื่องใน Snipe IT แสดง **ผู้รับผิดชอบ, แผนก, กอง**
+- [x] แสดง **"ไม่พบข้อมูลใน Snipe IT"** เมื่อเครื่องไม่มีใน Snipe IT
 - [x] **fetch_snipit_devices.py** – ดึง/ค้นหา device ตามชื่อเครื่องและผู้รับผิดชอบ
 
 ### ⭐ NEW - Database & Production (2026-02-13):
@@ -436,9 +436,9 @@ recent_5 = sorted(
 - [x] **Volume Persistence** – เก็บข้อมูล database, logs, reports ถาวร
 
 ### ⭐ NEW - Not Found Devices (2026-02-17):
-- [x] **Device Validation** – ตรวจสอบเครื่องที่ไม่พบใน Snip IT
+- [x] **Device Validation** – ตรวจสอบเครื่องที่ไม่พบใน Snipe IT
 - [x] **Not Found Report** – สร้างรายงาน HTML แยกสำหรับเครื่องที่ไม่พบ
-- [x] **Alert in Message** – แสดง "⚠️ พบ X เครื่องที่ไม่อยู่ใน Snip IT" ในรายงาน
+- [x] **Alert in Message** – แสดง "⚠️ พบ X เครื่องที่ไม่อยู่ใน Snipe IT" ในรายงาน
 - [x] **Detailed Link** – ลิงก์ไปยังรายงานเครื่องที่ไม่พบ
 - [x] **Pagination Fix** – เพิ่ม max_pages จาก 20 → 50 (ดึงข้อมูลครบถ้วน)
 
@@ -523,7 +523,7 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 
 ### ปัญหา: count ไม่ตรงกับ Dashboard
 **สาเหตุ:** Filter ออก events ที่มี threat_type = N/A  
-**วิธีแก้:** ใช้สคริปต์ `send_today_to_mattermost.py` (รวม N/A และ Snip IT แล้ว)
+**วิธีแก้:** ใช้สคริปต์ `send_today_to_mattermost.py` (รวม N/A และ Snipe IT แล้ว)
 
 ### ปัญหา: ดึงแค่ 50 events
 **สาเหตุ:** API มี default limit  
@@ -543,31 +543,31 @@ docker-compose -f docker-compose.prod.yml exec report-server python3 db_maintena
 
 ---
 
-## 📌 ความคืบหน้า Snip IT / IT Parcel (สรุป)
+## 📌 ความคืบหน้า Snipe IT / IT Parcel (สรุป)
 
 ### สิ่งที่ทำแล้ว
 
 | รายการ | รายละเอียด |
 |--------|-------------|
-| **การจับคู่** | Event จาก Deep Instinct จับคู่กับ Snip IT ตาม **Device Name** (hostname) |
-| **รายงาน HTML** | แต่ละ Event แสดง **ผู้รับผิดชอบ (Snip IT)**, **แผนก (Snip IT)**, **กอง (Snip IT)** |
-| **แหล่งข้อมูล** | ใช้ custom field **Device Name** ใน Snip IT (และ name, asset_tag, hostname, serial, custom_fields อื่น) |
-| **Search API** | เครื่องที่ไม่อยู่ใน list ใช้ **GET /hardware?search=hostname** เพื่อหาจาก Snip IT (รองรับ custom field) |
-| **ข้อความเมื่อไม่พบ** | ถ้าไม่พบเครื่องใน Snip IT แสดง **"ไม่พบข้อมูลใน Snip IT"** แทน N/A (ทั้งผู้รับผิดชอบ, แผนก, กอง) |
+| **การจับคู่** | Event จาก Deep Instinct จับคู่กับ Snipe IT ตาม **Device Name** (hostname) |
+| **รายงาน HTML** | แต่ละ Event แสดง **ผู้รับผิดชอบ (Snipe IT)**, **แผนก (Snipe IT)**, **กอง (Snipe IT)** |
+| **แหล่งข้อมูล** | ใช้ custom field **Device Name** ใน Snipe IT (และ name, asset_tag, hostname, serial, custom_fields อื่น) |
+| **Search API** | เครื่องที่ไม่อยู่ใน list ใช้ **GET /hardware?search=hostname** เพื่อหาจาก Snipe IT (รองรับ custom field) |
+| **ข้อความเมื่อไม่พบ** | ถ้าไม่พบเครื่องใน Snipe IT แสดง **"ไม่พบข้อมูลใน Snipe IT"** แทน N/A (ทั้งผู้รับผิดชอบ, แผนก, กอง) |
 | **สคริปต์แยก** | **fetch_snipit_devices.py** – ดึงรายการ hardware + ผู้รับผิดชอบ, ค้นหาด้วย `-n` (ชื่อเครื่อง) และ `-r` (ผู้รับผิดชอบ) |
 
 ### Config ที่ใช้ (.env1)
 
 - `IT_PARCEL_API_URL=https://asset.trd-dtc.one/api/v1`
-- `IT_PARCEL_TOKEN=` (JWT จาก Snip IT)
+- `IT_PARCEL_TOKEN=` (JWT จาก Snipe IT)
 
 ### วิธีทดสอบ
 
 ```bash
-# สร้างรายงาน (รวม Snip IT)
+# สร้างรายงาน (รวม Snipe IT)
 python3 send_today_to_mattermost.py 2026-02-12
 
-# ดึงรายการ device จาก Snip IT / ค้นหา
+# ดึงรายการ device จาก Snipe IT / ค้นหา
 python3 fetch_snipit_devices.py
 python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ"
 ```
@@ -585,7 +585,7 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 ✅ **Link รายละเอียด** ผ่าน Cloudflare Tunnel (REPORT_SERVER_URL)  
 ✅ **Timezone** แสดงเป็น GMT+7 (เวลาไทย)  
 ✅ **ข้อมูล** ตรงกับ Dashboard  
-✅ **Snip IT / IT Parcel** – จับคู่ Device Name แสดง ผู้รับผิดชอบ, แผนก, กอง  
+✅ **Snipe IT / IT Parcel** – จับคู่ Device Name แสดง ผู้รับผิดชอบ, แผนก, กอง  
 
 ### ⭐ NEW - Database & Production:
 ✅ **SQLite Database** – เก็บ event history และ HTML report metadata  
@@ -616,7 +616,7 @@ python3 fetch_snipit_devices.py -n Desktop -r "กองศิลปาชีพ
 
 **Last Updated:** 2026-03-06  
 **Version:** 4.2.0  
-**Status:** ✅ **Production Running** (Deep Instinct + Snip IT + SQLite + Reports Index + Royal Devices)  
+**Status:** ✅ **Production Running** (Deep Instinct + Snipe IT + SQLite + Reports Index + Royal Devices)  
 **Docker Services:** ✅ report-server, ✅ daily-report  
 **Database:** ✅ SQLite (events.db) with query & maintenance tools  
 **Reports:** ✅ event_detail/ (index, event_details, not_found, royal_devices, daily-report.md)
